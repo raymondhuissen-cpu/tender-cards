@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tender Cards – De menselijke factor in verzuimpreventie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --forest:  #1C3A2E;
+      --forest2: #244B3B;
+      --gold:    #C4963D;
+      --gold2:   #E8B458;
+      --sage:    #6B9E80;
+      --sage2:   #A8C9B5;
+      --cream:   #F7F3EE;
+      --cream2:  #EDE7DF;
+      --dark:    #111916;
+      --mid:     #3D5C4A;
+      --light:   #8BAA96;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVIGATION ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 5%;
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(28, 58, 46, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(196, 150, 61, 0.2);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold2); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--forest) !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 2px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--gold2) !important; color: var(--forest) !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: var(--forest);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%; right: -10%;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,150,61,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(196,150,61,0.4), transparent);
+    }
+
+    .hero-text { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(196, 150, 61, 0.12);
+      border: 1px solid rgba(196, 150, 61, 0.3);
+      color: var(--gold2);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 4.5vw, 4rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold2);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--forest);
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 2px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      padding: 0.9rem 2rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 2px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+    /* Hero visual */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-stack {
+      position: relative;
+      width: 320px;
+      height: 420px;
+    }
+
+    .card-item {
+      position: absolute;
+      width: 280px;
+      height: 380px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+
+    .card-item:nth-child(1) {
+      background: linear-gradient(145deg, #2D6A4F, #1C4A35);
+      top: 40px; left: 40px;
+      transform: rotate(-6deg);
+      border: 1px solid rgba(196,150,61,0.2);
+    }
+
+    .card-item:nth-child(2) {
+      background: linear-gradient(145deg, #3A5A4A, #243D30);
+      top: 20px; left: 20px;
+      transform: rotate(-2deg);
+      border: 1px solid rgba(196,150,61,0.15);
+    }
+
+    .card-item:nth-child(3) {
+      background: linear-gradient(145deg, #1E3D2F, #162D23);
+      top: 0; left: 0;
+      transform: rotate(2deg);
+      border: 1px solid rgba(196,150,61,0.3);
+    }
+
+    .card-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold2);
+    }
+
+    .card-ornament {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      width: 40px; height: 40px;
+      border: 1px solid rgba(196,150,61,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .card-ornament svg { width: 20px; height: 20px; fill: rgba(196,150,61,0.6); }
+
+    /* ─── STAT BAR ─── */
+    .stat-bar {
+      background: var(--forest2);
+      padding: 2.5rem 5%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      border-top: 1px solid rgba(196,150,61,0.15);
+      border-bottom: 1px solid rgba(196,150,61,0.15);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 600;
+      color: var(--gold2);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 400;
+      line-height: 1.4;
+      letter-spacing: 0.02em;
+    }
+
+    .stat-divider {
+      width: 1px;
+      background: rgba(196,150,61,0.15);
+      display: none;
+    }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 100px 5%; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      color: var(--forest);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--mid);
+      max-width: 600px;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* ─── PROBLEM ─── */
+    .problem {
+      background: #fff;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: 4rem;
+    }
+
+    .problem-visual {
+      background: var(--forest);
+      border-radius: 4px;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .problem-visual::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(196,150,61,0.1) 0%, transparent 70%);
+    }
+
+    .problem-stat-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      font-weight: 300;
+      color: var(--gold2);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .problem-stat-text {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .problem-divider {
+      height: 1px;
+      background: rgba(196,150,61,0.2);
+      margin: 2rem 0;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .mini-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--gold2);
+      line-height: 1;
+    }
+
+    .mini-stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 0.2rem;
+    }
+
+    .source-note {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 2rem;
+      font-style: italic;
+    }
+
+    .problem-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--forest);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .problem-points { list-style: none; margin-top: 1.5rem; }
+
+    .problem-points li {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--cream2);
+      font-size: 0.92rem;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    .problem-points li:last-child { border-bottom: none; }
+
+    .point-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(28,58,46,0.08);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .point-icon svg { width: 14px; height: 14px; stroke: var(--sage); fill: none; stroke-width: 2; }
+
+    /* ─── SOLUTION ─── */
+    .solution {
+      background: var(--cream);
+    }
+
+    .solution-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-bottom: 5rem;
+    }
+
+    .solution-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-style: italic;
+      color: var(--forest);
+      line-height: 1.5;
+      padding-left: 2rem;
+      border-left: 3px solid var(--gold);
+    }
+
+    .solution-text p {
+      font-size: 0.95rem;
+      color: var(--mid);
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .how {
+      background: var(--forest);
+      color: #fff;
+    }
+
+    .how .section-title { color: #fff; }
+    .how .section-sub { color: rgba(255,255,255,0.6); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      margin-top: 4rem;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 40px; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(196,150,61,0.3), transparent);
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+    }
+
+    .step-num {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,150,61,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--gold2);
+      background: rgba(196,150,61,0.05);
+      position: relative;
+      z-index: 1;
+    }
+
+    .step h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .step p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+    }
+
+    /* ─── CARDS PRODUCT ─── */
+    .cards-section {
+      background: #fff;
+    }
+
+    .cards-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 4rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--cream2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(28,58,46,0.12);
+    }
+
+    .product-card-visual {
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card-visual.green { background: linear-gradient(135deg, #1C3A2E 0%, #2D5A40 100%); }
+    .product-card-visual.sage  { background: linear-gradient(135deg, #3A5A4A 0%, #5A8A6A 100%); }
+    .product-card-visual.gold  { background: linear-gradient(135deg, #8B6914 0%, #C4963D 100%); }
+
+    .product-card-inner {
+      width: 120px; height: 160px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1rem;
+      backdrop-filter: blur(4px);
+      transform: rotate(3deg);
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover .product-card-inner { transform: rotate(0deg); }
+
+    .product-card-inner .quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.4;
+    }
+
+    .product-card-body {
+      padding: 1.5rem;
+    }
+
+    .product-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--forest);
+      margin-bottom: 0.4rem;
+    }
+
+    .product-card-desc {
+      font-size: 0.82rem;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+
+    .product-card-tag {
+      display: inline-block;
+      background: rgba(28,58,46,0.08);
+      color: var(--forest);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 20px;
+    }
+
+    /* ─── SECTORS ─── */
+    .sectors {
+      background: var(--cream);
+    }
+
+    .sectors-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .sector-card {
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--cream2);
+    }
+
+    .sector-header {
+      padding: 2.5rem 2.5rem 2rem;
+      border-bottom: 1px solid var(--cream2);
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .sector-icon {
+      width: 56px; height: 56px;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .sector-icon.green { background: rgba(28,58,46,0.08); }
+    .sector-icon.blue  { background: rgba(44,90,150,0.08); }
+
+    .sector-icon svg { width: 24px; height: 24px; stroke: var(--forest); fill: none; stroke-width: 1.5; }
+    .sector-icon.blue svg { stroke: #2C5A96; }
+
+    .sector-header h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--forest);
+      margin-bottom: 0.3rem;
+    }
+
+    .sector-header p {
+      font-size: 0.83rem;
+      color: var(--light);
+    }
+
+    .sector-body { padding: 2rem 2.5rem; }
+
+    .sector-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .sector-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .sector-stat-label {
+      font-size: 0.75rem;
+      color: var(--mid);
+      margin-top: 0.2rem;
+      line-height: 1.4;
+    }
+
+    .sector-features { list-style: none; }
+
+    .sector-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--mid);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--cream2);
+    }
+
+    .sector-features li:last-child { border: none; }
+
+    .check-icon { color: var(--sage); font-weight: 700; }
+
+    /* ─── IMPACT ─── */
+    .impact {
+      background: var(--forest);
+      color: #fff;
+      text-align: center;
+    }
+
+    .impact .section-title { color: #fff; }
+    .impact .section-sub { color: rgba(255,255,255,0.6); margin: 0 auto 4rem; }
+
+    .impact-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(196,150,61,0.12);
+      border: 1px solid rgba(196,150,61,0.3);
+      border-radius: 4px;
+      padding: 1.25rem 2rem;
+      margin: 0 auto 3rem;
+    }
+
+    .impact-badge-logo {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--forest);
+    }
+
+    .impact-badge-text {
+      text-align: left;
+    }
+
+    .impact-badge-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--gold2);
+      margin-bottom: 0.1rem;
+    }
+
+    .impact-badge-sub {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .impact-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .impact-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(196,150,61,0.15);
+      border-radius: 4px;
+      padding: 2rem;
+      text-align: left;
+    }
+
+    .impact-card-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--gold2);
+      margin-bottom: 0.5rem;
+    }
+
+    .impact-card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .impact-card-text {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+
+    /* ─── PRICING ─── */
+    .pricing {
+      background: #fff;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .price-card {
+      border: 1px solid var(--cream2);
+      border-radius: 4px;
+      padding: 2.5rem;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .price-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(28,58,46,0.1);
+    }
+
+    .price-card.featured {
+      background: var(--forest);
+      border-color: var(--gold);
+      color: #fff;
+    }
+
+    .price-card.featured .price-label { color: var(--gold2); }
+    .price-card.featured .price-name { color: #fff; }
+    .price-card.featured .price-desc { color: rgba(255,255,255,0.55); }
+    .price-card.featured .price-feature { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.08); }
+    .price-card.featured .price-feature-icon { color: var(--gold2); }
+
+    .featured-badge {
+      position: absolute;
+      top: -1px; right: 2rem;
+      background: var(--gold);
+      color: var(--forest);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 0 0 4px 4px;
+    }
+
+    .price-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.5rem;
+    }
+
+    .price-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--forest);
+      margin-bottom: 0.5rem;
+    }
+
+    .price-amount {
+      margin: 1.5rem 0;
+    }
+
+    .price-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .price-period {
+      font-size: 0.8rem;
+      color: var(--light);
+      margin-left: 0.3rem;
+    }
+
+    .price-desc {
+      font-size: 0.83rem;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-features { list-style: none; margin-bottom: 2rem; }
+
+    .price-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--cream2);
+      font-size: 0.84rem;
+      color: var(--mid);
+    }
+
+    .price-feature:last-child { border: none; }
+    .price-feature-icon { color: var(--sage); font-weight: 700; flex-shrink: 0; }
+
+    .btn-outline-forest {
+      display: block;
+      text-align: center;
+      padding: 0.85rem;
+      border: 1px solid var(--forest);
+      color: var(--forest);
+      border-radius: 2px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-outline-forest:hover { background: var(--forest); color: #fff; }
+
+    .btn-gold-block {
+      display: block;
+      text-align: center;
+      padding: 0.85rem;
+      background: var(--gold);
+      color: var(--forest);
+      border-radius: 2px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-gold-block:hover { background: var(--gold2); }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials {
+      background: var(--cream);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .testimonial {
+      background: #fff;
+      border-radius: 4px;
+      padding: 2rem;
+      border: 1px solid var(--cream2);
+      position: relative;
+    }
+
+    .testimonial::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      color: var(--cream2);
+      position: absolute;
+      top: -0.5rem;
+      left: 1.5rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--forest);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      padding-top: 1rem;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .author-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage), var(--forest));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--forest);
+    }
+
+    .author-role {
+      font-size: 0.75rem;
+      color: var(--light);
+    }
+
+    .star-row {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 0.75rem;
+    }
+
+    .star { color: var(--gold); font-size: 0.9rem; }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      background: var(--forest);
+      text-align: center;
+      padding: 100px 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,150,61,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .cta-section h2 em { font-style: italic; color: var(--gold2); }
+
+    .cta-section p {
+      color: rgba(255,255,255,0.55);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+
+    .cta-form {
+      display: flex;
+      gap: 0.75rem;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .cta-input {
+      flex: 1;
+      padding: 0.9rem 1.2rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 2px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .cta-input::placeholder { color: rgba(255,255,255,0.35); }
+    .cta-input:focus { border-color: rgba(196,150,61,0.5); }
+
+    .cta-note {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 0.75rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.45);
+      padding: 4rem 5% 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-brand span { color: var(--gold); }
+
+    .footer-tagline {
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+      max-width: 240px;
+    }
+
+    .footer-mind {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(196,150,61,0.1);
+      border: 1px solid rgba(196,150,61,0.2);
+      border-radius: 2px;
+      padding: 0.5rem 0.75rem;
+      margin-top: 1.2rem;
+      font-size: 0.72rem;
+      color: var(--gold2);
+    }
+
+    .footer-col h5 {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col li { margin-bottom: 0.6rem; }
+
+    .footer-col a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: rgba(255,255,255,0.8); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+    }
+
+    .footer-bottom a { color: rgba(255,255,255,0.3); text-decoration: none; }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 140px; }
+      .hero-sub { margin: 0 auto 2.5rem; }
+      .hero-actions { justify-content: center; }
+      .hero-visual { display: none; }
+      .stat-bar { grid-template-columns: repeat(2, 1fr); }
+      .problem-grid, .solution-intro, .sectors-grid { grid-template-columns: 1fr; }
+      .steps, .cards-grid, .pricing-grid, .testimonials-grid, .impact-cards { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .cards-header { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#" class="nav-logo">Tender<span>Cards</span></a>
+  <ul class="nav-links">
+    <li><a href="#probleem">Het Probleem</a></li>
+    <li><a href="#oplossing">De Oplossing</a></li>
+    <li><a href="#kaarten">De Kaarten</a></li>
+    <li><a href="#sectoren">Sectoren</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#contact" class="nav-cta">Demo Aanvragen</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">B2B Oplossing voor HR &amp; Verzuim</div>
+    <h1>
+      De <em>menselijke factor</em><br>
+      in een digitale<br>wereld
+    </h1>
+    <p class="hero-sub">
+      Premium fysieke steunkaarten die HR-professionals inzetten bij psychisch verzuim, burn-out en mentale overbelasting. Tastbaar. Persoonlijk. Bewezen effectief.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Demo Aanvragen</a>
+      <a href="#oplossing" class="btn-ghost">Meer Informatie</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="card-stack">
+      <div class="card-item">
+        <div class="card-ornament">
+          <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+        </div>
+        <p class="card-quote">"Jij bent niet alleen. Wij denken aan je."</p>
+        <span class="card-label">Tender Cards · Verbinding</span>
+      </div>
+      <div class="card-item">
+        <div class="card-ornament">
+          <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+        </div>
+        <p class="card-quote">"Herstel kost tijd. Neem die tijd."</p>
+        <span class="card-label">Tender Cards · Herstel</span>
+      </div>
+      <div class="card-item">
+        <div class="card-ornament">
+          <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+        </div>
+        <p class="card-quote">"Je kracht is groter dan je vermoedt."</p>
+        <span class="card-label">Tender Cards · Kracht</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAT BAR -->
+<div class="stat-bar">
+  <div class="stat-item fade-up">
+    <div class="stat-num">1,6M</div>
+    <div class="stat-label">Nederlandse werknemers met burn-outklachten</div>
+  </div>
+  <div class="stat-item fade-up">
+    <div class="stat-num">€8,3Mrd</div>
+    <div class="stat-label">Jaarlijkse verzuimkosten in Nederland (2023)</div>
+  </div>
+  <div class="stat-item fade-up">
+    <div class="stat-num">252</div>
+    <div class="stat-label">Gemiddeld aantal ziektedagen bij volledige burn-out</div>
+  </div>
+  <div class="stat-item fade-up">
+    <div class="stat-num">€120K</div>
+    <div class="stat-label">Maximale kosten per burn-out casus voor werkgever</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="probleem">
+  <span class="section-label">Het Probleem</span>
+  <div class="problem-grid">
+    <div class="problem-visual fade-up">
+      <div class="problem-stat-big">19%</div>
+      <p class="problem-stat-text">van alle Nederlandse werknemers kampt momenteel met burn-outklachten — een stijging van 46% in acht jaar tijd.</p>
+      <div class="problem-divider"></div>
+      <div class="mini-stats">
+        <div>
+          <div class="mini-stat-num">€4,9Mrd</div>
+          <div class="mini-stat-label">Door psychosociale arbeidsbelasting</div>
+        </div>
+        <div>
+          <div class="mini-stat-num">75%</div>
+          <div class="mini-stat-label">Schrijft oorzaak toe aan werkomgeving</div>
+        </div>
+        <div>
+          <div class="mini-stat-num">63 dgn</div>
+          <div class="mini-stat-label">Gemiddeld psychisch verzuim</div>
+        </div>
+        <div>
+          <div class="mini-stat-num">+20</div>
+          <div class="mini-stat-label">Extra verzuimdagen (35–55 jaar, 3 jaar)</div>
+        </div>
+      </div>
+      <p class="source-note">Bronnen: TNO Arbobalans 2024, CBS, Arbo Unie, ArboNed</p>
+    </div>
+
+    <div class="problem-content fade-up">
+      <h3>Digitalisering vergroot de kloof tussen werkgever en zieke werknemer</h3>
+      <p style="color:var(--mid); font-size:0.93rem; line-height:1.8; margin-bottom:1rem; font-weight:300;">
+        HR-tools en digitale EAP-platforms bieden schaalbaarheid, maar geen warmte. De werknemer in psychisch herstel ervaart juist een tekort aan echte, voelbare menselijke verbinding.
+      </p>
+      <p style="color:var(--mid); font-size:0.93rem; line-height:1.8; font-weight:300;">
+        Wetenschappelijk onderzoek toont aan dat <strong>emotionele steun significant effectiever</strong> is dan instrumentele steun bij het herstel van burn-out. Toch bieden de meeste HR-interventies louter instrumentele hulp.
+      </p>
+      <ul class="problem-points">
+        <li>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <span><strong>Digitale steun voelt onpersoonlijk</strong> — een e-mail of Teams-berichtje bereikt het hart niet.</span>
+        </li>
+        <li>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <span><strong>HR-professionals missen tools</strong> voor het uitdrukken van oprechte emotionele betrokkenheid op schaal.</span>
+        </li>
+        <li>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <span><strong>De band verslapt</strong> — zonder contact groeit de afstand en daalt de kans op succesvolle re-integratie.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="oplossing">
+  <span class="section-label">De Oplossing</span>
+  <div class="solution-intro">
+    <div class="fade-up">
+      <h2 class="section-title">Tastbare verbinding<br>als <em>strategisch instrument</em></h2>
+      <p class="section-sub">
+        Tender Cards zijn premium, zorgvuldig ontworpen steunkaarten die HR-professionals, leidinggevenden en teamleden inzetten om een zieke werknemer op een diepgaande, menselijke wijze te bereiken.
+      </p>
+    </div>
+    <div class="solution-quote fade-up">
+      "Neurobiologisch onderzoek toont aan dat fysieke, tastbare communicatie dieper wordt verwerkt dan digitale berichten — en een blijvende indruk achterlaat in het emotionele geheugen."
+    </div>
+  </div>
+
+  <div class="solution-text fade-up" style="display:grid; grid-template-columns: repeat(3,1fr); gap:2rem; margin-top:2rem;">
+    <div style="background:#fff; border:1px solid var(--cream2); border-radius:4px; padding:2rem;">
+      <div style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:var(--gold); margin-bottom:0.5rem;">01</div>
+      <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--forest); margin-bottom:0.5rem;">Emotioneel Effectief</h4>
+      <p style="font-size:0.84rem; color:var(--mid); line-height:1.75;">Gebaseerd op bewezen theorie van sociale steun (JD-R model). Emotionele steun reduceert burn-out kerndimensies significant meer dan instrumentele interventies.</p>
+    </div>
+    <div style="background:#fff; border:1px solid var(--cream2); border-radius:4px; padding:2rem;">
+      <div style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:var(--gold); margin-bottom:0.5rem;">02</div>
+      <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--forest); margin-bottom:0.5rem;">Premium Kwaliteit</h4>
+      <p style="font-size:0.84rem; color:var(--mid); line-height:1.75;">Hoogwaardig kaartmateriaal, doordacht design en professioneel opgestelde teksten. Ieder detail straalt respect en zorg uit voor de ontvanger.</p>
+    </div>
+    <div style="background:#fff; border:1px solid var(--cream2); border-radius:4px; padding:2rem;">
+      <div style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:var(--gold); margin-bottom:0.5rem;">03</div>
+      <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--forest); margin-bottom:0.5rem;">Structureel Inzetbaar</h4>
+      <p style="font-size:0.84rem; color:var(--mid); line-height:1.75;">Niet eenmalig, maar een doorlopend B2B-pakket voor HR-afdelingen. Per set voor verschillende fases: vroeg verzuim, herstel en re-integratie.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <span class="section-label" style="color:var(--sage2);">Werkwijze</span>
+  <h2 class="section-title">In drie stappen<br>naar <em>echte verbinding</em></h2>
+  <p class="section-sub">Simpel te implementeren binnen elk HR-proces — van ziekmelding tot succesvolle terugkeer.</p>
+
+  <div class="steps">
+    <div class="step fade-up">
+      <div class="step-num">1</div>
+      <h4>Selecteer de Kaartset</h4>
+      <p>HR kiest de juiste set op basis van de verzuimfase en de persoonlijke situatie van de medewerker. Vroeg verzuim, langdurig herstel of re-integratie.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">2</div>
+      <h4>Stuur op het Juiste Moment</h4>
+      <p>De kaart wordt verstuurd door de leidinggevende of HR-medewerker, eventueel met een persoonlijke handgeschreven noot. Timing maakt het verschil.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">3</div>
+      <h4>Bouw aan Verbinding</h4>
+      <p>De medewerker ervaart echte emotionele betrokkenheid van zijn organisatie. Dit versnelt herstel, versterkt loyaliteit en verlaagt de drempel voor re-integratie.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CARDS -->
+<section class="cards-section" id="kaarten">
+  <div class="cards-header">
+    <div>
+      <span class="section-label">De Kaarten</span>
+      <h2 class="section-title">Drie collecties,<br>één <em>doel</em></h2>
+    </div>
+    <p class="section-sub">Elke collectie is specifiek ontwikkeld voor een fase in het verzuimtraject — van eerste uitval tot volledige re-integratie.</p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="product-card fade-up">
+      <div class="product-card-visual green">
+        <div class="product-card-inner">
+          <p class="quote">"Je mag er zijn, ook als het moeilijk is."</p>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-name">Verbinding Collectie</div>
+        <p class="product-card-desc">Voor de eerste weken van verzuim. Kaarten die laten voelen dat de medewerker niet vergeten is en dat de deur altijd open blijft.</p>
+        <span class="product-card-tag">Vroeg Verzuim</span>
+      </div>
+    </div>
+
+    <div class="product-card fade-up">
+      <div class="product-card-visual sage">
+        <div class="product-card-inner">
+          <p class="quote">"Herstel is geen rechte lijn. Elke stap telt."</p>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-name">Herstel Collectie</div>
+        <p class="product-card-desc">Voor de midden- en langdurige herstelfase. Kaarten die hoop bieden, kracht benoemen en de medewerker begeleiden richting herstel.</p>
+        <span class="product-card-tag">Langdurig Verzuim</span>
+      </div>
+    </div>
+
+    <div class="product-card fade-up">
+      <div class="product-card-visual gold">
+        <div class="product-card-inner">
+          <p class="quote">"Welkom terug. We hebben je gemist."</p>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-name">Terugkeer Collectie</div>
+        <p class="product-card-desc">Voor de re-integratiefase. Kaarten die de terugkeer vieren en de medewerker het gevoel geven dat hij of zij echt welkom is.</p>
+        <span class="product-card-tag">Re-integratie</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section class="sectors" id="sectoren">
+  <span class="section-label">Doelgroep</span>
+  <h2 class="section-title">Speciaal voor de zwaarste <em>sectoren</em></h2>
+  <p class="section-sub">Gezondheidszorg en onderwijs kennen de hoogste verzuimcijfers van Nederland. Tender Cards is voor hen ontwikkeld.</p>
+
+  <div class="sectors-grid">
+    <div class="sector-card fade-up">
+      <div class="sector-header">
+        <div class="sector-icon green">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div>
+          <h3>Gezondheidszorg</h3>
+          <p>Ziekenhuizen, GGZ-instellingen, thuiszorg, verpleging</p>
+        </div>
+      </div>
+      <div class="sector-body">
+        <div class="sector-stats">
+          <div>
+            <div class="sector-stat-num">6,8%</div>
+            <div class="sector-stat-label">Ziekteverzuimpercentage — hoogste van alle sectoren</div>
+          </div>
+          <div>
+            <div class="sector-stat-num">34%</div>
+            <div class="sector-stat-label">Van verzuim door emotionele overbelasting</div>
+          </div>
+        </div>
+        <ul class="sector-features">
+          <li><span class="check-icon">✓</span> Hoge emotionele arbeidsbelasting bij zorgpersoneel</li>
+          <li><span class="check-icon">✓</span> Structurele personeelskrapte vergroot domino-effect</li>
+          <li><span class="check-icon">✓</span> HR-teams zoeken mensgerichte interventies</li>
+          <li><span class="check-icon">✓</span> Sterke behoefte aan loyaliteit en binding</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sector-card fade-up">
+      <div class="sector-header">
+        <div class="sector-icon blue">
+          <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div>
+          <h3>Onderwijs</h3>
+          <p>Basisonderwijs, voortgezet onderwijs, mbo, hbo, universiteiten</p>
+        </div>
+      </div>
+      <div class="sector-body">
+        <div class="sector-stats">
+          <div>
+            <div class="sector-stat-num">6,2%</div>
+            <div class="sector-stat-label">Ziekteverzuimpercentage — structureel hoog</div>
+          </div>
+          <div>
+            <div class="sector-stat-num">1 op 4</div>
+            <div class="sector-stat-label">Docenten ervaart hoge tot zeer hoge werkdruk</div>
+          </div>
+        </div>
+        <ul class="sector-features">
+          <li><span class="check-icon">✓</span> Chronische werkdruk en toenemende complexiteit</li>
+          <li><span class="check-icon">✓</span> Sociale roeping versterkt de pijn van uitval</li>
+          <li><span class="check-icon">✓</span> Scholen investeren in medewerkerswelzijn</li>
+          <li><span class="check-icon">✓</span> Vervanging is schaars — preventie is cruciaal</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff; border:1px solid var(--cream2); border-radius:4px; padding:2.5rem; margin-top:2rem; display:grid; grid-template-columns:1fr 2fr; gap:3rem; align-items:center;" class="fade-up">
+    <div>
+      <span class="section-label">Ook geschikt voor</span>
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--forest); line-height:1.3;">Overige HR-afdelingen &amp; Re-integratiebureaus</h3>
+    </div>
+    <div style="display:flex; gap:1.5rem; flex-wrap:wrap;">
+      <span style="background:rgba(28,58,46,0.06); padding:0.5rem 1rem; border-radius:2px; font-size:0.82rem; color:var(--forest); font-weight:500;">Overheid &amp; Gemeente</span>
+      <span style="background:rgba(28,58,46,0.06); padding:0.5rem 1rem; border-radius:2px; font-size:0.82rem; color:var(--forest); font-weight:500;">Re-integratiebureaus</span>
+      <span style="background:rgba(28,58,46,0.06); padding:0.5rem 1rem; border-radius:2px; font-size:0.82rem; color:var(--forest); font-weight:500;">Bedrijfsmaatschappelijk Werk</span>
+      <span style="background:rgba(28,58,46,0.06); padding:0.5rem 1rem; border-radius:2px; font-size:0.82rem; color:var(--forest); font-weight:500;">GGZ-instellingen</span>
+      <span style="background:rgba(28,58,46,0.06); padding:0.5rem 1rem; border-radius:2px; font-size:0.82rem; color:var(--forest); font-weight:500;">Arbodiensten</span>
+      <span style="background:rgba(28,58,46,0.06); padding:0.5rem 1rem; border-radius:2px; font-size:0.82rem; color:var(--forest); font-weight:500;">Groot Bedrijf &amp; MKB</span>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact" id="impact">
+  <span class="section-label" style="color:var(--sage2); text-align:center; display:block;">Maatschappelijke Impact</span>
+  <h2 class="section-title" style="color:#fff;">Elke kaart draagt bij<br>aan <em>mentale gezondheid</em></h2>
+  <p class="section-sub">Een deel van elke opbrengst gaat rechtstreeks naar Stichting Mind — zodat onze impact verder reikt dan de werkvloer.</p>
+
+  <div class="impact-badge fade-up" style="display:inline-flex;">
+    <div class="impact-badge-logo">M</div>
+    <div class="impact-badge-text">
+      <div class="impact-badge-title">Partner van Stichting Mind</div>
+      <div class="impact-badge-sub">Deel van de opbrengst doneren wij aan mentale gezondheid in Nederland</div>
+    </div>
+  </div>
+
+  <div class="impact-cards">
+    <div class="impact-card fade-up">
+      <div class="impact-card-num">15%</div>
+      <div class="impact-card-title">Van elke bestelling</div>
+      <p class="impact-card-text">Gaat rechtstreeks naar Stichting Mind voor onderzoek en bewustwording rondom mentale gezondheid in Nederland.</p>
+    </div>
+    <div class="impact-card fade-up">
+      <div class="impact-card-num">B2B</div>
+      <div class="impact-card-title">Zakelijk &amp; Maatschappelijk</div>
+      <p class="impact-card-text">Organisaties die Tender Cards inzetten investeren niet alleen in hun eigen medewerkers, maar dragen bij aan bredere mentale gezondheidszorg.</p>
+    </div>
+    <div class="impact-card fade-up">
+      <div class="impact-card-num">∞</div>
+      <div class="impact-card-title">Ripple Effect</div>
+      <p class="impact-card-text">Een medewerker die zich gesteund voelt herstel sneller, keert eerder terug, en verspreidt positief werkklimaat in zijn omgeving.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pakketten">
+  <span class="section-label">Pakketten</span>
+  <h2 class="section-title">Transparante prijzen<br>voor <em>elk budget</em></h2>
+  <p class="section-sub">Vaste B2B-abonnementen afgestemd op de organisatiegrootte. Geen verrassingen, altijd premium kwaliteit.</p>
+
+  <div class="pricing-grid">
+    <div class="price-card fade-up">
+      <div class="price-label">Starter</div>
+      <div class="price-name">Essentials</div>
+      <div class="price-amount">
+        <span class="price-num">€149</span>
+        <span class="price-period">/ kwartaal</span>
+      </div>
+      <p class="price-desc">Ideaal voor kleinere organisaties of HR-teams die willen starten met tastbare steun.</p>
+      <ul class="price-features">
+        <li class="price-feature"><span class="price-feature-icon">✓</span> 25 kaarten per kwartaal</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> 2 collecties naar keuze</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Bijdrage aan Stichting Mind</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Digitale handleiding HR</li>
+        <li class="price-feature" style="opacity:0.4;">— Persoonlijke accountmanager</li>
+        <li class="price-feature" style="opacity:0.4;">— Maatwerk ontwerp</li>
+      </ul>
+      <a href="#contact" class="btn-outline-forest">Starten</a>
+    </div>
+
+    <div class="price-card featured fade-up">
+      <div class="featured-badge">Meest gekozen</div>
+      <div class="price-label">Professional</div>
+      <div class="price-name">Pro Suite</div>
+      <div class="price-amount">
+        <span class="price-num" style="color:var(--gold2);">€349</span>
+        <span class="price-period" style="color:rgba(255,255,255,0.4);">/ kwartaal</span>
+      </div>
+      <p class="price-desc">Voor middelgrote HR-afdelingen die structureel willen investeren in menselijke verbinding.</p>
+      <ul class="price-features">
+        <li class="price-feature"><span class="price-feature-icon">✓</span> 75 kaarten per kwartaal</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Alle 3 collecties</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Bijdrage aan Stichting Mind</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Digitale + fysieke HR-gids</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Persoonlijke accountmanager</li>
+        <li class="price-feature" style="opacity:0.4;">— Maatwerk ontwerp</li>
+      </ul>
+      <a href="#contact" class="btn-gold-block">Demo Aanvragen</a>
+    </div>
+
+    <div class="price-card fade-up">
+      <div class="price-label">Enterprise</div>
+      <div class="price-name">Maatwerk</div>
+      <div class="price-amount">
+        <span class="price-num">Op maat</span>
+      </div>
+      <p class="price-desc">Voor grote organisaties, zorgkoepels of onderwijsinstellingen met specifieke wensen en hoge volumes.</p>
+      <ul class="price-features">
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Onbeperkt aantal kaarten</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Alle collecties + maatwerk</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Verhoogde Mind-bijdrage</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Dedicated accountmanager</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Logo &amp; huisstijl integratie</li>
+        <li class="price-feature"><span class="price-feature-icon">✓</span> Maatwerk ontwerp &amp; teksten</li>
+      </ul>
+      <a href="#contact" class="btn-outline-forest">Neem Contact Op</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <span class="section-label">Ervaringen</span>
+  <h2 class="section-title">Wat HR-professionals <em>zeggen</em></h2>
+
+  <div class="testimonials-grid">
+    <div class="testimonial fade-up">
+      <div class="star-row">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-text">"Eindelijk een instrument dat het gat vult tussen een ziektewetprotocol en echte menselijke betrokkenheid. Onze medewerkers zijn zichtbaar geraakt."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">MV</div>
+        <div>
+          <div class="author-name">Marianne van der Berg</div>
+          <div class="author-role">HR-directeur, Regionaal Ziekenhuis</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial fade-up">
+      <div class="star-row">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-text">"We sturen de Verbinding Collectie nu standaard bij elke ziekmelding die langer dan twee weken duurt. Het verschil in hoe medewerkers terugkomen is merkbaar."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">TK</div>
+        <div>
+          <div class="author-name">Thomas Kleijer</div>
+          <div class="author-role">Verzuimcoördinator, VO-school</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial fade-up">
+      <div class="star-row">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-text">"Als re-integratiebureau zoeken we constant naar manieren om de brug te slaan. Tender Cards doet precies dat — op een tastbare, elegante manier."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">SH</div>
+        <div>
+          <div class="author-name">Sandra Hoekstra</div>
+          <div class="author-role">Trajectbegeleider, Re-integratiebureau</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2>Klaar om het <em>verschil te maken</em><br>voor uw medewerkers?</h2>
+  <p>Vraag een vrijblijvende demo aan en ontvang een proefpakket. Wij laten u zien hoe Tender Cards past binnen uw HR-strategie.</p>
+  <div class="cta-form">
+    <input type="email" class="cta-input" placeholder="Uw zakelijk e-mailadres">
+    <a href="mailto:info@tendercards.nl" class="btn-primary">Demo Aanvragen</a>
+  </div>
+  <p class="cta-note">Geen verplichtingen. Binnen 24 uur reactie. Uw data wordt niet gedeeld.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Tender<span>Cards</span></div>
+      <p class="footer-tagline">Premium emotionele steunkaarten voor HR-professionals. Omdat mensen meer zijn dan een verzuimcijfer.</p>
+      <div class="footer-mind">
+        ♥ Partner van Stichting Mind
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Product</h5>
+      <ul>
+        <li><a href="#kaarten">De Kaarten</a></li>
+        <li><a href="#pakketten">Pakketten &amp; Prijzen</a></li>
+        <li><a href="#sectoren">Voor Sectoren</a></li>
+        <li><a href="#oplossing">Hoe het Werkt</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Organisatie</h5>
+      <ul>
+        <li><a href="#">Over Ons</a></li>
+        <li><a href="#impact">Maatschappelijke Impact</a></li>
+        <li><a href="#">Stichting Mind</a></li>
+        <li><a href="#">Wetenschappelijke Basis</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="mailto:info@tendercards.nl">info@tendercards.nl</a></li>
+        <li><a href="#">Demo Aanvragen</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Nieuwsbrief</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Tender Cards. Alle rechten voorbehouden.</span>
+    <div style="display:flex; gap:1.5rem;">
+      <a href="#">Privacybeleid</a>
+      <a href="#">Algemene Voorwaarden</a>
+      <a href="#">KvK: 12345678</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, entry.target.dataset.delay || 0);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.dataset.delay = (i % 3) * 100;
+    observer.observe(el);
+  });
+
+  // Smooth nav
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
