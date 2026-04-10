@@ -1556,6 +1556,386 @@
   </div>
 </section>
 
+<!-- 3D KAART -->
+<section style="background:var(--cream); padding:100px 5%; text-align:center;" id="kaart-preview">
+  <span class="section-label" style="display:block;">Interactieve Preview</span>
+  <h2 class="section-title" style="margin:0 auto 1rem;">Draai de kaart rond —<br>bekijk voor- <em>&amp; achterkant</em></h2>
+  <p class="section-sub" style="margin:0 auto 3rem;">Pak de kaart vast met je muis en draai hem om. Zo ziet een echte Tender Card eruit.</p>
+
+  <!-- Kaart selector -->
+  <div style="display:flex; justify-content:center; gap:0.75rem; margin-bottom:3rem; flex-wrap:wrap;">
+    <button class="card-select-btn active" data-card="verbinding" onclick="selectCard('verbinding', this)">Verbinding</button>
+    <button class="card-select-btn" data-card="herstel" onclick="selectCard('herstel', this)">Herstel</button>
+    <button class="card-select-btn" data-card="terugkeer" onclick="selectCard('terugkeer', this)">Terugkeer</button>
+  </div>
+
+  <style>
+    .card-select-btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 2px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--cream2);
+      background: #fff;
+      color: var(--mid);
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+    .card-select-btn:hover { border-color: var(--forest); color: var(--forest); }
+    .card-select-btn.active { background: var(--forest); color: #fff; border-color: var(--forest); }
+
+    .scene {
+      width: 320px;
+      height: 440px;
+      perspective: 900px;
+      margin: 0 auto;
+      cursor: grab;
+      user-select: none;
+    }
+    .scene:active { cursor: grabbing; }
+
+    .card-3d {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.08s ease-out;
+      border-radius: 16px;
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.25), 0 4px 16px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Verbinding kaart */
+    .face-front-verbinding {
+      background: linear-gradient(145deg, #5C3D6E 0%, #3B2048 100%);
+    }
+    .face-back-verbinding {
+      background: linear-gradient(145deg, #3B2048 0%, #2A1535 100%);
+    }
+
+    /* Herstel kaart */
+    .face-front-herstel {
+      background: linear-gradient(145deg, #1C3A2E 0%, #0F2318 100%);
+    }
+    .face-back-herstel {
+      background: linear-gradient(145deg, #0F2318 0%, #081510 100%);
+    }
+
+    /* Terugkeer kaart */
+    .face-front-terugkeer {
+      background: linear-gradient(145deg, #C4963D 0%, #8B6420 100%);
+    }
+    .face-back-terugkeer {
+      background: linear-gradient(145deg, #8B6420 0%, #5C4010 100%);
+    }
+
+    .card-face-inner {
+      width: 100%;
+      height: 100%;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .card-3d-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .card-3d-logo span { color: rgba(196,150,61,0.8); }
+
+    .card-3d-ornament {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto;
+    }
+
+    .card-3d-ornament svg {
+      width: 28px; height: 28px;
+      fill: rgba(255,255,255,0.3);
+    }
+
+    .card-3d-quote-block { text-align: left; }
+
+    .card-3d-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-style: italic;
+      color: #fff;
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-3d-line {
+      width: 40px; height: 1px;
+      background: rgba(196,150,61,0.6);
+      margin-bottom: 0.75rem;
+    }
+
+    .card-3d-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(196,150,61,0.8);
+    }
+
+    /* Achterkant */
+    .card-back-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.5) 0px,
+        rgba(255,255,255,0.5) 1px,
+        transparent 1px,
+        transparent 20px
+      );
+    }
+
+    .card-back-inner {
+      width: 100%;
+      height: 100%;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-back-border {
+      position: absolute;
+      inset: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+    }
+
+    .card-back-logo-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-back-logo-big span { color: var(--gold2); }
+
+    .card-back-tagline {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+
+    .card-back-heart {
+      font-size: 2rem;
+      color: rgba(255,255,255,0.15);
+      margin-bottom: 2.5rem;
+    }
+
+    .card-back-url {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.08em;
+    }
+
+    .card-back-mind {
+      margin-top: 1.5rem;
+      font-size: 0.65rem;
+      color: rgba(196,150,61,0.5);
+      letter-spacing: 0.06em;
+    }
+
+    .drag-hint {
+      margin-top: 2rem;
+      font-size: 0.78rem;
+      color: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .drag-hint svg { width: 16px; height: 16px; stroke: var(--light); fill: none; stroke-width: 1.5; }
+  </style>
+
+  <!-- Scene -->
+  <div class="scene" id="cardScene">
+    <div class="card-3d" id="card3d">
+
+      <!-- VOORKANT -->
+      <div class="card-face card-front face-front-verbinding" id="cardFront">
+        <div class="card-face-inner">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="card-3d-logo">Tender<span>Cards</span></div>
+            <div class="card-3d-ornament">
+              <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+            </div>
+          </div>
+          <div class="card-3d-quote-block">
+            <p class="card-3d-quote" id="cardQuote">"Jij bent niet alleen. Wij denken aan je — elke dag."</p>
+            <div class="card-3d-line"></div>
+            <span class="card-3d-label" id="cardLabel">Verbinding · Tender Cards</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACHTERKANT -->
+      <div class="card-face card-back face-back-verbinding" id="cardBack">
+        <div class="card-back-pattern"></div>
+        <div class="card-back-inner">
+          <div class="card-back-border"></div>
+          <div class="card-back-logo-big">Tender<span>Cards</span></div>
+          <div class="card-back-tagline">De menselijke factor in verzuimpreventie</div>
+          <div class="card-back-heart">♥</div>
+          <div class="card-back-url">tendercards.nl</div>
+          <div class="card-back-mind">♥ Wij steunen Stichting Mind</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="drag-hint">
+    <svg viewBox="0 0 24 24"><path d="M18 11V6.5a2.5 2.5 0 0 0-5 0V12m0-5.5v-1a2.5 2.5 0 0 0-5 0V12m0-3.5a2.5 2.5 0 0 0-5 0V16a7 7 0 0 0 14 0v-5"/></svg>
+    Klik &amp; sleep om de kaart te draaien
+  </div>
+</section>
+
+<script>
+  // ─── 3D CARD DATA ───
+  const cards = {
+    verbinding: {
+      quote: '"Jij bent niet alleen. Wij denken aan je — elke dag."',
+      label: 'Verbinding · Tender Cards',
+      frontClass: 'face-front-verbinding',
+      backClass:  'face-back-verbinding',
+    },
+    herstel: {
+      quote: '"Herstel kost tijd. Neem die tijd. Je bent het waard."',
+      label: 'Herstel · Tender Cards',
+      frontClass: 'face-front-herstel',
+      backClass:  'face-back-herstel',
+    },
+    terugkeer: {
+      quote: '"Welkom terug. We hebben je echt gemist."',
+      label: 'Terugkeer · Tender Cards',
+      frontClass: 'face-front-terugkeer',
+      backClass:  'face-back-terugkeer',
+    },
+  };
+
+  function selectCard(name, btn) {
+    document.querySelectorAll('.card-select-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const c = cards[name];
+    const front = document.getElementById('cardFront');
+    const back  = document.getElementById('cardBack');
+    document.getElementById('cardQuote').textContent = c.quote;
+    document.getElementById('cardLabel').textContent  = c.label;
+    front.className = 'card-face card-front ' + c.frontClass;
+    back.className  = 'card-face card-back '  + c.backClass;
+    rotX = 0; rotY = 0;
+    document.getElementById('card3d').style.transform = 'rotateX(0deg) rotateY(0deg)';
+  }
+
+  // ─── DRAG TO ROTATE ───
+  const scene = document.getElementById('cardScene');
+  const card  = document.getElementById('card3d');
+  let isDragging = false, startX = 0, startY = 0, rotX = 0, rotY = 0, velX = 0, velY = 0;
+
+  scene.addEventListener('mousedown', e => {
+    isDragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    velX = 0; velY = 0;
+    card.style.transition = 'none';
+    e.preventDefault();
+  });
+
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    velX = dx * 0.4;
+    velY = dy * 0.4;
+    rotY += dx * 0.4;
+    rotX -= dy * 0.4;
+    rotX = Math.max(-60, Math.min(60, rotX));
+    card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    startX = e.clientX;
+    startY = e.clientY;
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    card.style.transition = 'transform 0.08s ease-out';
+    // Momentum
+    function momentum() {
+      if (Math.abs(velX) < 0.1 && Math.abs(velY) < 0.1) return;
+      velX *= 0.93; velY *= 0.93;
+      rotY += velX; rotX -= velY;
+      rotX = Math.max(-60, Math.min(60, rotX));
+      card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      requestAnimationFrame(momentum);
+    }
+    momentum();
+  });
+
+  // Touch support
+  scene.addEventListener('touchstart', e => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    velX = 0; velY = 0;
+    card.style.transition = 'none';
+  }, { passive: true });
+
+  window.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    const dx = e.touches[0].clientX - startX;
+    const dy = e.touches[0].clientY - startY;
+    velX = dx * 0.4; velY = dy * 0.4;
+    rotY += dx * 0.4; rotX -= dy * 0.4;
+    rotX = Math.max(-60, Math.min(60, rotX));
+    card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchend', () => { isDragging = false; });
+</script>
+
 <!-- IMPACT -->
 <section class="impact" id="impact">
   <span class="section-label" style="color:var(--sage2); text-align:center; display:block;">Maatschappelijke Impact</span>
