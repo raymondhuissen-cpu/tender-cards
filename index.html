@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Tender Cards – De menselijke factor in verzuimpreventie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,6 +26,7 @@
       --ease-out:     cubic-bezier(0.23, 1, 0.32, 1);
       --ease-in-out:  cubic-bezier(0.77, 0, 0.175, 1);
       --ease-drawer:  cubic-bezier(0.32, 0.72, 0, 1);
+      --ease-spring:  cubic-bezier(0.32, 0.72, 0, 1);
     }
 
     html {
@@ -35,7 +36,7 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       background: var(--cream);
       color: var(--dark);
       line-height: 1.6;
@@ -45,54 +46,73 @@
 
     * { max-width: 100%; }
 
-    /* ─── NAVIGATION ─── */
+    /* ─── NAVIGATION (floating pill) ─── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 0 5%;
-      height: 72px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(28, 58, 46, 0.96);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(196, 150, 61, 0.2);
+      position: fixed;
+      top: 1.25rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      background: rgba(28,58,46,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(196,150,61,0.2);
+      border-radius: 100px;
+      padding: 0.55rem 0.65rem 0.55rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.06);
+      white-space: nowrap;
+      width: max-content;
+      max-width: calc(100vw - 2rem);
     }
 
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
+      font-size: 1.1rem;
       font-weight: 600;
       color: #fff;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       text-decoration: none;
+      flex-shrink: 0;
     }
 
     .nav-logo span { color: var(--gold); }
 
+    .nav-divider {
+      width: 1px; height: 16px;
+      background: rgba(255,255,255,0.12);
+      flex-shrink: 0;
+    }
+
     .nav-links {
-      display: flex; gap: 2rem; list-style: none;
+      display: flex; gap: 1.4rem; list-style: none; align-items: center;
     }
 
     .nav-links a {
-      color: rgba(255,255,255,0.8);
+      color: rgba(255,255,255,0.6);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 400;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color 0.2s;
+      letter-spacing: 0.01em;
+      transition: color 180ms var(--ease-out);
     }
 
-    .nav-links a:hover { color: var(--gold2); }
+    .nav-links a:hover { color: rgba(255,255,255,0.95); }
 
     .nav-cta {
       background: var(--gold);
       color: var(--forest) !important;
-      padding: 0.55rem 1.4rem;
-      border-radius: 2px;
-      font-weight: 600 !important;
+      padding: 0.45rem 1.1rem;
+      border-radius: 100px;
+      font-weight: 500 !important;
+      font-size: 0.8rem !important;
+      letter-spacing: 0 !important;
+      text-transform: none !important;
       transition: background 180ms var(--ease-out) !important, transform 160ms var(--ease-out) !important;
     }
 
-    .nav-cta:hover { background: var(--gold2) !important; color: var(--forest) !important; }
+    .nav-cta:hover { background: var(--gold2) !important; transform: translateY(-1px) !important; }
 
     /* ─── HERO ─── */
     .hero {
@@ -183,40 +203,54 @@
       display: flex; gap: 1rem; flex-wrap: wrap;
     }
 
+    /* Button-in-button architecture (taste-skill) */
     .btn-primary {
       background: var(--gold);
       color: var(--forest);
-      padding: 0.9rem 2rem;
+      padding: 0.7rem 0.7rem 0.7rem 1.4rem;
       border: none;
-      border-radius: 2px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
       cursor: pointer;
       text-decoration: none;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
       transition: background 180ms var(--ease-out), transform 160ms var(--ease-out);
     }
 
     .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
 
+    .btn-arrow {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: rgba(28,58,46,0.15);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform 200ms var(--ease-out), background 200ms var(--ease-out);
+    }
+    .btn-arrow svg { width: 13px; height: 13px; stroke: var(--forest); fill: none; stroke-width: 2.2; }
+    .btn-primary:hover .btn-arrow { transform: translate(2px, -1px); background: rgba(28,58,46,0.22); }
+
     .btn-ghost {
       background: transparent;
-      color: rgba(255,255,255,0.8);
-      padding: 0.9rem 2rem;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 2px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+      padding: 0;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
       font-weight: 400;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      transition: border-color 180ms var(--ease-out), color 180ms var(--ease-out), transform 160ms var(--ease-out);
+      padding-bottom: 2px;
+      transition: border-color 180ms var(--ease-out), color 180ms var(--ease-out);
     }
 
-    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
 
     /* Hero visual */
     .hero-visual {
@@ -227,92 +261,113 @@
       z-index: 1;
     }
 
+    /* Double-bezel card stack (taste-skill) */
+    .card-bezel {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px;
+      padding: 10px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+      transition: transform 500ms var(--ease-spring);
+    }
+    .card-bezel:hover { transform: translateY(-6px); }
+
     .card-stack {
       position: relative;
-      width: 320px;
-      height: 420px;
+      width: 300px;
+      height: 400px;
+      border-radius: 20px;
     }
 
     .card-item {
       position: absolute;
-      width: 280px;
-      height: 380px;
-      border-radius: 12px;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       padding: 2rem;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: transform 500ms var(--ease-spring);
     }
 
     .card-item:nth-child(1) {
       background: linear-gradient(145deg, #5C3D6E, #3B2048);
-      top: 40px; left: 40px;
-      transform: rotate(-6deg);
-      border: 1px solid rgba(196,150,61,0.2);
+      top: 0; left: 0;
+      transform: rotate(-5deg) translateX(-18px) translateY(10px);
     }
 
     .card-item:nth-child(2) {
       background: linear-gradient(145deg, #8B4A62, #5E2D42);
-      top: 20px; left: 20px;
-      transform: rotate(-2deg);
-      border: 1px solid rgba(196,150,61,0.25);
+      top: 0; left: 0;
+      transform: rotate(-2deg) translateX(-8px) translateY(4px);
     }
 
     .card-item:nth-child(3) {
       background: linear-gradient(145deg, #C4963D, #8B6420);
       top: 0; left: 0;
-      transform: rotate(2deg);
-      border: 1px solid rgba(196,150,61,0.3);
+      transform: rotate(1.5deg);
     }
+
+    .card-bezel:hover .card-item:nth-child(1) { transform: rotate(-8deg) translateX(-26px) translateY(16px); }
+    .card-bezel:hover .card-item:nth-child(2) { transform: rotate(-3deg) translateX(-12px) translateY(6px); }
+    .card-bezel:hover .card-item:nth-child(3) { transform: rotate(2deg); }
 
     .card-quote {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-style: italic;
-      color: rgba(255,255,255,0.9);
-      line-height: 1.5;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.55;
       margin-bottom: 0.75rem;
     }
 
     .card-label {
-      font-size: 0.7rem;
-      font-weight: 500;
+      font-size: 0.68rem;
+      font-weight: 400;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--gold2);
+      color: rgba(255,255,255,0.45);
     }
 
     .card-ornament {
-      position: absolute;
-      top: 1.5rem; right: 1.5rem;
-      width: 40px; height: 40px;
-      border: 1px solid rgba(196,150,61,0.3);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+      margin-bottom: auto;
     }
 
-    .card-ornament svg { width: 20px; height: 20px; fill: rgba(196,150,61,0.6); }
+    .card-ornament svg { width: 22px; height: 22px; fill: rgba(255,255,255,0.2); }
 
     /* ─── STAT BAR ─── */
     .stat-bar {
-      background: var(--forest2);
-      padding: 2.5rem 5%;
+      background: var(--forest);
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      border-top: 1px solid rgba(196,150,61,0.15);
-      border-bottom: 1px solid rgba(196,150,61,0.15);
+      border-top: 1px solid rgba(196,150,61,0.12);
     }
 
     .stat-item {
-      text-align: center;
+      padding: 2.5rem 2rem;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
     }
+    .stat-item:last-child { border-right: none; }
+
+    .stat-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 280ms var(--ease-out);
+    }
+    .stat-item:hover::after { opacity: 1; }
 
     .stat-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 2.6rem;
-      font-weight: 600;
+      font-weight: 300;
       color: var(--gold2);
       line-height: 1;
       margin-bottom: 0.4rem;
@@ -336,13 +391,23 @@
     section { padding: 100px 5%; }
 
     .section-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--sage);
       margin-bottom: 1rem;
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: fit-content;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--sage);
+      opacity: 0.6;
+      flex-shrink: 0;
     }
 
     .section-title {
@@ -535,14 +600,22 @@
       z-index: 0;
     }
 
+    /* Double-bezel step card (taste-skill) */
+    .step-outer {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 6px;
+      transition: transform 380ms var(--ease-spring), box-shadow 380ms var(--ease-spring);
+    }
+
     .step {
       background: #fff;
-      border-radius: 8px;
+      border-radius: 16px;
       padding: 2.5rem 2rem 2rem;
       text-align: center;
       position: relative;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
     }
 
 
@@ -1133,7 +1206,7 @@
       border: 1px solid rgba(255,255,255,0.15);
       border-radius: 2px;
       color: #fff;
-      font-family: 'Inter', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.9rem;
       outline: none;
       transition: border-color 180ms var(--ease-out);
@@ -1290,9 +1363,9 @@
         transform: translateY(-6px);
         box-shadow: 0 20px 60px rgba(28,58,46,0.12);
       }
-      .step:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      .step-outer:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(196,150,61,0.2);
       }
       .price-card:hover {
         transform: translateY(-4px);
@@ -1324,12 +1397,12 @@
         transform: none;
         transition: opacity 300ms ease;
       }
-      .product-card, .step, .price-card {
+      .product-card, .step-outer, .price-card {
         transition: box-shadow 200ms ease;
       }
       @media (hover: hover) and (pointer: fine) {
         .product-card:hover,
-        .step:hover,
+        .step-outer:hover,
         .price-card:hover { transform: none; }
       }
     }
@@ -1394,8 +1467,14 @@
     }
 
     @media (max-width: 900px) {
-      /* Nav */
+      /* Nav — pill collapses to logo + hamburger only */
+      nav {
+        top: 0.75rem;
+        padding: 0.5rem 0.5rem 0.5rem 1.1rem;
+        gap: 0.75rem;
+      }
       .nav-links { display: none; }
+      .nav-divider { display: none; }
       .hamburger { display: flex; }
 
       /* Sections */
@@ -1405,17 +1484,19 @@
       .hero {
         grid-template-columns: 1fr;
         text-align: center;
-        padding: 110px 5% 60px;
+        padding: 100px 5% 60px;
         min-height: auto;
       }
       .hero-sub { margin: 0 auto 2rem; }
       .hero-actions { justify-content: center; flex-direction: column; align-items: center; }
-      .hero-actions a { width: 100%; text-align: center; }
+      .hero-actions .btn-primary { width: 100%; justify-content: center; }
+      .hero-actions .btn-ghost { width: 100%; text-align: center; }
       .hero-visual { display: none; }
       .hero h1 { font-size: 2.4rem; }
 
       /* Stat bar */
-      .stat-bar { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 2rem 5%; }
+      .stat-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat-item { padding: 1.75rem 1.25rem; }
       .stat-num { font-size: 2rem; }
 
       /* Problem */
@@ -1485,7 +1566,7 @@
       border: 1px solid rgba(28,58,46,0.25);
       background: transparent;
       color: var(--forest);
-      font-family: 'Inter', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.82rem;
       font-weight: 500;
       letter-spacing: 0.04em;
@@ -1678,6 +1759,7 @@
 <!-- NAVIGATION -->
 <nav>
   <a href="#" class="nav-logo">Tender<span>Cards</span></a>
+  <div class="nav-divider"></div>
   <ul class="nav-links">
     <li><a href="#probleem">Het Probleem</a></li>
     <li><a href="#oplossing">De Oplossing</a></li>
@@ -1721,33 +1803,38 @@
       Premium fysieke steunkaarten die HR-professionals inzetten bij psychisch verzuim, burn-out en mentale overbelasting. Tastbaar. Persoonlijk. Bewezen effectief.
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Demo Aanvragen</a>
+      <a href="#contact" class="btn-primary">
+        Demo Aanvragen
+        <span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
       <a href="#oplossing" class="btn-ghost">Meer Informatie</a>
     </div>
   </div>
 
   <div class="hero-visual">
-    <div class="card-stack">
-      <div class="card-item">
-        <div class="card-ornament">
-          <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+    <div class="card-bezel">
+      <div class="card-stack">
+        <div class="card-item">
+          <div class="card-ornament">
+            <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+          </div>
+          <p class="card-quote">"Jij bent niet alleen. Wij denken aan je."</p>
+          <span class="card-label">Tender Cards · Verbinding</span>
         </div>
-        <p class="card-quote">"Jij bent niet alleen. Wij denken aan je."</p>
-        <span class="card-label">Tender Cards · Verbinding</span>
-      </div>
-      <div class="card-item">
-        <div class="card-ornament">
-          <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+        <div class="card-item">
+          <div class="card-ornament">
+            <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+          </div>
+          <p class="card-quote">"Herstel kost tijd. Neem die tijd."</p>
+          <span class="card-label">Tender Cards · Herstel</span>
         </div>
-        <p class="card-quote">"Herstel kost tijd. Neem die tijd."</p>
-        <span class="card-label">Tender Cards · Herstel</span>
-      </div>
-      <div class="card-item">
-        <div class="card-ornament">
-          <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+        <div class="card-item">
+          <div class="card-ornament">
+            <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+          </div>
+          <p class="card-quote">"Je kracht is groter dan je vermoedt."</p>
+          <span class="card-label">Tender Cards · Kracht</span>
         </div>
-        <p class="card-quote">"Je kracht is groter dan je vermoedt."</p>
-        <span class="card-label">Tender Cards · Kracht</span>
       </div>
     </div>
   </div>
@@ -1875,28 +1962,34 @@
   <p class="section-sub">Simpel te implementeren binnen elk HR-proces — van ziekmelding tot succesvolle terugkeer.</p>
 
   <div class="steps">
-    <div class="step fade-up">
-      <div class="step-num">1</div>
-      <h4>Selecteer de Kaartset</h4>
-      <p>HR kiest de juiste set op basis van de verzuimfase en de persoonlijke situatie van de medewerker. Vroeg verzuim, langdurig herstel of re-integratie.</p>
-      <div class="step-icon">
-        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    <div class="step-outer fade-up">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Selecteer de Kaartset</h4>
+        <p>HR kiest de juiste set op basis van de verzuimfase en de persoonlijke situatie van de medewerker. Vroeg verzuim, langdurig herstel of re-integratie.</p>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
       </div>
     </div>
-    <div class="step fade-up">
-      <div class="step-num">2</div>
-      <h4>Stuur op het Juiste Moment</h4>
-      <p>De kaart wordt verstuurd door de leidinggevende of HR-medewerker, eventueel met een persoonlijke handgeschreven noot. Timing maakt het verschil.</p>
-      <div class="step-icon">
-        <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+    <div class="step-outer fade-up">
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Stuur op het Juiste Moment</h4>
+        <p>De kaart wordt verstuurd door de leidinggevende of HR-medewerker, eventueel met een persoonlijke handgeschreven noot. Timing maakt het verschil.</p>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        </div>
       </div>
     </div>
-    <div class="step fade-up">
-      <div class="step-num">3</div>
-      <h4>Bouw aan Verbinding</h4>
-      <p>De medewerker ervaart echte emotionele betrokkenheid van zijn organisatie. Dit versnelt herstel, versterkt loyaliteit en verlaagt de drempel voor re-integratie.</p>
-      <div class="step-icon">
-        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <div class="step-outer fade-up">
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Bouw aan Verbinding</h4>
+        <p>De medewerker ervaart echte emotionele betrokkenheid van zijn organisatie. Dit versnelt herstel, versterkt loyaliteit en verlaagt de drempel voor re-integratie.</p>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
       </div>
     </div>
   </div>
@@ -1956,7 +2049,7 @@
 
 <!-- 3D KAART -->
 <section style="background:var(--cream); padding:100px 5%; text-align:center;" id="kaart-preview">
-  <span class="section-label" style="display:block;">Interactieve Preview</span>
+  <span class="section-label" style="margin:0 auto 1rem;">Interactieve Preview</span>
   <h2 class="section-title" style="margin:0 auto 1rem;">Draai de kaart rond —<br>bekijk voor- <em>&amp; achterkant</em></h2>
   <p class="section-sub" style="margin:0 auto 3rem;">Pak de kaart vast met je muis en draai hem om. Zo ziet een echte Tender Card eruit.</p>
 
@@ -2087,7 +2180,7 @@
 
 <!-- IMPACT -->
 <section class="impact" id="impact">
-  <span class="section-label" style="color:var(--sage2); text-align:center; display:block;">Maatschappelijke Impact</span>
+  <span class="section-label" style="color:var(--sage2); margin:0 auto 1rem;">Maatschappelijke Impact</span>
   <h2 class="section-title" style="color:#fff;">Elke kaart draagt bij<br>aan <em>mentale gezondheid</em></h2>
   <p class="section-sub">Een deel van elke opbrengst maken wij over aan Stichting Mind — zodat onze impact verder reikt dan de werkvloer.</p>
 
