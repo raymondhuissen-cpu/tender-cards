@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview – Werkwijze</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest: #1C3A2E;
+      --gold:   #C4963D;
+      --gold2:  #E8B458;
+      --sage:   #6B9E80;
+    }
+    body { font-family: 'Inter', sans-serif; background: #1C3A2E; }
+
+    section {
+      padding: 80px 5%;
+      background: var(--forest);
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #A8C9B5;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--gold2); }
+
+    .section-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 4rem;
+    }
+
+    /* NIEUWE STIJL — witte kaarten */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    /* Verbindingslijn tussen kaarten */
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 52px;
+      left: calc(16.66% + 20px);
+      right: calc(16.66% + 20px);
+      height: 1px;
+      background: linear-gradient(90deg, rgba(196,150,61,0.4), rgba(196,150,61,0.6), rgba(196,150,61,0.4));
+      z-index: 0;
+    }
+
+    .step-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2.5rem 2rem 2rem;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .step-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+
+    /* Gouden nummer bovenaan */
+    .step-num {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: var(--forest);
+      border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--gold2);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Gouden accentlijn bovenaan de kaart */
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 2rem; right: 2rem;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      border-radius: 0 0 3px 3px;
+    }
+
+    .step-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--forest);
+      margin-bottom: 0.75rem;
+    }
+
+    .step-card p {
+      font-size: 0.87rem;
+      color: #5A7A6A;
+      line-height: 1.75;
+    }
+
+    /* Icoon onderaan */
+    .step-icon {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(28,58,46,0.07);
+      display: flex; align-items: center; justify-content: center;
+      margin: 1.5rem auto 0;
+    }
+    .step-icon svg { width: 18px; height: 18px; stroke: var(--sage); fill: none; stroke-width: 1.8; }
+  </style>
+</head>
+<body>
+<section>
+  <span class="section-label">Werkwijze</span>
+  <h2 class="section-title">In drie stappen<br>naar <em>echte verbinding</em></h2>
+  <p class="section-sub">Simpel te implementeren binnen elk HR-proces — van ziekmelding tot succesvolle terugkeer.</p>
+
+  <div class="steps">
+
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h4>Selecteer de Kaartset</h4>
+      <p>HR kiest de juiste set op basis van de verzuimfase en de persoonlijke situatie van de medewerker. Vroeg verzuim, langdurig herstel of re-integratie.</p>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h4>Stuur op het Juiste Moment</h4>
+      <p>De kaart wordt verstuurd door de leidinggevende of HR-medewerker, eventueel met een persoonlijke handgeschreven noot. Timing maakt het verschil.</p>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h4>Bouw aan Verbinding</h4>
+      <p>De medewerker ervaart echte emotionele betrokkenheid van zijn organisatie. Dit versnelt herstel, versterkt loyaliteit en verlaagt de drempel voor re-integratie.</p>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+</body>
+</html>

@@ -514,7 +514,7 @@
     .steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 3rem;
+      gap: 1.5rem;
       margin-top: 4rem;
       position: relative;
     }
@@ -522,27 +522,49 @@
     .steps::before {
       content: '';
       position: absolute;
-      top: 40px; left: 10%; right: 10%;
+      top: 52px;
+      left: calc(16.66% + 20px);
+      right: calc(16.66% + 20px);
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(196,150,61,0.3), transparent);
+      background: linear-gradient(90deg, rgba(196,150,61,0.4), rgba(196,150,61,0.6), rgba(196,150,61,0.4));
+      z-index: 0;
     }
 
     .step {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2.5rem 2rem 2rem;
       text-align: center;
       position: relative;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .step:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+
+    .step::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 2rem; right: 2rem;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      border-radius: 0 0 3px 3px;
     }
 
     .step-num {
-      width: 80px; height: 80px;
+      width: 64px; height: 64px;
       border-radius: 50%;
-      border: 1px solid rgba(196,150,61,0.3);
+      background: var(--forest);
+      border: 2px solid var(--gold);
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 1.5rem;
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.8rem;
       font-weight: 300;
       color: var(--gold2);
-      background: rgba(196,150,61,0.05);
       position: relative;
       z-index: 1;
     }
@@ -550,16 +572,26 @@
     .step h4 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.3rem;
-      font-weight: 400;
-      color: #fff;
+      font-weight: 600;
+      color: var(--forest);
       margin-bottom: 0.75rem;
     }
 
     .step p {
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.55);
+      font-size: 0.87rem;
+      color: #5A7A6A;
       line-height: 1.75;
     }
+
+    .step-icon {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(28,58,46,0.07);
+      display: flex; align-items: center; justify-content: center;
+      margin: 1.5rem auto 0;
+    }
+
+    .step-icon svg { width: 18px; height: 18px; stroke: var(--sage); fill: none; stroke-width: 1.8; }
 
     /* ─── CARDS PRODUCT ─── */
     .cards-section {
@@ -1563,16 +1595,25 @@
       <div class="step-num">1</div>
       <h4>Selecteer de Kaartset</h4>
       <p>HR kiest de juiste set op basis van de verzuimfase en de persoonlijke situatie van de medewerker. Vroeg verzuim, langdurig herstel of re-integratie.</p>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
     </div>
     <div class="step fade-up">
       <div class="step-num">2</div>
       <h4>Stuur op het Juiste Moment</h4>
       <p>De kaart wordt verstuurd door de leidinggevende of HR-medewerker, eventueel met een persoonlijke handgeschreven noot. Timing maakt het verschil.</p>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+      </div>
     </div>
     <div class="step fade-up">
       <div class="step-num">3</div>
       <h4>Bouw aan Verbinding</h4>
       <p>De medewerker ervaart echte emotionele betrokkenheid van zijn organisatie. Dit versnelt herstel, versterkt loyaliteit en verlaagt de drempel voor re-integratie.</p>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
     </div>
   </div>
 </section>
