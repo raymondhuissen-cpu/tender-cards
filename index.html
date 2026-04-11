@@ -21,6 +21,11 @@
       --dark:    #111916;
       --mid:     #3D5C4A;
       --light:   #8BAA96;
+
+      /* Emil Kowalski easing curves */
+      --ease-out:     cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out:  cubic-bezier(0.77, 0, 0.175, 1);
+      --ease-drawer:  cubic-bezier(0.32, 0.72, 0, 1);
     }
 
     html {
@@ -84,7 +89,7 @@
       padding: 0.55rem 1.4rem;
       border-radius: 2px;
       font-weight: 600 !important;
-      transition: background 0.2s !important;
+      transition: background 180ms var(--ease-out) !important, transform 160ms var(--ease-out) !important;
     }
 
     .nav-cta:hover { background: var(--gold2) !important; color: var(--forest) !important; }
@@ -191,7 +196,7 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      transition: background 0.2s, transform 0.15s;
+      transition: background 180ms var(--ease-out), transform 160ms var(--ease-out);
     }
 
     .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
@@ -208,7 +213,7 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      transition: border-color 0.2s, color 0.2s;
+      transition: border-color 180ms var(--ease-out), color 180ms var(--ease-out), transform 160ms var(--ease-out);
     }
 
     .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
@@ -540,10 +545,6 @@
       transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    .step:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    }
 
     .step::before {
       content: '';
@@ -620,10 +621,6 @@
       cursor: pointer;
     }
 
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(28,58,46,0.12);
-    }
 
     .product-card-visual {
       height: 220px;
@@ -890,10 +887,6 @@
       transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    .price-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(28,58,46,0.1);
-    }
 
     .price-card.featured {
       background: var(--forest);
@@ -987,7 +980,7 @@
       font-size: 0.85rem;
       font-weight: 600;
       text-decoration: none;
-      transition: background 0.2s, color 0.2s;
+      transition: background 180ms var(--ease-out), color 180ms var(--ease-out), transform 160ms var(--ease-out);
       letter-spacing: 0.04em;
     }
 
@@ -1003,7 +996,7 @@
       font-size: 0.85rem;
       font-weight: 600;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: background 180ms var(--ease-out), transform 160ms var(--ease-out);
       letter-spacing: 0.04em;
     }
 
@@ -1143,7 +1136,7 @@
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 180ms var(--ease-out);
     }
 
     .cta-input::placeholder { color: rgba(255,255,255,0.35); }
@@ -1232,16 +1225,113 @@
 
     .footer-bottom a { color: rgba(255,255,255,0.3); text-decoration: none; }
 
-    /* ─── ANIMATIONS ─── */
+    /* ─── ANIMATIONS (Emil Kowalski) ─── */
+
+    /* fade-up: starts from scale(0.97) + opacity — nothing appears from nothing */
     .fade-up {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(20px) scale(0.97);
+      transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
     }
-
     .fade-up.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
+    }
+
+    /* Stagger: stat bar items */
+    .stat-bar .stat-item:nth-child(1) { transition-delay: 0ms; }
+    .stat-bar .stat-item:nth-child(2) { transition-delay: 60ms; }
+    .stat-bar .stat-item:nth-child(3) { transition-delay: 120ms; }
+    .stat-bar .stat-item:nth-child(4) { transition-delay: 180ms; }
+
+    /* Stagger: steps */
+    .steps .step:nth-child(1) { transition-delay: 0ms; }
+    .steps .step:nth-child(2) { transition-delay: 70ms; }
+    .steps .step:nth-child(3) { transition-delay: 140ms; }
+
+    /* Stagger: cards grid */
+    .cards-grid .product-card:nth-child(1) { transition-delay: 0ms; }
+    .cards-grid .product-card:nth-child(2) { transition-delay: 70ms; }
+    .cards-grid .product-card:nth-child(3) { transition-delay: 140ms; }
+
+    /* Stagger: pricing */
+    .pricing-grid .price-card:nth-child(1) { transition-delay: 0ms; }
+    .pricing-grid .price-card:nth-child(2) { transition-delay: 70ms; }
+    .pricing-grid .price-card:nth-child(3) { transition-delay: 140ms; }
+
+    /* Stagger: testimonials */
+    .testimonials-grid .testimonial:nth-child(1) { transition-delay: 0ms; }
+    .testimonials-grid .testimonial:nth-child(2) { transition-delay: 70ms; }
+    .testimonials-grid .testimonial:nth-child(3) { transition-delay: 140ms; }
+
+    /* Button press feedback — scale(0.97) on :active */
+    .btn-primary,
+    .btn-ghost,
+    .btn-outline-forest,
+    .btn-gold-block,
+    .nav-cta,
+    .card-select-btn {
+      transition: background 180ms var(--ease-out),
+                  color 180ms var(--ease-out),
+                  border-color 180ms var(--ease-out),
+                  transform 160ms var(--ease-out);
+    }
+
+    .btn-primary:active,
+    .btn-ghost:active,
+    .btn-outline-forest:active,
+    .btn-gold-block:active,
+    .nav-cta:active,
+    .card-select-btn:active { transform: scale(0.97); }
+
+    /* Hover only on non-touch devices */
+    @media (hover: hover) and (pointer: fine) {
+      .product-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 60px rgba(28,58,46,0.12);
+      }
+      .step:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      }
+      .price-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 48px rgba(28,58,46,0.1);
+      }
+      .nav-links a:hover { color: var(--gold2); }
+      .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+      .btn-outline-forest:hover { background: var(--forest); color: #fff; }
+      .btn-gold-block:hover { background: var(--gold2); }
+    }
+
+    /* Card & price transitions — specific properties, no `all` */
+    .product-card {
+      transition: transform 280ms var(--ease-out),
+                  box-shadow 280ms var(--ease-out);
+    }
+    .price-card {
+      transition: transform 280ms var(--ease-out),
+                  box-shadow 280ms var(--ease-out);
+    }
+    .step {
+      transition: transform 280ms var(--ease-out),
+                  box-shadow 280ms var(--ease-out);
+    }
+
+    /* prefers-reduced-motion: keep opacity, remove movement */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up {
+        transform: none;
+        transition: opacity 300ms ease;
+      }
+      .product-card, .step, .price-card {
+        transition: box-shadow 200ms ease;
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .product-card:hover,
+        .step:hover,
+        .price-card:hover { transform: none; }
+      }
     }
 
     /* ─── RESPONSIVE ─── */
@@ -1262,7 +1352,7 @@
       height: 2px;
       background: #fff;
       border-radius: 2px;
-      transition: all 0.3s;
+      transition: transform 200ms var(--ease-out), opacity 200ms var(--ease-out);
     }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
