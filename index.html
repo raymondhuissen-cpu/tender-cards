@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Tender Cards – De menselijke factor in verzuimpreventie</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231C3A2E'/%3E%3Crect x='5' y='7' width='14' height='18' rx='2.5' fill='none' stroke='%23C4963D' stroke-width='1.2'/%3E%3Crect x='13' y='9' width='14' height='18' rx='2.5' fill='none' stroke='rgba(196,150,61,0.35)' stroke-width='1'/%3E%3Cpath d='M12 20.5C12 20.5 7.5 17 7.5 13.8C7.5 12.1 8.9 10.8 10.5 10.8C11.3 10.8 12 11.2 12 11.7C12 11.2 12.7 10.8 13.5 10.8C15.1 10.8 16.5 12.1 16.5 13.8C16.5 17 12 20.5 12 20.5Z' fill='%23C4963D'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <style>
@@ -68,16 +69,12 @@
     }
 
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
-      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
       text-decoration: none;
       flex-shrink: 0;
+      line-height: 0;
     }
-
-    .nav-logo span { color: var(--gold); }
 
     .nav-divider {
       width: 1px; height: 16px;
@@ -1758,7 +1755,16 @@
 
 <!-- NAVIGATION -->
 <nav>
-  <a href="#" class="nav-logo">Tender<span>Cards</span></a>
+  <a href="#" class="nav-logo" aria-label="TenderCards">
+    <svg width="130" height="34" viewBox="0 0 160 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.75" y="2" width="26" height="36" rx="4.5" fill="none" stroke="#C4963D" stroke-width="1.4"/>
+      <rect x="8" y="6" width="26" height="36" rx="4.5" fill="none" stroke="rgba(196,150,61,0.3)" stroke-width="1"/>
+      <line x1="5" y1="13" x2="23" y2="13" stroke="rgba(196,150,61,0.4)" stroke-width="0.8"/>
+      <path d="M13.5 31C13.5 31 7 26.5 7 22.5C7 20.4 8.7 18.7 10.7 18.7C11.7 18.7 12.7 19.2 13.5 20.1C14.3 19.2 15.3 18.7 16.3 18.7C18.3 18.7 20 20.4 20 22.5C20 26.5 13.5 31 13.5 31Z" fill="#C4963D"/>
+      <text x="44" y="22" font-family="Cormorant Garamond, serif" font-size="18" font-weight="600" fill="white" letter-spacing="0.3">Tender</text>
+      <text x="44" y="39" font-family="Cormorant Garamond, serif" font-size="18" font-weight="300" fill="#C4963D" letter-spacing="0.3">Cards</text>
+    </svg>
+  </a>
   <div class="nav-divider"></div>
   <ul class="nav-links">
     <li><a href="#probleem">Het Probleem</a></li>
@@ -2395,7 +2401,16 @@
 <footer>
   <div class="footer-grid">
     <div>
-      <div class="footer-brand">Tender<span>Cards</span></div>
+      <div class="footer-brand">
+        <svg width="160" height="44" viewBox="0 0 160 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0.75" y="2" width="26" height="36" rx="4.5" fill="none" stroke="#C4963D" stroke-width="1.4"/>
+          <rect x="8" y="6" width="26" height="36" rx="4.5" fill="none" stroke="rgba(196,150,61,0.3)" stroke-width="1"/>
+          <line x1="5" y1="13" x2="23" y2="13" stroke="rgba(196,150,61,0.4)" stroke-width="0.8"/>
+          <path d="M13.5 31C13.5 31 7 26.5 7 22.5C7 20.4 8.7 18.7 10.7 18.7C11.7 18.7 12.7 19.2 13.5 20.1C14.3 19.2 15.3 18.7 16.3 18.7C18.3 18.7 20 20.4 20 22.5C20 26.5 13.5 31 13.5 31Z" fill="#C4963D"/>
+          <text x="44" y="22" font-family="Cormorant Garamond, serif" font-size="18" font-weight="600" fill="white" letter-spacing="0.3">Tender</text>
+          <text x="44" y="39" font-family="Cormorant Garamond, serif" font-size="18" font-weight="300" fill="#C4963D" letter-spacing="0.3">Cards</text>
+        </svg>
+      </div>
       <p class="footer-tagline">Premium emotionele steunkaarten voor HR-professionals. Omdat mensen meer zijn dan een verzuimcijfer.</p>
       <div class="footer-mind">
         ♥ Wij steunen Stichting Mind
