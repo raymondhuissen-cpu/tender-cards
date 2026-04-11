@@ -1206,17 +1206,147 @@
     }
 
     /* ─── RESPONSIVE ─── */
+
+    /* Hamburger menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: rgba(28,58,46,0.98);
+      backdrop-filter: blur(12px);
+      z-index: 99;
+      padding: 1.5rem 5%;
+      border-bottom: 1px solid rgba(196,150,61,0.2);
+      flex-direction: column;
+      gap: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 400;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: block;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--gold2); }
+    .mobile-menu .mob-cta {
+      margin-top: 1rem;
+      background: var(--gold);
+      color: var(--forest) !important;
+      padding: 0.9rem 1.5rem;
+      border-radius: 2px;
+      text-align: center;
+      font-weight: 600;
+    }
+
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 140px; }
-      .hero-sub { margin: 0 auto 2.5rem; }
-      .hero-actions { justify-content: center; }
-      .hero-visual { display: none; }
-      .stat-bar { grid-template-columns: repeat(2, 1fr); }
-      .problem-grid, .solution-intro, .sectors-grid { grid-template-columns: 1fr; }
-      .steps, .cards-grid, .pricing-grid, .testimonials-grid, .impact-cards { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-      .cards-header { grid-template-columns: 1fr; }
+      /* Nav */
       .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      /* Sections */
+      section { padding: 70px 5%; }
+
+      /* Hero */
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 110px 5% 60px;
+        min-height: auto;
+      }
+      .hero-sub { margin: 0 auto 2rem; }
+      .hero-actions { justify-content: center; flex-direction: column; align-items: center; }
+      .hero-actions a { width: 100%; text-align: center; }
+      .hero-visual { display: none; }
+      .hero h1 { font-size: 2.4rem; }
+
+      /* Stat bar */
+      .stat-bar { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 2rem 5%; }
+      .stat-num { font-size: 2rem; }
+
+      /* Problem */
+      .problem-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .problem-stat-big { font-size: 3.5rem; }
+      .mini-stats { grid-template-columns: repeat(2, 1fr); }
+
+      /* Solution */
+      .solution-intro { grid-template-columns: 1fr; gap: 2rem; }
+      .solution-text ~ div { grid-template-columns: 1fr !important; }
+
+      /* How */
+      .steps { grid-template-columns: 1fr; gap: 2rem; }
+      .steps::before { display: none; }
+
+      /* Cards */
+      .cards-header { grid-template-columns: 1fr; gap: 1.5rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+
+      /* Sectors */
+      .sectors-grid { grid-template-columns: 1fr; }
+      .sector-stats { grid-template-columns: repeat(2, 1fr); }
+
+      /* 3D kaart */
+      .scene { width: 280px; height: 385px; }
+
+      /* Impact */
+      .impact-cards { grid-template-columns: 1fr; }
+      .impact-badge { flex-direction: column; text-align: center; padding: 1.5rem; }
+
+      /* Pricing */
+      .pricing-grid { grid-template-columns: 1fr; }
+
+      /* Testimonials */
+      .testimonials-grid { grid-template-columns: 1fr; }
+
+      /* CTA */
+      .cta-form { flex-direction: column; }
+      .cta-input { width: 100%; }
+      .cta-form .btn-primary { width: 100%; text-align: center; }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+
+      /* Over Ons grids */
+      .over-ons-grid { grid-template-columns: 1fr !important; }
+      .over-ons-quote { grid-template-columns: auto 1fr !important; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2rem; }
+      .section-title { font-size: 1.8rem; }
+      .stat-bar { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .stat-num { font-size: 1.7rem; }
+      .problem-stat-big { font-size: 3rem; }
+      .mini-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .scene { width: 260px; height: 360px; }
+      .card-3d-quote { font-size: 1.2rem; }
+      .price-num { font-size: 2.4rem; }
     }
   </style>
 </head>
@@ -1234,7 +1364,27 @@
     <li><a href="#over-ons">Over Ons</a></li>
     <li><a href="#contact" class="nav-cta">Demo Aanvragen</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#probleem" onclick="toggleMenu()">Het Probleem</a>
+  <a href="#oplossing" onclick="toggleMenu()">De Oplossing</a>
+  <a href="#kaarten" onclick="toggleMenu()">De Kaarten</a>
+  <a href="#sectoren" onclick="toggleMenu()">Sectoren</a>
+  <a href="#impact" onclick="toggleMenu()">Impact</a>
+  <a href="#over-ons" onclick="toggleMenu()">Over Ons</a>
+  <a href="#contact" class="mob-cta" onclick="toggleMenu()">Demo Aanvragen</a>
+</div>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+</script>
 
 <!-- HERO -->
 <section class="hero">
