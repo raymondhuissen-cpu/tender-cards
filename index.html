@@ -2546,6 +2546,13 @@
 </div>
 
 <script>
+  // Password guard
+  if (sessionStorage.getItem('tc_auth') !== 'ok') {
+    window.location.replace('login.html');
+  }
+</script>
+
+<script>
   // Scroll animation
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
