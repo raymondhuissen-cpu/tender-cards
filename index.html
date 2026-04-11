@@ -1295,6 +1295,84 @@
 
     .footer-bottom a { color: rgba(255,255,255,0.3); text-decoration: none; }
 
+    /* ─── COOKIE BANNER ─── */
+    #tc-cookie-banner {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      width: calc(100% - 3rem);
+      max-width: 680px;
+      background: rgba(17,25,22,0.97);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(196,150,61,0.2);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      animation: cookieSlideUp 0.45s cubic-bezier(0.32,0.72,0,1) both;
+    }
+    @keyframes cookieSlideUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    #tc-cookie-banner.hiding {
+      animation: cookieSlideDown 0.35s cubic-bezier(0.32,0.72,0,1) both;
+    }
+    @keyframes cookieSlideDown {
+      from { opacity: 1; transform: translateX(-50%) translateY(0); }
+      to   { opacity: 0; transform: translateX(-50%) translateY(16px); }
+    }
+    .tc-cookie-text { flex: 1; }
+    .tc-cookie-text p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .tc-cookie-text p strong { color: rgba(255,255,255,0.88); font-weight: 500; }
+    .tc-cookie-text a { color: var(--gold2); text-decoration: none; }
+    .tc-cookie-text a:hover { text-decoration: underline; }
+    .tc-cookie-btns {
+      display: flex;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+    .tc-btn-accept {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 0.55rem 1.1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .tc-btn-accept:hover { background: var(--gold2); }
+    .tc-btn-minimal {
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      padding: 0.55rem 1.1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .tc-btn-minimal:hover { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.25); }
+    @media (max-width: 560px) {
+      #tc-cookie-banner { flex-direction: column; align-items: stretch; gap: 1rem; }
+      .tc-cookie-btns { justify-content: flex-end; }
+    }
+
     /* ─── ANIMATIONS (Emil Kowalski) ─── */
 
     /* fade-up: starts from scale(0.97) + opacity — nothing appears from nothing */
@@ -2447,12 +2525,25 @@
   <div class="footer-bottom">
     <span>© 2025 Tender Cards. Alle rechten voorbehouden.</span>
     <div style="display:flex; gap:1.5rem;">
-      <a href="#">Privacybeleid</a>
-      <a href="#">Algemene Voorwaarden</a>
-      <a href="#">KvK: 12345678</a>
+      <a href="privacybeleid.html">Privacybeleid</a>
+      <a href="cookiebeleid.html">Cookiebeleid</a>
+      <a href="algemene-voorwaarden.html">Algemene Voorwaarden</a>
+      <a href="#" onclick="tcShowCookieBanner(); return false;">Cookievoorkeuren</a>
+      <a href="#" style="color:rgba(255,255,255,0.2); pointer-events:none;">KvK: 12345678</a>
     </div>
   </div>
 </footer>
+
+<!-- COOKIE BANNER -->
+<div id="tc-cookie-banner" style="display:none;" aria-live="polite" role="dialog" aria-label="Cookiemelding">
+  <div class="tc-cookie-text">
+    <p><strong>Wij gebruiken cookies</strong> om uw ervaring te verbeteren. Lees meer in ons <a href="cookiebeleid.html">cookiebeleid</a> en <a href="privacybeleid.html">privacybeleid</a>.</p>
+  </div>
+  <div class="tc-cookie-btns">
+    <button class="tc-btn-minimal" onclick="tcDismissCookies()">Alleen noodzakelijk</button>
+    <button class="tc-btn-accept" onclick="tcAcceptCookies()">Alles accepteren</button>
+  </div>
+</div>
 
 <script>
   // Scroll animation
@@ -2610,6 +2701,37 @@
     apply();
     startAuto();
   })();
+</script>
+
+<script>
+  // ─── COOKIE BANNER ───
+  const COOKIE_KEY = 'tc_cookie_consent';
+  const banner = document.getElementById('tc-cookie-banner');
+
+  function tcShowCookieBanner() {
+    banner.style.display = 'flex';
+    banner.classList.remove('hiding');
+  }
+
+  function tcHideBanner() {
+    banner.classList.add('hiding');
+    setTimeout(() => { banner.style.display = 'none'; }, 350);
+  }
+
+  function tcAcceptCookies() {
+    localStorage.setItem(COOKIE_KEY, 'all');
+    tcHideBanner();
+  }
+
+  function tcDismissCookies() {
+    localStorage.setItem(COOKIE_KEY, 'minimal');
+    tcHideBanner();
+  }
+
+  // Show banner if no consent stored yet
+  if (!localStorage.getItem(COOKIE_KEY)) {
+    setTimeout(tcShowCookieBanner, 800);
+  }
 </script>
 
 </body>

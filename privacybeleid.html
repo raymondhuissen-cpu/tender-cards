@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacybeleid — Tender Cards</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231C3A2E'/%3E%3Crect x='5' y='7' width='14' height='18' rx='2.5' fill='none' stroke='%23C4963D' stroke-width='1.2'/%3E%3Crect x='13' y='9' width='14' height='18' rx='2.5' fill='none' stroke='rgba(196,150,61,0.35)' stroke-width='1'/%3E%3Cpath d='M12 20.5C12 20.5 7.5 17 7.5 13.8C7.5 12.1 8.9 10.8 10.5 10.8C11.3 10.8 12 11.2 12 11.7C12 11.2 12.7 10.8 13.5 10.8C15.1 10.8 16.5 12.1 16.5 13.8C16.5 17 12 20.5 12 20.5Z' fill='%23C4963D'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest: #1C3A2E; --gold: #C4963D; --gold2: #E8B458;
+      --dark: #111916; --cream: #F7F3EE; --cream2: #EDE7DF;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); line-height: 1.7; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 1.25rem; left: 50%; transform: translateX(-50%);
+      background: rgba(28,58,46,0.92); backdrop-filter: blur(20px);
+      border: 1px solid rgba(196,150,61,0.2); border-radius: 100px;
+      padding: 0.55rem 1rem 0.55rem 1.4rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      z-index: 999; width: max-content;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 6px; text-decoration: none; }
+    .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: #fff; }
+    .nav-logo-text span { color: var(--gold); font-weight: 300; }
+    nav a.back-link {
+      font-size: 0.78rem; color: rgba(255,255,255,0.55); text-decoration: none;
+      display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s;
+    }
+    nav a.back-link:hover { color: rgba(255,255,255,0.9); }
+
+    /* HERO */
+    .legal-hero {
+      background: var(--forest);
+      padding: 10rem 5% 5rem;
+      color: #fff;
+    }
+    .legal-label {
+      font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold2); display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .legal-label::before { content: ''; width: 28px; height: 1px; background: var(--gold2); opacity: 0.4; }
+    .legal-hero h1 {
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300; margin-bottom: 0.75rem;
+    }
+    .legal-hero h1 em { font-style: italic; color: var(--gold2); }
+    .legal-hero p { font-size: 0.9rem; color: rgba(255,255,255,0.45); }
+
+    /* CONTENT */
+    .legal-body {
+      max-width: 760px; margin: 0 auto; padding: 5rem 5% 7rem;
+    }
+    .legal-body h2 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400;
+      color: var(--forest); margin: 2.5rem 0 0.75rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(28,58,46,0.1);
+    }
+    .legal-body h3 {
+      font-size: 0.9rem; font-weight: 600; color: var(--forest); margin: 1.5rem 0 0.4rem;
+    }
+    .legal-body p { font-size: 0.9rem; color: rgba(17,25,22,0.75); margin-bottom: 1rem; }
+    .legal-body ul { margin: 0.5rem 0 1rem 1.25rem; }
+    .legal-body li { font-size: 0.9rem; color: rgba(17,25,22,0.75); margin-bottom: 0.4rem; }
+    .info-box {
+      background: rgba(28,58,46,0.05); border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0; padding: 1rem 1.25rem; margin: 1.5rem 0;
+    }
+    .info-box p { margin: 0; color: rgba(17,25,22,0.65); }
+    .info-box strong { color: var(--forest); }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,0.4);
+      padding: 2rem 5%; text-align: center;
+      font-size: 0.78rem;
+    }
+    footer a { color: rgba(255,255,255,0.3); text-decoration: none; margin: 0 0.75rem; }
+    footer a:hover { color: rgba(255,255,255,0.7); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="22" height="28" viewBox="0 0 22 28" fill="none">
+      <rect x=".5" y=".5" width="14" height="22" rx="2.5" fill="none" stroke="#C4963D" stroke-width="1.2"/>
+      <rect x="7" y="3.5" width="14" height="22" rx="2.5" fill="none" stroke="rgba(196,150,61,0.3)" stroke-width="1"/>
+      <path d="M7.5 17C7.5 17 3 14 3 11.2 3 9.5 4.3 8.2 6 8.2c.8 0 1.5.4 1.5.9 0-.5.7-.9 1.5-.9 1.7 0 3 1.3 3 3C12 14 7.5 17 7.5 17Z" fill="#C4963D"/>
+    </svg>
+    <span class="nav-logo-text">Tender<span>Cards</span></span>
+  </a>
+  <a href="index.html" class="back-link">← Terug naar website</a>
+</nav>
+
+<div class="legal-hero">
+  <div class="legal-label">Juridisch</div>
+  <h1>Privacy<em>beleid</em></h1>
+  <p>Laatst bijgewerkt: april 2025 · Tender Cards B.V.</p>
+</div>
+
+<div class="legal-body">
+
+  <div class="info-box">
+    <p><strong>Tender Cards hecht grote waarde aan uw privacy.</strong> Wij verwerken zo min mogelijk persoonsgegevens en alleen voor duidelijke, gerechtvaardigde doeleinden. In dit beleid leggen wij uit welke gegevens wij verzamelen, waarom, en hoe wij deze beschermen.</p>
+  </div>
+
+  <h2>1. Verantwoordelijke</h2>
+  <p>De verantwoordelijke voor de verwerking van uw persoonsgegevens is:</p>
+  <p><strong>Tender Cards B.V.</strong><br>
+  E-mail: <a href="mailto:info@tendercards.nl">info@tendercards.nl</a><br>
+  KvK: 12345678<br>
+  BTW: NL123456789B01</p>
+
+  <h2>2. Welke gegevens verzamelen wij?</h2>
+  <h3>Via het contactformulier of demo-aanvraag</h3>
+  <ul>
+    <li>Naam en e-mailadres</li>
+    <li>Bedrijfsnaam en functie</li>
+    <li>Uw bericht of vraag</li>
+  </ul>
+  <h3>Via de website (automatisch)</h3>
+  <ul>
+    <li>IP-adres (geanonimiseerd)</li>
+    <li>Browsertype en apparaat</li>
+    <li>Bezochte pagina's en duur van het bezoek (via cookies — zie Cookiebeleid)</li>
+  </ul>
+  <h3>Bij een bestelling</h3>
+  <ul>
+    <li>NAW-gegevens en factuuradres</li>
+    <li>Betalingsinformatie (verwerkt via beveiligde payment provider)</li>
+    <li>Bestelhistorie</li>
+  </ul>
+
+  <h2>3. Waarom verwerken wij uw gegevens?</h2>
+  <p>Wij verwerken persoonsgegevens uitsluitend voor de volgende doelen:</p>
+  <ul>
+    <li><strong>Uitvoering overeenkomst:</strong> verwerken en leveren van bestellingen</li>
+    <li><strong>Klantenservice:</strong> beantwoorden van vragen en demo-aanvragen</li>
+    <li><strong>Gerechtvaardigd belang:</strong> verbeteren van onze website en diensten</li>
+    <li><strong>Wettelijke verplichtingen:</strong> bewaren van facturen en administratie (7 jaar)</li>
+    <li><strong>Toestemming:</strong> sturen van nieuwsbrief (alleen indien aangemeld)</li>
+  </ul>
+
+  <h2>4. Hoe lang bewaren wij uw gegevens?</h2>
+  <p>Wij bewaren uw gegevens niet langer dan noodzakelijk:</p>
+  <ul>
+    <li>Contactformulieren: maximaal 1 jaar na laatste contact</li>
+    <li>Bestelgegevens: 7 jaar (fiscale bewaarplicht)</li>
+    <li>Nieuwsbriefabonnementen: tot uitschrijving</li>
+    <li>Websitestatistieken (cookies): maximaal 14 maanden</li>
+  </ul>
+
+  <h2>5. Delen met derden</h2>
+  <p>Wij verkopen uw gegevens nooit aan derden. Wij kunnen gegevens delen met:</p>
+  <ul>
+    <li><strong>Bezorgpartners</strong> (naam + adres voor levering)</li>
+    <li><strong>Boekhoudsoftware</strong> (factuurgegevens)</li>
+    <li><strong>E-mailprovider</strong> (nieuwsbrief, indien aangemeld)</li>
+    <li><strong>Hostingpartner</strong> (technische verwerking)</li>
+  </ul>
+  <p>Al onze verwerkers zijn gevestigd in de EU en voldoen aan de AVG.</p>
+
+  <h2>6. Uw rechten</h2>
+  <p>Onder de AVG heeft u de volgende rechten:</p>
+  <ul>
+    <li>Recht op inzage in uw gegevens</li>
+    <li>Recht op correctie of aanvulling</li>
+    <li>Recht op verwijdering ("recht op vergetelheid")</li>
+    <li>Recht op beperking van de verwerking</li>
+    <li>Recht op dataportabiliteit</li>
+    <li>Recht om bezwaar te maken</li>
+    <li>Recht om toestemming in te trekken</li>
+  </ul>
+  <p>U kunt uw rechten uitoefenen via <a href="mailto:info@tendercards.nl">info@tendercards.nl</a>. Wij reageren binnen 30 dagen. U kunt ook een klacht indienen bij de Autoriteit Persoonsgegevens via <a href="https://www.autoriteitpersoonsgegevens.nl" target="_blank">autoriteitpersoonsgegevens.nl</a>.</p>
+
+  <h2>7. Beveiliging</h2>
+  <p>Tender Cards neemt passende technische en organisatorische maatregelen om uw persoonsgegevens te beveiligen, waaronder versleutelde verbindingen (HTTPS), beperkte toegang tot systemen en regelmatige beveiligingscontroles.</p>
+
+  <h2>8. Cookies</h2>
+  <p>Wij maken gebruik van cookies. Meer informatie vindt u in ons <a href="cookiebeleid.html">Cookiebeleid</a>.</p>
+
+  <h2>9. Wijzigingen</h2>
+  <p>Wij kunnen dit privacybeleid periodiek aanpassen. De meest recente versie is altijd te vinden op deze pagina. Bij ingrijpende wijzigingen informeren wij u per e-mail indien u een account heeft of de nieuwsbrief ontvangt.</p>
+
+  <h2>10. Contact</h2>
+  <p>Heeft u vragen over dit beleid? Neem dan contact op:<br>
+  <strong>Tender Cards B.V.</strong> · <a href="mailto:info@tendercards.nl">info@tendercards.nl</a></p>
+
+</div>
+
+<footer>
+  <p>© 2025 Tender Cards B.V. ·
+    <a href="privacybeleid.html">Privacybeleid</a>
+    <a href="cookiebeleid.html">Cookiebeleid</a>
+    <a href="algemene-voorwaarden.html">Algemene Voorwaarden</a>
+    <a href="index.html">← Terug naar website</a>
+  </p>
+</footer>
+
+</body>
+</html>
