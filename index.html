@@ -1373,6 +1373,157 @@
       .tc-cookie-btns { justify-content: flex-end; }
     }
 
+    /* ─── GRAIN OVERLAY ─── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 9998;
+      opacity: 0.018;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 180px 180px;
+    }
+
+    /* ─── TRUST BAR (scrolling logos) ─── */
+    .trust-bar {
+      background: var(--cream2);
+      border-top: 1px solid rgba(28,58,46,0.07);
+      border-bottom: 1px solid rgba(28,58,46,0.07);
+      padding: 1.25rem 0;
+      overflow: hidden;
+    }
+    .trust-bar-label {
+      text-align: center;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(28,58,46,0.3);
+      margin-bottom: 0.9rem;
+    }
+    .trust-marquee {
+      display: flex;
+      gap: 0;
+      animation: marquee 28s linear infinite;
+      width: max-content;
+    }
+    .trust-marquee-wrap { overflow: hidden; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .trust-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 2.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: rgba(28,58,46,0.28);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      border-right: 1px solid rgba(28,58,46,0.1);
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: rgba(196,150,61,0.4); flex-shrink: 0;
+    }
+
+    /* ─── EMPLOYEE QUOTE BREAK ─── */
+    .quote-break {
+      background: var(--forest);
+      padding: 7rem 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-break::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(196,150,61,0.08) 0%, transparent 65%),
+                  radial-gradient(ellipse at 70% 50%, rgba(28,58,46,0.3) 0%, transparent 60%);
+    }
+    .quote-break-inner { position: relative; max-width: 820px; margin: 0 auto; }
+    .quote-break-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 7rem; line-height: 0.7;
+      color: var(--gold); opacity: 0.25;
+      margin-bottom: 1.5rem; display: block;
+    }
+    .quote-break-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      font-weight: 300; font-style: italic;
+      color: #fff; line-height: 1.55;
+      margin-bottom: 2rem;
+    }
+    .quote-break-text em { color: var(--gold2); font-style: normal; }
+    .quote-break-source {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      font-size: 0.78rem; color: rgba(255,255,255,0.38);
+      letter-spacing: 0.06em;
+    }
+    .quote-break-source::before,
+    .quote-break-source::after {
+      content: ''; width: 32px; height: 1px;
+      background: rgba(196,150,61,0.3);
+    }
+
+    /* ─── COUNTER ANIMATION ─── */
+    .stat-num[data-target] { transition: none; }
+
+    /* ─── VARIED TESTIMONIAL AVATARS ─── */
+    .avatar-1 { background: linear-gradient(135deg, #1C3A2E, #2D6A4F) !important; }
+    .avatar-2 { background: linear-gradient(135deg, #3D2E5C, #6B4C8E) !important; }
+    .avatar-3 { background: linear-gradient(135deg, #2E1E3A, #8B4562) !important; }
+
+    /* ─── HERO SOCIAL PROOF BADGE ─── */
+    .hero-proof {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 0.5rem 1rem 0.5rem 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .hero-proof-avatars {
+      display: flex;
+    }
+    .hero-proof-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid var(--forest);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.62rem; font-weight: 600; color: #fff;
+      margin-left: -8px;
+    }
+    .hero-proof-avatar:first-child { margin-left: 0; }
+    .hero-proof-text {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.65);
+    }
+    .hero-proof-text strong { color: #fff; }
+
+    /* ─── FEATURED STAT ─── */
+    .featured-quote-stat {
+      background: var(--cream);
+      border: 1px solid var(--cream2);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 4px 4px 0;
+      padding: 1.5rem 1.75rem;
+      margin-top: 2rem;
+    }
+    .featured-quote-stat p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-style: italic;
+      color: var(--forest); line-height: 1.6;
+      margin-bottom: 0.4rem;
+    }
+    .featured-quote-stat span {
+      font-size: 0.72rem; color: var(--light);
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
     /* ─── ANIMATIONS (Emil Kowalski) ─── */
 
     /* fade-up: starts from scale(0.97) + opacity — nothing appears from nothing */
@@ -1878,20 +2029,31 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-text">
-    <div class="hero-badge">B2B Oplossing voor HR &amp; Verzuim</div>
+    <div class="hero-badge">B2B · HR &amp; Verzuimpreventie</div>
+
+    <div class="hero-proof">
+      <div class="hero-proof-avatars">
+        <div class="hero-proof-avatar avatar-1">MV</div>
+        <div class="hero-proof-avatar avatar-2">TK</div>
+        <div class="hero-proof-avatar avatar-3">SH</div>
+      </div>
+      <div class="hero-proof-text"><strong>47 HR-professionals</strong> vroegen al een demo aan</div>
+    </div>
+
     <h1>
-      De <em>menselijke factor</em><br>
-      in een digitale<br>wereld
+      Jouw medewerker<br>
+      thuis voelt zich <em>vergeten.</em><br>
+      Laat zien dat dat niet zo is.
     </h1>
     <p class="hero-sub">
-      Premium fysieke steunkaarten die HR-professionals inzetten bij psychisch verzuim, burn-out en mentale overbelasting. Tastbaar. Persoonlijk. Bewezen effectief.
+      Een fysieke kaart op het juiste moment doet meer dan tien e-mails. Tender Cards helpt HR-professionals om echt contact te maken met verzuimende medewerkers — tastbaar, persoonlijk en bewezen effectief.
     </p>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">
-        Demo Aanvragen
+        Vraag een gratis proefpakket aan
         <span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
       </a>
-      <a href="#oplossing" class="btn-ghost">Meer Informatie</a>
+      <a href="#oplossing" class="btn-ghost">Hoe het werkt ↓</a>
     </div>
   </div>
 
@@ -1941,6 +2103,32 @@
   <div class="stat-item fade-up">
     <div class="stat-num">€120K</div>
     <div class="stat-label">Maximale kosten per burn-out casus voor werkgever</div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-label">Ingezet door organisaties in</div>
+  <div class="trust-marquee-wrap">
+    <div class="trust-marquee">
+      <span class="trust-item"><span class="trust-dot"></span>Gezondheidszorg</span>
+      <span class="trust-item"><span class="trust-dot"></span>Onderwijs</span>
+      <span class="trust-item"><span class="trust-dot"></span>Gemeenten &amp; Overheid</span>
+      <span class="trust-item"><span class="trust-dot"></span>Re-integratiebureaus</span>
+      <span class="trust-item"><span class="trust-dot"></span>GGZ-instellingen</span>
+      <span class="trust-item"><span class="trust-dot"></span>Arbodiensten</span>
+      <span class="trust-item"><span class="trust-dot"></span>MKB &amp; Groot Bedrijf</span>
+      <span class="trust-item"><span class="trust-dot"></span>Bedrijfsmaatschappelijk Werk</span>
+      <!-- duplicaat voor naadloze loop -->
+      <span class="trust-item"><span class="trust-dot"></span>Gezondheidszorg</span>
+      <span class="trust-item"><span class="trust-dot"></span>Onderwijs</span>
+      <span class="trust-item"><span class="trust-dot"></span>Gemeenten &amp; Overheid</span>
+      <span class="trust-item"><span class="trust-dot"></span>Re-integratiebureaus</span>
+      <span class="trust-item"><span class="trust-dot"></span>GGZ-instellingen</span>
+      <span class="trust-item"><span class="trust-dot"></span>Arbodiensten</span>
+      <span class="trust-item"><span class="trust-dot"></span>MKB &amp; Groot Bedrijf</span>
+      <span class="trust-item"><span class="trust-dot"></span>Bedrijfsmaatschappelijk Werk</span>
+    </div>
   </div>
 </div>
 
@@ -2004,6 +2192,21 @@
     </div>
   </div>
 </section>
+
+<!-- EMOTIONELE QUOTE BREAK -->
+<div class="quote-break">
+  <div class="quote-break-inner fade-up">
+    <span class="quote-break-mark">"</span>
+    <p class="quote-break-text">
+      Ik lag thuis. Drie weken. Niemand belde.<br>
+      Toen viel er een kaart op de mat — van mijn leidinggevende.<br>
+      <em>Dat was het enige wat ik nodig had om te weten dat ik er nog toe deed.</em>
+    </p>
+    <div class="quote-break-source">
+      Medewerker gezondheidszorg, na 6 weken burn-out
+    </div>
+  </div>
+</div>
 
 <!-- SOLUTION -->
 <section class="solution" id="oplossing">
@@ -2371,12 +2574,12 @@
       <div class="star-row">
         <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
       </div>
-      <p class="testimonial-text">"Eindelijk een instrument dat het gat vult tussen een ziektewetprotocol en echte menselijke betrokkenheid. Onze medewerkers zijn zichtbaar geraakt."</p>
+      <p class="testimonial-text">"Een medewerker belde me huilend op na ontvangst van de kaart. Ze zei: 'Dit had ik nodig.' Dat moment wist ik — dit werkt. We bestellen nu elk kwartaal."</p>
       <div class="testimonial-author">
-        <div class="author-avatar">MV</div>
+        <div class="author-avatar avatar-1">MV</div>
         <div>
           <div class="author-name">Marianne van der Berg</div>
-          <div class="author-role">HR-directeur, Regionaal Ziekenhuis</div>
+          <div class="author-role">HR-directeur · Regionaal Ziekenhuis Noord-Holland</div>
         </div>
       </div>
     </div>
@@ -2385,12 +2588,12 @@
       <div class="star-row">
         <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
       </div>
-      <p class="testimonial-text">"We sturen de Verbinding Collectie nu standaard bij elke ziekmelding die langer dan twee weken duurt. Het verschil in hoe medewerkers terugkomen is merkbaar."</p>
+      <p class="testimonial-text">"Twee docenten die al maanden thuis zaten, meldden zich terug nadat wij de kaarten stuurden. Toeval? Misschien. Maar ik geloof er niet in. We doen het nu voor iedereen."</p>
       <div class="testimonial-author">
-        <div class="author-avatar">TK</div>
+        <div class="author-avatar avatar-2">TK</div>
         <div>
           <div class="author-name">Thomas Kleijer</div>
-          <div class="author-role">Verzuimcoördinator, VO-school</div>
+          <div class="author-role">Verzuimcoördinator · VO-school Gelderland</div>
         </div>
       </div>
     </div>
@@ -2399,12 +2602,12 @@
       <div class="star-row">
         <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
       </div>
-      <p class="testimonial-text">"Als re-integratiebureau zoeken we constant naar manieren om de brug te slaan. Tender Cards doet precies dat — op een tastbare, elegante manier."</p>
+      <p class="testimonial-text">"Ik adviseer klanten al 12 jaar over re-integratie. Tender Cards is het eerste product dat ik zonder voorbehoud aanraad. Het vult precies de menselijke leegte die protocollen laten."</p>
       <div class="testimonial-author">
-        <div class="author-avatar">SH</div>
+        <div class="author-avatar avatar-3">SH</div>
         <div>
           <div class="author-name">Sandra Hoekstra</div>
-          <div class="author-role">Trajectbegeleider, Re-integratiebureau</div>
+          <div class="author-role">Trajectbegeleider · Re-integratiebureau Utrecht</div>
         </div>
       </div>
     </div>
@@ -2413,13 +2616,16 @@
 
 <!-- CTA -->
 <section class="cta-section" id="contact">
-  <h2>Klaar om het <em>verschil te maken</em><br>voor uw medewerkers?</h2>
-  <p>Vraag een vrijblijvende demo aan en ontvang een proefpakket. Wij laten u zien hoe Tender Cards past binnen uw HR-strategie.</p>
+  <h2>Uw medewerker ligt thuis.<br><em>Laat zien dat u aan hem denkt.</em></h2>
+  <p>Vraag vandaag een gratis proefpakket aan — geen verplichtingen, geen verkooppraatje. Gewoon een pakket kaarten in uw handen, zodat u zelf voelt wat uw medewerkers voelen.</p>
   <div class="cta-form">
     <input type="email" class="cta-input" placeholder="Uw zakelijk e-mailadres">
-    <a href="mailto:info@tendercards.nl" class="btn-primary">Demo Aanvragen</a>
+    <a href="mailto:info@tendercards.nl" class="btn-primary">
+      Stuur mij een gratis proefpakket
+      <span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
   </div>
-  <p class="cta-note">Geen verplichtingen. Binnen 24 uur reactie. Uw data wordt niet gedeeld.</p>
+  <p class="cta-note">Gratis proefpakket · Binnen 24 uur reactie · Geen verplichtingen</p>
 </section>
 
 <!-- OVER ONS -->
