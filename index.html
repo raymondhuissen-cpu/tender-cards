@@ -2619,11 +2619,11 @@
   <h2>Uw medewerker ligt thuis.<br><em>Laat zien dat u aan hem denkt.</em></h2>
   <p>Vraag vandaag een gratis proefpakket aan — geen verplichtingen, geen verkooppraatje. Gewoon een pakket kaarten in uw handen, zodat u zelf voelt wat uw medewerkers voelen.</p>
   <div class="cta-form">
-    <input type="email" class="cta-input" placeholder="Uw zakelijk e-mailadres">
-    <a href="mailto:info@tendercards.nl" class="btn-primary">
+    <input type="email" id="ctaEmail" class="cta-input" placeholder="Uw zakelijk e-mailadres">
+    <button type="button" class="btn-primary" onclick="gotoAanvragen()">
       Stuur mij een gratis proefpakket
       <span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-    </a>
+    </button>
   </div>
   <p class="cta-note">Gratis proefpakket · Binnen 24 uur reactie · Geen verplichtingen</p>
 </section>
@@ -2945,6 +2945,21 @@
   if (!localStorage.getItem(COOKIE_KEY)) {
     setTimeout(tcShowCookieBanner, 800);
   }
+</script>
+
+<script>
+  function gotoAanvragen() {
+    const email = document.getElementById('ctaEmail').value.trim();
+    if (email && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      document.getElementById('ctaEmail').focus();
+      return;
+    }
+    const url = 'aanvragen.html' + (email ? '?email=' + encodeURIComponent(email) : '');
+    window.location.href = url;
+  }
+  document.getElementById('ctaEmail').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') gotoAanvragen();
+  });
 </script>
 
 </body>

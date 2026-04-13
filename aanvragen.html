@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gratis Proefpakket Aanvragen — Tender Cards</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231C3A2E'/%3E%3Crect x='5' y='7' width='14' height='18' rx='2.5' fill='none' stroke='%23C4963D' stroke-width='1.2'/%3E%3Crect x='13' y='9' width='14' height='18' rx='2.5' fill='none' stroke='rgba(196,150,61,0.35)' stroke-width='1'/%3E%3Cpath d='M12 20.5C12 20.5 7.5 17 7.5 13.8C7.5 12.1 8.9 10.8 10.5 10.8C11.3 10.8 12 11.2 12 11.7C12 11.2 12.7 10.8 13.5 10.8C15.1 10.8 16.5 12.1 16.5 13.8C16.5 17 12 20.5 12 20.5Z' fill='%23C4963D'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest: #1C3A2E; --forest2: #244B3B; --gold: #C4963D; --gold2: #E8B458;
+      --cream: #F7F3EE; --cream2: #EDE7DF; --dark: #111916;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 1.25rem; left: 50%; transform: translateX(-50%);
+      background: rgba(28,58,46,0.92); backdrop-filter: blur(20px);
+      border: 1px solid rgba(196,150,61,0.2); border-radius: 100px;
+      padding: 0.55rem 1rem 0.55rem 1.4rem;
+      display: flex; align-items: center; gap: 1.5rem; z-index: 999; width: max-content;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: #fff; }
+    .nav-logo-text span { color: var(--gold); font-weight: 300; }
+    .nav-back { font-size: 0.78rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: #fff; }
+
+    /* PAGE LAYOUT */
+    .page-wrap {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* LEFT PANEL */
+    .left-panel {
+      background: var(--forest);
+      padding: 8rem 4rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+      position: sticky; top: 0; height: 100vh;
+    }
+    .left-label {
+      font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold2); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .left-label::before { content: ''; width: 28px; height: 1px; background: var(--gold2); opacity: 0.4; }
+    .left-panel h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 300;
+      color: #fff; line-height: 1.25; margin-bottom: 1.5rem;
+    }
+    .left-panel h1 em { font-style: italic; color: var(--gold2); }
+    .left-panel p { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 2.5rem; }
+    .trust-points { display: flex; flex-direction: column; gap: 0.85rem; }
+    .trust-point { display: flex; align-items: flex-start; gap: 0.75rem; }
+    .trust-icon {
+      width: 28px; height: 28px; border-radius: 50%; background: rgba(196,150,61,0.12);
+      border: 1px solid rgba(196,150,61,0.25); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .trust-icon svg { width: 13px; height: 13px; stroke: var(--gold); fill: none; stroke-width: 2; }
+    .trust-point-text { font-size: 0.85rem; color: rgba(255,255,255,0.65); padding-top: 4px; }
+    .trust-point-text strong { color: rgba(255,255,255,0.9); font-weight: 500; display: block; }
+
+    /* RIGHT PANEL */
+    .right-panel {
+      padding: 8rem 4rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--cream);
+    }
+    .form-header { margin-bottom: 2rem; }
+    .form-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem; font-weight: 400; color: var(--forest);
+      margin-bottom: 0.4rem;
+    }
+    .form-header p { font-size: 0.85rem; color: rgba(17,25,22,0.5); }
+
+    /* FORM */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-field.full { grid-column: 1 / -1; }
+    label {
+      font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(17,25,22,0.4); font-weight: 500;
+    }
+    input, select, textarea {
+      background: #fff; border: 1px solid rgba(17,25,22,0.1);
+      border-radius: 8px; padding: 0.75rem 1rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--dark);
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(196,150,61,0.5);
+      box-shadow: 0 0 0 3px rgba(196,150,61,0.08);
+    }
+    input::placeholder, textarea::placeholder { color: rgba(17,25,22,0.25); }
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; cursor: pointer; }
+    textarea { resize: vertical; min-height: 90px; }
+
+    .form-divider { grid-column: 1 / -1; height: 1px; background: rgba(17,25,22,0.07); margin: 0.5rem 0; }
+
+    .submit-btn {
+      grid-column: 1 / -1; margin-top: 0.5rem;
+      background: var(--forest); border: none; border-radius: 100px;
+      padding: 1rem 2rem; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+      color: #fff; letter-spacing: 0.02em;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .submit-btn:hover { background: var(--forest2); transform: translateY(-1px); }
+    .submit-btn .btn-arrow {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s;
+    }
+    .submit-btn:hover .btn-arrow { transform: translateX(3px); }
+    .submit-btn .btn-arrow svg { width: 12px; height: 12px; stroke: #fff; fill: none; stroke-width: 2.5; }
+
+    .form-note {
+      grid-column: 1 / -1; text-align: center;
+      font-size: 0.72rem; color: rgba(17,25,22,0.35); margin-top: 0.5rem;
+    }
+
+    /* SUCCESS STATE */
+    .success-state {
+      display: none; text-align: center; padding: 3rem 2rem;
+    }
+    .success-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(28,58,46,0.08); border: 1px solid rgba(196,150,61,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .success-icon svg { width: 28px; height: 28px; stroke: var(--forest); fill: none; stroke-width: 1.8; }
+    .success-state h3 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 400;
+      color: var(--forest); margin-bottom: 0.75rem;
+    }
+    .success-state p { font-size: 0.9rem; color: rgba(17,25,22,0.55); line-height: 1.7; margin-bottom: 1.5rem; }
+    .success-back { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--forest); text-decoration: none; font-weight: 500; }
+    .success-back:hover { text-decoration: underline; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .left-panel { position: relative; height: auto; padding: 7rem 2rem 3rem; }
+      .right-panel { padding: 3rem 2rem 5rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-field.full { grid-column: 1; }
+      .submit-btn { grid-column: 1; }
+      .form-note { grid-column: 1; }
+      .form-divider { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+<script>if (sessionStorage.getItem('tc_auth') !== 'ok') window.location.replace('login.html');</script>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="22" height="28" viewBox="0 0 22 28" fill="none">
+      <rect x=".5" y=".5" width="14" height="22" rx="2.5" fill="none" stroke="#C4963D" stroke-width="1.2"/>
+      <rect x="7" y="3.5" width="14" height="22" rx="2.5" fill="none" stroke="rgba(196,150,61,0.3)" stroke-width="1"/>
+      <path d="M7.5 17C7.5 17 3 14 3 11.2 3 9.5 4.3 8.2 6 8.2c.8 0 1.5.4 1.5.9 0-.5.7-.9 1.5-.9 1.7 0 3 1.3 3 3C12 14 7.5 17 7.5 17Z" fill="#C4963D"/>
+    </svg>
+    <span class="nav-logo-text">Tender<span>Cards</span></span>
+  </a>
+  <a href="index.html" class="nav-back">← Terug naar website</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="left-label">Gratis proefpakket</div>
+    <h1>Uw medewerker voelt<br><em>dat u aan hem denkt.</em></h1>
+    <p>Binnen 24 uur nemen wij contact op. U ontvangt een proefpakket met kaarten uit onze drie collecties — geheel vrijblijvend.</p>
+    <div class="trust-points">
+      <div class="trust-point">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <div class="trust-point-text">
+          <strong>Geen verplichtingen</strong>
+          Proefpakket is volledig gratis en vrijblijvend
+        </div>
+      </div>
+      <div class="trust-point">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="trust-point-text">
+          <strong>Binnen 24 uur reactie</strong>
+          Wij bellen of mailen u de volgende werkdag
+        </div>
+      </div>
+      <div class="trust-point">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="trust-point-text">
+          <strong>AVG-compliant</strong>
+          Uw gegevens worden nooit gedeeld met derden
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div id="formWrap">
+      <div class="form-header">
+        <h2>Aanvraagformulier</h2>
+        <p>Vul uw gegevens in — het duurt minder dan 2 minuten.</p>
+      </div>
+
+      <form id="aanvraagForm" class="form-grid"
+            action="https://formspree.io/f/VERVANG_DIT_MET_UW_FORM_ID"
+            method="POST">
+
+        <div class="form-field">
+          <label for="voornaam">Voornaam *</label>
+          <input type="text" id="voornaam" name="voornaam" placeholder="Jan" required>
+        </div>
+
+        <div class="form-field">
+          <label for="achternaam">Achternaam *</label>
+          <input type="text" id="achternaam" name="achternaam" placeholder="de Vries" required>
+        </div>
+
+        <div class="form-field full">
+          <label for="email">Zakelijk e-mailadres *</label>
+          <input type="email" id="email" name="email" placeholder="jan@bedrijf.nl" required>
+        </div>
+
+        <div class="form-field">
+          <label for="telefoon">Telefoonnummer</label>
+          <input type="tel" id="telefoon" name="telefoon" placeholder="+31 6 12345678">
+        </div>
+
+        <div class="form-field">
+          <label for="functie">Functie</label>
+          <input type="text" id="functie" name="functie" placeholder="HR Manager">
+        </div>
+
+        <div class="form-field full">
+          <label for="bedrijf">Bedrijfsnaam *</label>
+          <input type="text" id="bedrijf" name="bedrijf" placeholder="Naam van uw organisatie" required>
+        </div>
+
+        <div class="form-field full">
+          <label for="medewerkers">Aantal medewerkers</label>
+          <select id="medewerkers" name="medewerkers">
+            <option value="" disabled selected>Selecteer een optie</option>
+            <option value="1-25">1 – 25 medewerkers</option>
+            <option value="26-100">26 – 100 medewerkers</option>
+            <option value="101-500">101 – 500 medewerkers</option>
+            <option value="500+">500+ medewerkers</option>
+          </select>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <div class="form-field full">
+          <label for="bericht">Aanvullende informatie <span style="text-transform:none;letter-spacing:0;font-size:0.75rem;color:rgba(17,25,22,0.3)">(optioneel)</span></label>
+          <textarea id="bericht" name="bericht" placeholder="Heeft u specifieke vragen of wensen? Laat het ons weten."></textarea>
+        </div>
+
+        <!-- Hidden fields -->
+        <input type="hidden" name="_subject" value="Nieuwe proefpakket aanvraag — Tender Cards">
+        <input type="hidden" name="_next" value="">
+
+        <button type="submit" class="submit-btn">
+          Aanvraag verzenden
+          <span class="btn-arrow">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </button>
+
+        <p class="form-note">
+          Door dit formulier in te sturen gaat u akkoord met onze
+          <a href="privacybeleid.html" style="color:var(--forest)">privacyverklaring</a>.
+        </p>
+
+      </form>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-state" id="successState">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Aanvraag ontvangen</h3>
+      <p>Bedankt! Wij nemen binnen 24 uur contact met u op.<br>Controleer ook uw spammap als u niets ontvangt.</p>
+      <a href="index.html" class="success-back">← Terug naar de website</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Pre-fill email from URL parameter
+  const params = new URLSearchParams(window.location.search);
+  const emailParam = params.get('email');
+  if (emailParam) {
+    const emailField = document.getElementById('email');
+    if (emailField) emailField.value = decodeURIComponent(emailParam);
+  }
+
+  // Form submission with success state
+  const form = document.getElementById('aanvraagForm');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('.submit-btn');
+    btn.textContent = 'Verzenden...';
+    btn.disabled = true;
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        document.getElementById('formWrap').style.display = 'none';
+        document.getElementById('successState').style.display = 'block';
+      } else {
+        btn.textContent = 'Er ging iets mis — probeer opnieuw';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Er ging iets mis — probeer opnieuw';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
