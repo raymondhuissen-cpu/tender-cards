@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina niet gevonden — Tender Cards</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231C3A2E'/%3E%3Crect x='5' y='7' width='14' height='18' rx='2.5' fill='none' stroke='%23C4963D' stroke-width='1.2'/%3E%3Crect x='13' y='9' width='14' height='18' rx='2.5' fill='none' stroke='rgba(196,150,61,0.35)' stroke-width='1'/%3E%3Cpath d='M12 20.5C12 20.5 7.5 17 7.5 13.8C7.5 12.1 8.9 10.8 10.5 10.8C11.3 10.8 12 11.2 12 11.7C12 11.2 12.7 10.8 13.5 10.8C15.1 10.8 16.5 12.1 16.5 13.8C16.5 17 12 20.5 12 20.5Z' fill='%23C4963D'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest: #1C3A2E; --gold: #C4963D; --gold2: #E8B458;
+      --cream: #F7F3EE; --dark: #111916;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--forest);
+      color: #fff;
+      min-height: 100dvh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 2rem;
+      overflow: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(196,150,61,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(196,150,61,0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .wrap {
+      position: relative; z-index: 1;
+      text-align: center;
+      animation: fadeUp 0.7s cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); filter: blur(4px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+    .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(7rem, 20vw, 14rem);
+      font-weight: 300;
+      color: rgba(196,150,61,0.18);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      user-select: none;
+      margin-bottom: -1rem;
+    }
+    .logo-wrap {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-bottom: 2rem;
+    }
+    .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 600; color: #fff;
+    }
+    .logo-text span { color: var(--gold); font-weight: 300; }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 300; line-height: 1.25;
+      margin-bottom: 1rem;
+      text-wrap: balance;
+    }
+    h1 em { font-style: italic; color: var(--gold2); }
+    p {
+      font-size: 0.9rem; color: rgba(255,255,255,0.5);
+      max-width: 380px; margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+    .actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--forest);
+      padding: 0.7rem 0.7rem 0.7rem 1.4rem;
+      border: none; border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 500; cursor: pointer;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      transition: background 180ms var(--ease-out), transform 160ms var(--ease-out);
+    }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+    .btn-primary:active { transform: scale(0.98) translateY(1px); }
+    .btn-arrow {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(28,58,46,0.15);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .btn-arrow svg { width: 12px; height: 12px; stroke: var(--forest); fill: none; stroke-width: 2.2; }
+    .btn-ghost {
+      color: rgba(255,255,255,0.55); font-size: 0.88rem;
+      text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 2px; display: inline-block;
+      transition: color 180ms, border-color 180ms;
+      align-self: center;
+    }
+    .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.55); }
+    .divider {
+      width: 40px; height: 1px;
+      background: rgba(196,150,61,0.3);
+      margin: 0 auto 2rem;
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo-wrap">
+    <svg width="22" height="28" viewBox="0 0 22 28" fill="none">
+      <rect x=".5" y=".5" width="14" height="22" rx="2.5" fill="none" stroke="#C4963D" stroke-width="1.2"/>
+      <rect x="7" y="3.5" width="14" height="22" rx="2.5" fill="none" stroke="rgba(196,150,61,0.3)" stroke-width="1"/>
+      <path d="M7.5 17C7.5 17 3 14 3 11.2 3 9.5 4.3 8.2 6 8.2c.8 0 1.5.4 1.5.9 0-.5.7-.9 1.5-.9 1.7 0 3 1.3 3 3C12 14 7.5 17 7.5 17Z" fill="#C4963D"/>
+    </svg>
+    <span class="logo-text">Tender<span>Cards</span></span>
+  </div>
+  <div class="num">404</div>
+  <div class="divider"></div>
+  <h1>Deze pagina bestaat <em>niet.</em></h1>
+  <p>De pagina die u zocht is verplaatst, verwijderd of heeft nooit bestaan. Ga terug naar de website.</p>
+  <div class="actions">
+    <a href="index.html" class="btn-primary">
+      Terug naar de website
+      <span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+    <a href="aanvragen.html" class="btn-ghost">Demo aanvragen →</a>
+  </div>
+</div>
+</body>
+</html>

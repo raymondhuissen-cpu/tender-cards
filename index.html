@@ -4,11 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Tender Cards – De menselijke factor in verzuimpreventie</title>
+  <meta name="description" content="Tender Cards — premium steunkaarten voor HR-professionals. Stuur een tastbare boodschap naar verzuimende medewerkers op het juiste moment.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1C3A2E">
+  <meta property="og:title" content="Tender Cards – De menselijke factor in verzuimpreventie">
+  <meta property="og:description" content="Premium steunkaarten die HR-professionals inzetten om echt contact te maken met verzuimende medewerkers.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="nl_NL">
+  <meta property="og:image" content="https://raw.githubusercontent.com/raymondhuissen-cpu/tender-cards/main/logo.svg">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231C3A2E'/%3E%3Crect x='5' y='7' width='14' height='18' rx='2.5' fill='none' stroke='%23C4963D' stroke-width='1.2'/%3E%3Crect x='13' y='9' width='14' height='18' rx='2.5' fill='none' stroke='rgba(196,150,61,0.35)' stroke-width='1'/%3E%3Cpath d='M12 20.5C12 20.5 7.5 17 7.5 13.8C7.5 12.1 8.9 10.8 10.5 10.8C11.3 10.8 12 11.2 12 11.7C12 11.2 12.7 10.8 13.5 10.8C15.1 10.8 16.5 12.1 16.5 13.8C16.5 17 12 20.5 12 20.5Z' fill='%23C4963D'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─── SKIP LINK (accessibility) ─── */
+    .skip-link {
+      position: absolute; top: -100%; left: 1rem;
+      background: var(--forest); color: #fff;
+      padding: 0.55rem 1.25rem; border-radius: 0 0 6px 6px;
+      font-size: 0.82rem; font-weight: 500; z-index: 9999;
+      text-decoration: none; transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ─── FOCUS VISIBLE (accessibility) ─── */
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
 
     :root {
       --forest:  #1C3A2E;
@@ -1580,15 +1605,21 @@
 
     /* ─── ANIMATIONS (Emil Kowalski) ─── */
 
-    /* fade-up: starts from scale(0.97) + opacity — nothing appears from nothing */
+    /* fade-up: cinematic entry — blur clears before motion lands */
     .fade-up {
       opacity: 0;
-      transform: translateY(20px) scale(0.97);
-      transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+      transform: translateY(32px);
+      filter: blur(4px);
+      will-change: transform, opacity, filter;
+      transition:
+        opacity 720ms var(--ease-out),
+        transform 720ms var(--ease-out),
+        filter 520ms var(--ease-out);
     }
     .fade-up.visible {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
+      filter: blur(0px);
     }
 
     /* Stagger: stat bar items */
@@ -1671,10 +1702,22 @@
                   box-shadow 280ms var(--ease-out);
     }
 
+    /* text-wrap: balance — prevent orphaned words in headings */
+    .hero h1, .section-title, h2, h3, h4, .quote-break-text {
+      text-wrap: balance;
+    }
+
+    /* tabular numbers — data reads cleanly in columns */
+    .stat-num, .impact-card-num, .problem-stat-big,
+    .mini-stat-num, .price-num, .sector-stat-num {
+      font-variant-numeric: tabular-nums;
+    }
+
     /* prefers-reduced-motion: keep opacity, remove movement */
     @media (prefers-reduced-motion: reduce) {
       .fade-up {
         transform: none;
+        filter: none;
         transition: opacity 300ms ease;
       }
       .product-card, .step-outer, .price-card {
@@ -2036,6 +2079,8 @@
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Ga naar inhoud</a>
+
 <!-- NAVIGATION -->
 <nav>
   <a href="#" class="nav-logo" aria-label="TenderCards">
@@ -2079,6 +2124,9 @@
     document.getElementById('mobileMenu').classList.toggle('open');
   }
 </script>
+
+<!-- MAIN CONTENT -->
+<main id="main-content">
 
 <!-- HERO -->
 <section class="hero">
@@ -2752,6 +2800,8 @@
   </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
@@ -3072,6 +3122,19 @@
 </script>
 
 <script>
+  // ─── MAGNETIC BUTTON PHYSICS ───
+  document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width  / 2) * 0.18;
+      const y = (e.clientY - r.top  - r.height / 2) * 0.18;
+      btn.style.transform = `translate(${x}px, ${y - 1}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+
   function gotoAanvragen() {
     const email = document.getElementById('ctaEmail').value.trim();
     if (email && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
