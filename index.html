@@ -110,10 +110,11 @@
     }
 
     .nav-cta:hover { background: var(--gold2) !important; transform: translateY(-1px) !important; }
+    .nav-cta:active { transform: scale(0.96) !important; }
 
     /* ─── HERO ─── */
     .hero {
-      min-height: 100vh;
+      min-height: 100dvh;
       background: var(--forest);
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -219,6 +220,7 @@
     }
 
     .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(1px) scale(0.98); }
 
     .btn-arrow {
       width: 30px; height: 30px;
@@ -248,6 +250,7 @@
     }
 
     .btn-ghost:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+    .btn-ghost:active { opacity: 0.6; }
 
     /* Hero visual */
     .hero-visual {
@@ -426,6 +429,9 @@
       font-weight: 300;
     }
 
+    /* Solution feature grid — first card spans both rows */
+    .solution-text > div:first-child { grid-row: 1 / 3; }
+
     /* ─── PROBLEM ─── */
     .problem {
       background: #fff;
@@ -580,22 +586,28 @@
 
     .steps {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
       margin-top: 4rem;
-      position: relative;
     }
 
-    .steps::before {
-      content: '';
-      position: absolute;
-      top: 52px;
-      left: calc(16.66% + 20px);
-      right: calc(16.66% + 20px);
-      height: 1px;
-      background: linear-gradient(90deg, rgba(196,150,61,0.4), rgba(196,150,61,0.6), rgba(196,150,61,0.4));
-      z-index: 0;
+    .step-outer:first-child {
+      grid-column: 1 / -1;
     }
+
+    .step-outer:first-child .step {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 2.5rem;
+      text-align: left;
+      align-items: center;
+      padding: 2.5rem 3rem;
+    }
+
+    .step-outer:first-child .step-num { margin: 0; }
+    .step-outer:first-child .step h4 { text-align: left; }
+    .step-outer:first-child .step p  { text-align: left; }
+    .step-outer:first-child .step-icon { margin: 0; }
 
     /* Double-bezel step card (taste-skill) */
     .step-outer {
@@ -679,7 +691,8 @@
 
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.65fr 1fr;
+      grid-template-rows: auto auto;
       gap: 1.5rem;
     }
 
@@ -687,9 +700,35 @@
       border-radius: 4px;
       overflow: hidden;
       border: 1px solid var(--cream2);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-color 0.3s;
       cursor: pointer;
+      position: relative;
     }
+
+    .product-card:active { transform: scale(0.985); }
+
+    .product-card:first-child {
+      grid-row: 1 / 3;
+    }
+
+    .product-card:first-child .product-card-visual {
+      height: 320px;
+    }
+
+    /* Spotlight border on card hover */
+    .product-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(196,150,61,0.07) 0%, transparent 65%);
+      opacity: 0;
+      transition: opacity 0.35s;
+      pointer-events: none;
+      z-index: 1;
+      border-radius: 4px;
+    }
+    .product-card:hover::before { opacity: 1; }
+    .product-card:hover { border-color: rgba(196,150,61,0.3); box-shadow: 0 12px 40px rgba(28,58,46,0.08); }
 
 
     .product-card-visual {
@@ -903,9 +942,17 @@
 
     .impact-cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 2rem;
       margin-top: 1rem;
+    }
+
+    .impact-card:first-child {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      align-items: center;
+      gap: 2rem;
     }
 
     .impact-card {
@@ -914,6 +961,12 @@
       border-radius: 4px;
       padding: 2rem;
       text-align: left;
+      transition: border-color 0.25s var(--ease-out), background 0.25s;
+    }
+
+    .impact-card:hover {
+      border-color: rgba(196,150,61,0.35);
+      background: rgba(255,255,255,0.06);
     }
 
     .impact-card-num {
@@ -1055,6 +1108,7 @@
     }
 
     .btn-outline-forest:hover { background: var(--forest); color: #fff; }
+    .btn-outline-forest:active { transform: scale(0.97); }
 
     .btn-gold-block {
       display: block;
@@ -2049,7 +2103,7 @@
       Een fysieke kaart op het juiste moment doet meer dan tien e-mails. Tender Cards helpt HR-professionals om echt contact te maken met verzuimende medewerkers — tastbaar, persoonlijk en bewezen effectief.
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">
+      <a href="aanvragen.html" class="btn-primary">
         Vraag een gratis proefpakket aan
         <span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
       </a>
@@ -2223,7 +2277,7 @@
     </div>
   </div>
 
-  <div class="solution-text fade-up" style="display:grid; grid-template-columns: repeat(3,1fr); gap:2rem; margin-top:2rem;">
+  <div class="solution-text fade-up" style="display:grid; grid-template-columns: 1.4fr 1fr; grid-template-rows:auto auto; gap:2rem; margin-top:2rem;">
     <div style="background:#fff; border:1px solid var(--cream2); border-radius:4px; padding:2rem;">
       <div style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:var(--gold); margin-bottom:0.5rem;">01</div>
       <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--forest); margin-bottom:0.5rem;">Emotioneel Effectief</h4>
@@ -2776,24 +2830,77 @@
 </script>
 
 <script>
-  // Scroll animation
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, entry.target.dataset.delay || 0);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-up').forEach((el, i) => {
-    el.dataset.delay = (i % 3) * 100;
-    observer.observe(el);
+  // ─── STAGGERED SCROLL REVEAL ───
+  // Group siblings by parent so each group staggers independently
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const parentMap = new Map();
+  fadeEls.forEach(el => {
+    const key = el.parentElement;
+    if (!parentMap.has(key)) parentMap.set(key, []);
+    parentMap.get(key).push(el);
+  });
+  parentMap.forEach(siblings => {
+    siblings.forEach((el, i) => { el.dataset.delay = i * 90; });
   });
 
-  // Smooth nav
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'),
+          parseInt(entry.target.dataset.delay) || 0);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  fadeEls.forEach(el => revealObserver.observe(el));
+
+  // ─── STAT COUNTER ANIMATION ───
+  function animateCount(el) {
+    const raw = el.textContent.trim();
+    const prefix = raw.match(/^[€]*/)[0];
+    const suffix = raw.match(/[^0-9.,]+$/)?.[0] || '';
+    const numStr = raw.replace(prefix, '').replace(suffix, '').replace(',', '.');
+    const target = parseFloat(numStr);
+    if (isNaN(target)) return;
+    const isDecimal = numStr.includes('.');
+    const duration = 1400;
+    const start = performance.now();
+    function step(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = target * eased;
+      const display = isDecimal
+        ? current.toFixed(1).replace('.', ',')
+        : Math.round(current).toLocaleString('nl-NL');
+      el.textContent = prefix + display + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-num, .impact-card-num, .problem-stat-big, .mini-stat-num')
+    .forEach(el => counterObserver.observe(el));
+
+  // ─── SPOTLIGHT TRACKING ON PRODUCT CARDS ───
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width  * 100).toFixed(1) + '%';
+      const y = ((e.clientY - r.top)  / r.height * 100).toFixed(1) + '%';
+      card.style.setProperty('--mx', x);
+      card.style.setProperty('--my', y);
+    });
+  });
+
+  // ─── SMOOTH NAV (hash links only) ───
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const target = document.querySelector(this.getAttribute('href'));
