@@ -6,6 +6,7 @@
   <title>Tender Cards – De menselijke factor in verzuimpreventie</title>
   <meta name="description" content="Tender Cards — premium steunkaarten voor HR-professionals. Stuur een tastbare boodschap naar verzuimende medewerkers op het juiste moment.">
   <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="theme-color" content="#1C3A2E">
   <meta property="og:title" content="Tender Cards – De menselijke factor in verzuimpreventie">
   <meta property="og:description" content="Premium steunkaarten die HR-professionals inzetten om echt contact te maken met verzuimende medewerkers.">
@@ -39,9 +40,10 @@
       --forest:  #1C3A2E;
       --forest2: #244B3B;
       --gold:    #C4963D;
-      --gold2:   #E8B458;
-      --sage:    #6B9E80;
-      --sage2:   #A8C9B5;
+      --gold2:   #D4A94A;
+      --sage:    #8BAF8A;
+      --sage2:   #BDD4C4;
+      --sage3:   #6B9578;
       --cream:   #F7F3EE;
       --cream2:  #EDE7DF;
       --dark:    #111916;
@@ -286,81 +288,53 @@
       z-index: 1;
     }
 
-    /* Double-bezel card stack (taste-skill) */
-    .card-bezel {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 28px;
-      padding: 10px;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
-      transition: transform 500ms var(--ease-spring);
-    }
-    .card-bezel:hover { transform: translateY(-6px); }
-
-    .card-stack {
+    /* ─── HERO CARD SHOWCASE ─── */
+    .hero-card-showcase {
       position: relative;
-      width: 300px;
-      height: 400px;
-      border-radius: 20px;
-    }
-
-    .card-item {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 20px;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 2rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.1);
-      transition: transform 500ms var(--ease-spring);
+      justify-content: center;
+      align-items: center;
     }
 
-    .card-item:nth-child(1) {
-      background: linear-gradient(145deg, #5C3D6E, #3B2048);
-      top: 0; left: 0;
-      transform: rotate(-5deg) translateX(-18px) translateY(10px);
+    /* Subtle ambient glow behind the card */
+    .hero-card-showcase::before {
+      content: '';
+      position: absolute;
+      width: 320px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(139,175,138,0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .card-item:nth-child(2) {
-      background: linear-gradient(145deg, #8B4A62, #5E2D42);
-      top: 0; left: 0;
-      transform: rotate(-2deg) translateX(-8px) translateY(4px);
+    .hero-card-img-wrap {
+      position: relative;
+      z-index: 1;
+      transform: rotate(2.5deg);
+      transition: transform 600ms var(--ease-spring);
+      filter: drop-shadow(0 32px 64px rgba(0,0,0,0.45)) drop-shadow(0 8px 24px rgba(0,0,0,0.3));
     }
 
-    .card-item:nth-child(3) {
-      background: linear-gradient(145deg, #C4963D, #8B6420);
-      top: 0; left: 0;
-      transform: rotate(1.5deg);
+    .hero-card-showcase:hover .hero-card-img-wrap {
+      transform: rotate(0deg) translateY(-10px);
     }
 
-    .card-bezel:hover .card-item:nth-child(1) { transform: rotate(-8deg) translateX(-26px) translateY(16px); }
-    .card-bezel:hover .card-item:nth-child(2) { transform: rotate(-3deg) translateX(-12px) translateY(6px); }
-    .card-bezel:hover .card-item:nth-child(3) { transform: rotate(2deg); }
-
-    .card-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      font-style: italic;
-      color: rgba(255,255,255,0.92);
-      line-height: 1.55;
-      margin-bottom: 0.75rem;
+    .hero-card-img {
+      width: 260px;
+      display: block;
+      border-radius: 0; /* deckled edges are part of the PNG */
     }
 
-    .card-label {
-      font-size: 0.68rem;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+    /* Behind-card ghost (depth effect) */
+    .hero-card-ghost {
+      position: absolute;
+      width: 240px; height: 340px;
+      background: var(--sage);
+      opacity: 0.18;
+      border-radius: 6px;
+      transform: rotate(-4deg) translateX(-12px) translateY(12px);
+      z-index: 0;
     }
-
-    .card-ornament {
-      margin-bottom: auto;
-    }
-
-    .card-ornament svg { width: 22px; height: 22px; fill: rgba(255,255,255,0.2); }
 
     /* ─── STAT BAR ─── */
     .stat-bar {
@@ -1554,8 +1528,8 @@
 
     /* ─── VARIED TESTIMONIAL AVATARS ─── */
     .avatar-1 { background: linear-gradient(135deg, #1C3A2E, #2D6A4F) !important; }
-    .avatar-2 { background: linear-gradient(135deg, #3D2E5C, #6B4C8E) !important; }
-    .avatar-3 { background: linear-gradient(135deg, #2E1E3A, #8B4562) !important; }
+    .avatar-2 { background: linear-gradient(135deg, #8BAF8A, #6B9578) !important; }
+    .avatar-3 { background: linear-gradient(135deg, #C4963D, #8B6420) !important; }
 
     /* ─── HERO SOCIAL PROOF BADGE ─── */
     .hero-proof {
@@ -1933,9 +1907,9 @@
 
     .card-back { transform: rotateY(180deg); }
 
-    /* Verbinding — purple */
-    .face-front-verbinding { background: linear-gradient(145deg, #5C3D6E 0%, #3B2048 100%); }
-    .face-back-verbinding  { background: linear-gradient(145deg, #3B2048 0%, #5C3D6E 100%); }
+    /* Verbinding — sage (matches real card) */
+    .face-front-verbinding { background: linear-gradient(145deg, #8BAF8A 0%, #6B9578 100%); }
+    .face-back-verbinding  { background: linear-gradient(145deg, #6B9578 0%, #8BAF8A 100%); }
 
     /* Herstel — forest */
     .face-front-herstel { background: linear-gradient(145deg, #1C3A2E 0%, #2D5A40 100%); }
@@ -2160,29 +2134,16 @@
   </div>
 
   <div class="hero-visual">
-    <div class="card-bezel">
-      <div class="card-stack">
-        <div class="card-item">
-          <div class="card-ornament">
-            <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
-          </div>
-          <p class="card-quote">"Jij bent niet alleen. Wij denken aan je."</p>
-          <span class="card-label">Tender Cards · Verbinding</span>
-        </div>
-        <div class="card-item">
-          <div class="card-ornament">
-            <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
-          </div>
-          <p class="card-quote">"Herstel kost tijd. Neem die tijd."</p>
-          <span class="card-label">Tender Cards · Herstel</span>
-        </div>
-        <div class="card-item">
-          <div class="card-ornament">
-            <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
-          </div>
-          <p class="card-quote">"Je kracht is groter dan je vermoedt."</p>
-          <span class="card-label">Tender Cards · Kracht</span>
-        </div>
+    <div class="hero-card-showcase">
+      <div class="hero-card-ghost"></div>
+      <div class="hero-card-img-wrap">
+        <img
+          src="tendercards-A6-front.png"
+          alt="TenderCards kaart — Je kracht is groter dan je vermoedt"
+          class="hero-card-img"
+          width="260"
+          loading="eager"
+        >
       </div>
     </div>
   </div>
@@ -2757,7 +2718,7 @@
 
     <div style="background:var(--cream); border-radius:4px; padding:2.5rem; border:1px solid var(--cream2); display:flex; flex-direction:column; gap:1.5rem;" class="fade-up">
       <div style="display:flex; align-items:center; gap:1.25rem;">
-        <div style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg, #5C3D6E, #8B4A62); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600; color:#fff; flex-shrink:0;">SB</div>
+        <div style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg, #1C3A2E, #2D6A4F); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600; color:#fff; flex-shrink:0;">SB</div>
         <div>
           <div style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; color:var(--forest);">Shihab Belhajji</div>
           <div style="font-size:0.8rem; color:var(--sage); font-weight:500; letter-spacing:0.06em; text-transform:uppercase; margin-top:0.2rem;">Medeoprichter · Communicatie</div>
