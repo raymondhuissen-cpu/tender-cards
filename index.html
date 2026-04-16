@@ -320,9 +320,9 @@
     }
 
     .hero-card-img {
-      width: 260px;
+      width: 280px;
       display: block;
-      border-radius: 0; /* deckled edges are part of the PNG */
+      border-radius: 0;
     }
 
     /* Behind-card ghost (depth effect) */
@@ -674,6 +674,125 @@
     }
 
     .step-icon svg { width: 18px; height: 18px; stroke: var(--sage); fill: none; stroke-width: 1.8; }
+
+    /* ─── PRODUCT GALLERY ─── */
+    .product-gallery {
+      background: var(--cream);
+      padding: 100px 5%;
+    }
+
+    .product-gallery-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .product-gallery-photos {
+      position: relative;
+    }
+
+    .product-gallery-main {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 4px;
+      display: block;
+      filter: drop-shadow(0 32px 64px rgba(28,58,46,0.18)) drop-shadow(0 8px 20px rgba(0,0,0,0.1));
+      transition: transform 600ms var(--ease-spring);
+    }
+
+    .product-gallery-photos:hover .product-gallery-main {
+      transform: translateY(-6px) rotate(-0.5deg);
+    }
+
+    .product-gallery-secondary {
+      position: absolute;
+      bottom: -2rem;
+      right: -2rem;
+      width: 52%;
+      border-radius: 4px;
+      filter: drop-shadow(0 16px 40px rgba(28,58,46,0.15));
+      border: 3px solid #fff;
+      transition: transform 600ms var(--ease-spring);
+    }
+
+    .product-gallery-photos:hover .product-gallery-secondary {
+      transform: translateY(4px) rotate(1deg);
+    }
+
+    .product-gallery-text { }
+
+    .product-gallery-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .product-gallery-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.2vw, 3rem);
+      font-weight: 300;
+      color: var(--forest);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-gallery-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .product-gallery-body {
+      font-size: 1rem;
+      color: var(--mid);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      max-width: 420px;
+    }
+
+    .product-gallery-specs {
+      list-style: none;
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .product-gallery-specs li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--mid);
+    }
+
+    .product-gallery-specs li::before {
+      content: '';
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(139,175,138,0.2);
+      border: 1.5px solid var(--sage);
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 4.5' stroke='%238BAF8A' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: 14px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    @media (max-width: 900px) {
+      .product-gallery-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .product-gallery-secondary { right: 0; }
+      .product-gallery-photos { padding-bottom: 5rem; }
+    }
 
     /* ─── CARDS PRODUCT ─── */
     .cards-section {
@@ -2138,10 +2257,10 @@
       <div class="hero-card-ghost"></div>
       <div class="hero-card-img-wrap">
         <img
-          src="tendercards-A6-front.png"
+          src="card-voorkant.png"
           alt="TenderCards kaart — Je kracht is groter dan je vermoedt"
           class="hero-card-img"
-          width="260"
+          width="280"
           loading="eager"
         >
       </div>
@@ -2341,6 +2460,45 @@
           <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT GALLERY -->
+<section class="product-gallery fade-up">
+  <div class="product-gallery-inner">
+    <div class="product-gallery-photos">
+      <img
+        src="card-voorkant.png"
+        alt="TenderCards voorkant — Je kracht is groter dan je vermoedt"
+        class="product-gallery-main"
+        loading="lazy"
+      >
+      <img
+        src="card-achterkant.png"
+        alt="TenderCards achterkant — Handgemaakt in Nederland"
+        class="product-gallery-secondary"
+        loading="lazy"
+      >
+    </div>
+    <div class="product-gallery-text fade-up">
+      <span class="product-gallery-label">Handgemaakt in Nederland</span>
+      <h2 class="product-gallery-title">Elke kaart een <em>tastbaar</em> bewijs van aandacht</h2>
+      <p class="product-gallery-body">
+        Tender Cards worden met de hand gemaakt van hoogwaardig geschept papier. Goudfolie druk, deckled edges en een persoonlijke boodschap — een kaart die de ontvanger bijblijft.
+      </p>
+      <ul class="product-gallery-specs">
+        <li>A6 formaat · geschept handpapier · deckled edges</li>
+        <li>Goudfolie reliëfdruk · botanische illustratie</li>
+        <li>Inclusief envelop · klaar om te versturen</li>
+        <li>Handgemaakt in Nederland · © TenderCards B.V.</li>
+      </ul>
+      <a href="aanvragen.html" class="btn-outline-forest">
+        Vraag een proefpakket aan
+        <span class="btn-arrow" style="background:rgba(28,58,46,0.1);">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
     </div>
   </div>
 </section>
