@@ -1587,6 +1587,71 @@
       .tc-cookie-btns { justify-content: flex-end; }
     }
 
+    /* ─── FOTO GALERIJ ─── */
+    .foto-galerij {
+      background: var(--cream2);
+      padding: 80px 5%;
+      overflow: hidden;
+    }
+    .foto-galerij-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      gap: 2rem;
+    }
+    .foto-galerij-header p {
+      font-size: 0.88rem;
+      color: var(--mid);
+      max-width: 340px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .foto-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 0.75rem;
+    }
+    /* Grote foto links — spans 2 rijen */
+    .foto-item:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
+    /* Flatlay onderaan — spans 2 kolommen */
+    .foto-item:nth-child(5) { grid-column: 1 / 3; grid-row: 3; }
+
+    .foto-item {
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--cream2);
+      position: relative;
+    }
+    .foto-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      min-height: 200px;
+      transition: transform 700ms var(--ease-spring);
+    }
+    .foto-item:nth-child(1) img { min-height: 460px; object-position: center top; }
+    .foto-item:nth-child(5) img { min-height: 240px; object-position: center center; }
+    .foto-item:hover img { transform: scale(1.04); }
+
+    @media (max-width: 900px) {
+      .foto-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .foto-item:nth-child(1) { grid-column: auto; grid-row: auto; }
+      .foto-item:nth-child(5) { grid-column: 1 / -1; }
+      .foto-item img { min-height: 180px !important; }
+    }
+    @media (max-width: 560px) {
+      .foto-grid { gap: 0.5rem; }
+      .foto-galerij-header { flex-direction: column; align-items: flex-start; }
+      .foto-galerij-header p { max-width: 100%; }
+    }
+
     /* ─── GRAIN OVERLAY ─── */
     body::after {
       content: '';
@@ -2309,6 +2374,41 @@
     </div>
   </div>
 </section>
+
+<!-- FOTO GALERIJ -->
+<div class="foto-galerij">
+  <div class="foto-galerij-header">
+    <div>
+      <span class="section-label">Het Product</span>
+      <h2 class="section-title" style="margin-bottom:0;">Handgemaakt in <em>Nederland</em></h2>
+    </div>
+    <p>Geschept handpapier, goudfolie reliëfdruk en deckled edges — een kaart die voelt zoals de boodschap die hij draagt.</p>
+  </div>
+
+  <div class="foto-grid">
+    <div class="foto-item fade-up">
+      <img src="card-collectie-overzicht.png" alt="TenderCards collectie — meerdere kleuren inclusief antraciet" loading="lazy">
+    </div>
+    <div class="foto-item fade-up">
+      <img src="card-voorkant-2.png" alt="TenderCards — Niet vergeten, wel gemist" loading="lazy">
+    </div>
+    <div class="foto-item fade-up">
+      <img src="card-voorkant.png" alt="TenderCards — Je kracht is groter dan je vermoedt" loading="lazy">
+    </div>
+    <div class="foto-item fade-up">
+      <img src="card-groen-product.png" alt="TenderCards — Een klein gebaar van steun" loading="lazy">
+    </div>
+    <div class="foto-item fade-up">
+      <img src="card-kleuren-flatlay.png" alt="TenderCards collectie — zes kleuren uitgestald" loading="lazy">
+    </div>
+    <div class="foto-item fade-up">
+      <img src="card-binnen.png" alt="TenderCards binnenkant — persoonlijke schrijfruimte" loading="lazy">
+    </div>
+    <div class="foto-item fade-up">
+      <img src="card-achterkant-2.png" alt="TenderCards achterkant — Een klein gebaar van steun" loading="lazy">
+    </div>
+  </div>
+</div>
 
 <!-- STAT BAR -->
 <div class="stat-bar">
