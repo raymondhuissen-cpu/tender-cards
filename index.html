@@ -692,15 +692,19 @@
 
     .product-gallery-photos {
       position: relative;
+      padding-right: 3rem;
+      padding-bottom: 2rem;
     }
 
     .product-gallery-main {
       width: 100%;
-      max-width: 420px;
+      max-width: 380px;
       border-radius: 4px;
       display: block;
       filter: drop-shadow(0 32px 64px rgba(28,58,46,0.18)) drop-shadow(0 8px 20px rgba(0,0,0,0.1));
       transition: transform 600ms var(--ease-spring);
+      position: relative;
+      z-index: 2;
     }
 
     .product-gallery-photos:hover .product-gallery-main {
@@ -709,17 +713,35 @@
 
     .product-gallery-secondary {
       position: absolute;
-      bottom: -2rem;
-      right: -2rem;
-      width: 52%;
+      bottom: -1rem;
+      right: -3rem;
+      width: 48%;
       border-radius: 4px;
       filter: drop-shadow(0 16px 40px rgba(28,58,46,0.15));
       border: 3px solid #fff;
       transition: transform 600ms var(--ease-spring);
+      z-index: 3;
     }
 
     .product-gallery-photos:hover .product-gallery-secondary {
-      transform: translateY(4px) rotate(1deg);
+      transform: translateY(4px) rotate(1.5deg);
+    }
+
+    .product-gallery-tertiary {
+      position: absolute;
+      top: 1rem;
+      right: -2rem;
+      width: 42%;
+      border-radius: 4px;
+      filter: drop-shadow(0 12px 32px rgba(28,58,46,0.12));
+      border: 3px solid #fff;
+      transition: transform 600ms var(--ease-spring);
+      z-index: 1;
+      transform: rotate(3deg);
+    }
+
+    .product-gallery-photos:hover .product-gallery-tertiary {
+      transform: rotate(5deg) translateY(-4px);
     }
 
     .product-gallery-text { }
@@ -2257,8 +2279,8 @@
       <div class="hero-card-ghost"></div>
       <div class="hero-card-img-wrap">
         <img
-          src="card-voorkant.png"
-          alt="TenderCards kaart — Je kracht is groter dan je vermoedt"
+          src="card-voorkant-2.png"
+          alt="TenderCards kaart — Niet vergeten, wel gemist"
           class="hero-card-img"
           width="280"
           loading="eager"
@@ -2469,15 +2491,21 @@
   <div class="product-gallery-inner">
     <div class="product-gallery-photos">
       <img
-        src="card-voorkant.png"
-        alt="TenderCards voorkant — Je kracht is groter dan je vermoedt"
+        src="card-voorkant-2.png"
+        alt="TenderCards — Niet vergeten, wel gemist"
         class="product-gallery-main"
         loading="lazy"
       >
       <img
-        src="card-achterkant.png"
-        alt="TenderCards achterkant — Handgemaakt in Nederland"
+        src="card-binnen.png"
+        alt="TenderCards binnenkant — persoonlijke schrijfruimte"
         class="product-gallery-secondary"
+        loading="lazy"
+      >
+      <img
+        src="card-voorkant.png"
+        alt="TenderCards — Je kracht is groter dan je vermoedt"
+        class="product-gallery-tertiary"
         loading="lazy"
       >
     </div>
