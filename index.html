@@ -1590,84 +1590,111 @@
     /* ─── SLIDESHOW ─── */
     .slideshow-section {
       background: var(--cream2);
-      padding: 48px 5%;
+      padding: 80px 5%;
     }
-    .slideshow-inner {
-      max-width: 760px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
+    .slideshow-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 5rem;
       align-items: center;
-      gap: 1.25rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    .slideshow-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(28,58,46,0.4);
-      align-self: flex-start;
+    .slideshow-text .section-label { margin-bottom: 1rem; }
+    .slideshow-text .section-title { margin-bottom: 1.25rem; }
+    .slideshow-text p {
+      font-size: 0.92rem;
+      color: var(--mid);
+      line-height: 1.85;
+      font-weight: 300;
+      max-width: 400px;
     }
     .slideshow-wrap {
       position: relative;
-      width: 100%;
-      border-radius: 4px;
+      border-radius: 6px;
       overflow: hidden;
       background: var(--cream);
-      aspect-ratio: 3/2;
-      box-shadow: 0 8px 32px rgba(28,58,46,0.08);
+      aspect-ratio: 4/3;
+      box-shadow: 0 24px 64px rgba(28,58,46,0.10), 0 4px 16px rgba(0,0,0,0.06);
     }
     .slide {
       position: absolute;
       inset: 0;
       opacity: 0;
-      transition: opacity 700ms ease;
+      transition: opacity 900ms ease;
       pointer-events: none;
     }
-    .slide.active { opacity: 1; pointer-events: auto; }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
     .slide img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: center;
       display: block;
     }
+    .slideshow-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .slide-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .slide-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(28,58,46,0.18);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background 300ms ease, transform 300ms ease;
+    }
+    .slide-dot.active {
+      background: var(--forest);
+      transform: scale(1.35);
+    }
+    .slide-arrows {
+      display: flex;
+      gap: 0.4rem;
+      margin-left: auto;
+    }
+    .slide-arrow {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(28,58,46,0.15);
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 200ms ease, border-color 200ms ease;
+    }
+    .slide-arrow:hover { background: var(--forest); border-color: var(--forest); }
+    .slide-arrow:hover svg { stroke: #fff; }
+    .slide-arrow svg { width: 14px; height: 14px; stroke: var(--forest); fill: none; stroke-width: 2; transition: stroke 200ms ease; }
+
+    /* Progress bar */
     .slide-progress {
       position: absolute;
       bottom: 0; left: 0;
       height: 2px;
-      background: rgba(196,150,61,0.55);
+      background: rgba(196,150,61,0.6);
       width: 0%;
       transition: width linear;
       z-index: 2;
     }
 
-    /* Thumbnail strip */
-    .slide-thumbs {
-      display: flex;
-      gap: 0.5rem;
-      width: 100%;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .slide-thumbs::-webkit-scrollbar { display: none; }
-    .slide-thumb {
-      flex-shrink: 0;
-      width: 72px; height: 52px;
-      border-radius: 3px;
-      overflow: hidden;
-      border: 2px solid transparent;
-      cursor: pointer;
-      opacity: 0.45;
-      transition: opacity 250ms ease, border-color 250ms ease;
-      background: none; padding: 0;
-    }
-    .slide-thumb.active { opacity: 1; border-color: var(--forest); }
-    .slide-thumb:hover { opacity: 0.8; }
-    .slide-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    @media (max-width: 600px) {
-      .slideshow-section { padding: 36px 5%; }
-      .slide-thumb { width: 56px; height: 40px; }
+    @media (max-width: 900px) {
+      .slideshow-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .slideshow-text p { max-width: 100%; }
+      .slideshow-wrap { aspect-ratio: 4/3; }
     }
 
     /* ─── GRAIN OVERLAY ─── */
@@ -2395,29 +2422,54 @@
 
 <!-- SLIDESHOW -->
 <div class="slideshow-section">
-  <div class="slideshow-inner fade-up">
-    <span class="slideshow-label">Onze ontwerpen</span>
+  <div class="slideshow-layout">
 
-    <div class="slideshow-wrap" id="slideshow">
-      <div class="slide-progress" id="slideProgress"></div>
-      <div class="slide active">
-        <img src="card-voorkant-2.png" alt="TenderCards — Niet vergeten, wel gemist" loading="eager">
+    <div class="slideshow-text fade-up">
+      <span class="section-label">Het Product</span>
+      <h2 class="section-title">Handgemaakt in <em>Nederland</em></h2>
+      <p>Geschept handpapier, goudfolie reliëfdruk en deckled edges — een kaart die voelt zoals de boodschap die hij draagt. Verkrijgbaar in zes kleuren, elk met een eigen karakter.</p>
+    </div>
+
+    <div class="fade-up">
+      <div class="slideshow-wrap" id="slideshow">
+        <div class="slide-progress" id="slideProgress"></div>
+
+        <div class="slide active">
+          <img src="card-voorkant-2.png" alt="TenderCards — Niet vergeten, wel gemist" loading="eager">
+        </div>
+        <div class="slide">
+          <img src="card-collectie-overzicht.png" alt="TenderCards collectie — antraciet en overige kleuren" loading="lazy">
+        </div>
+        <div class="slide">
+          <img src="card-voorkant.png" alt="TenderCards — Je kracht is groter dan je vermoedt" loading="lazy">
+        </div>
+        <div class="slide">
+          <img src="card-kleuren-flatlay.png" alt="TenderCards — zes kleuren uitgestald" loading="lazy">
+        </div>
+        <div class="slide">
+          <img src="card-groen-product.png" alt="TenderCards — Een klein gebaar van steun" loading="lazy">
+        </div>
+        <div class="slide">
+          <img src="card-binnen.png" alt="TenderCards binnenkant — persoonlijke schrijfruimte" loading="lazy">
+        </div>
+        <div class="slide">
+          <img src="card-achterkant-2.png" alt="TenderCards achterkant" loading="lazy">
+        </div>
       </div>
-      <div class="slide">
-        <img src="card-voorkant.png" alt="TenderCards — Je kracht is groter dan je vermoedt" loading="lazy">
-      </div>
-      <div class="slide">
-        <img src="card-kleuren-flatlay.png" alt="TenderCards — zes kleuren uitgestald" loading="lazy">
-      </div>
-      <div class="slide">
-        <img src="card-groen-product.png" alt="TenderCards — Een klein gebaar van steun" loading="lazy">
-      </div>
-      <div class="slide">
-        <img src="card-binnen.png" alt="TenderCards binnenkant — persoonlijke schrijfruimte" loading="lazy">
+
+      <div class="slideshow-controls">
+        <div class="slide-dots" id="slideDots"></div>
+        <div class="slide-arrows">
+          <button class="slide-arrow" id="slidePrev" aria-label="Vorige foto">
+            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="slide-arrow" id="slideNext" aria-label="Volgende foto">
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="slide-thumbs" id="slideThumbs"></div>
   </div>
 </div>
 
@@ -3432,66 +3484,67 @@
 <script>
   // ─── SLIDESHOW ───
   (function() {
-    const slides    = document.querySelectorAll('.slide');
-    const thumbWrap = document.getElementById('slideThumbs');
-    const progress  = document.getElementById('slideProgress');
-    const wrap      = document.getElementById('slideshow');
-    if (!slides.length || !thumbWrap) return;
+    const slides   = document.querySelectorAll('.slide');
+    const dotsWrap = document.getElementById('slideDots');
+    const progress = document.getElementById('slideProgress');
+    if (!slides.length || !dotsWrap) return;
 
-    const INTERVAL = 4000;
-    let current = 0, timer;
+    const INTERVAL = 4500;
+    let current = 0, timer, progTimer;
 
-    // Build thumbnails from slide images
-    slides.forEach((slide, i) => {
-      const src = slide.querySelector('img').src;
-      const alt = slide.querySelector('img').alt;
-      const btn = document.createElement('button');
-      btn.className = 'slide-thumb' + (i === 0 ? ' active' : '');
-      btn.setAttribute('aria-label', alt);
-      btn.innerHTML = `<img src="${src}" alt="" aria-hidden="true">`;
-      btn.addEventListener('click', () => goTo(i));
-      thumbWrap.appendChild(btn);
+    // Build dots
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Foto ' + (i + 1));
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
     });
 
-    function getThumbs() { return thumbWrap.querySelectorAll('.slide-thumb'); }
+    function getDots() { return dotsWrap.querySelectorAll('.slide-dot'); }
 
     function goTo(n) {
       slides[current].classList.remove('active');
-      getThumbs()[current].classList.remove('active');
+      getDots()[current].classList.remove('active');
       current = (n + slides.length) % slides.length;
       slides[current].classList.add('active');
-      const activeThumb = getThumbs()[current];
-      activeThumb.classList.add('active');
-      activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      getDots()[current].classList.add('active');
       resetProgress();
     }
 
     function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
 
     function resetProgress() {
       clearInterval(timer);
       progress.style.transition = 'none';
       progress.style.width = '0%';
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        progress.style.transition = `width ${INTERVAL}ms linear`;
-        progress.style.width = '100%';
-      }));
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          progress.style.transition = `width ${INTERVAL}ms linear`;
+          progress.style.width = '100%';
+        });
+      });
       timer = setInterval(next, INTERVAL);
     }
 
+    document.getElementById('slideNext')?.addEventListener('click', () => { next(); });
+    document.getElementById('slidePrev')?.addEventListener('click', () => { prev(); });
+
     // Pause on hover
+    const wrap = document.getElementById('slideshow');
     wrap?.addEventListener('mouseenter', () => {
       clearInterval(timer);
       progress.style.transition = 'none';
     });
     wrap?.addEventListener('mouseleave', resetProgress);
 
-    // Swipe
+    // Swipe support
     let touchX = 0;
     wrap?.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
     wrap?.addEventListener('touchend', e => {
       const dx = e.changedTouches[0].clientX - touchX;
-      if (Math.abs(dx) > 40) dx < 0 ? next() : goTo(current - 1);
+      if (Math.abs(dx) > 40) dx < 0 ? next() : prev();
     }, { passive: true });
 
     resetProgress();
