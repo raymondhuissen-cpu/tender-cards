@@ -880,9 +880,22 @@
       overflow: hidden;
     }
 
-    .product-card-visual.green { background: linear-gradient(135deg, #1C3A2E 0%, #2D5A40 100%); }
-    .product-card-visual.sage  { background: linear-gradient(135deg, #3A5A4A 0%, #5A8A6A 100%); }
-    .product-card-visual.gold  { background: linear-gradient(135deg, #8B6914 0%, #C4963D 100%); }
+    .product-card-visual.green { background: #1C3A2E; }
+    .product-card-visual.sage  { background: #3A5A4A; }
+    .product-card-visual.gold  { background: #8B6914; }
+
+    .product-card-visual img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 600ms var(--ease-spring);
+    }
+    .product-card:hover .product-card-visual img {
+      transform: scale(1.04);
+    }
 
     .product-card-inner {
       width: 120px; height: 160px;
@@ -2544,9 +2557,7 @@
   <div class="cards-grid">
     <div class="product-card fade-up">
       <div class="product-card-visual green">
-        <div class="product-card-inner">
-          <p class="quote">"Je mag er zijn, ook als het moeilijk is."</p>
-        </div>
+        <img src="card-voorkant-2.png" alt="Verbinding Collectie — Tender Cards voorkant" loading="lazy">
       </div>
       <div class="product-card-body">
         <div class="product-card-name">Verbinding Collectie</div>
@@ -2557,9 +2568,7 @@
 
     <div class="product-card fade-up">
       <div class="product-card-visual sage">
-        <div class="product-card-inner">
-          <p class="quote">"Herstel is geen rechte lijn. Elke stap telt."</p>
-        </div>
+        <img src="card-voorkant-creme.png" alt="Herstel Collectie — Tender Cards voorkant crème" loading="lazy">
       </div>
       <div class="product-card-body">
         <div class="product-card-name">Herstel Collectie</div>
@@ -2570,9 +2579,7 @@
 
     <div class="product-card fade-up">
       <div class="product-card-visual gold">
-        <div class="product-card-inner">
-          <p class="quote">"Welkom terug. We hebben je gemist."</p>
-        </div>
+        <img src="card-achterkant-2.png" alt="Terugkeer Collectie — Tender Cards achterkant" loading="lazy">
       </div>
       <div class="product-card-body">
         <div class="product-card-name">Terugkeer Collectie</div>
@@ -3114,11 +3121,12 @@
     const card  = document.getElementById('card3d');
     if (!scene || !card) return;
 
-    let rotX = -8, rotY = 18;
+    let rotX = -10, rotY = -22;
     let velX = 0,  velY = 0;
     let isDragging = false;
     let lastX, lastY;
     let rafId, autoId;
+    let autoT = 0;
 
     function apply() {
       card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
@@ -3135,15 +3143,22 @@
       if (Math.abs(velX) > 0.04 || Math.abs(velY) > 0.04) {
         rafId = requestAnimationFrame(momentum);
       } else {
-        // Resume gentle auto-rotate after momentum dies
+        // Resume gentle float after momentum dies
         startAuto();
       }
     }
 
     function startAuto() {
       clearInterval(autoId);
+      const baseY = rotY;
+      autoT = 0;
       autoId = setInterval(() => {
-        if (!isDragging) { rotY += 0.25; apply(); }
+        if (!isDragging) {
+          autoT += 0.012;
+          rotY = baseY + Math.sin(autoT) * 8;
+          rotX = -10 + Math.sin(autoT * 0.6) * 3;
+          apply();
+        }
       }, 16);
     }
 
