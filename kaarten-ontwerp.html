@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TenderCards — 20 Kaarten Collectie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0D1510;
+      min-height: 100vh;
+      padding: 4rem 3rem 7rem;
+      color: #fff;
+    }
+
+    /* ─── HEADER ─── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .page-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #6B9E80;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.9rem;
+    }
+    .page-label::before, .page-label::after {
+      content: ''; width: 36px; height: 1px;
+      background: #6B9E80; opacity: 0.35;
+    }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 300;
+      margin-bottom: 0.4rem;
+    }
+    .page-header h1 em { font-style: italic; color: #E8B458; }
+    .page-header p { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+    /* ─── COLLECTION TITLE ─── */
+    .col-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+      margin-top: 4rem;
+    }
+    .col-header:first-of-type { margin-top: 0; }
+    .col-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.2);
+    }
+    .col-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #fff;
+    }
+    .col-title em { font-style: italic; }
+    .col-line { flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
+    .col-count {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─── GRID ─── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* A6 ratio: 105×148 → display 230×325 */
+    .card {
+      width: 100%;
+      aspect-ratio: 105 / 148;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow:
+        0 24px 56px rgba(0,0,0,0.5),
+        0 8px 20px rgba(0,0,0,0.3),
+        0 0 0 0.5px rgba(255,255,255,0.04);
+      transition: transform 400ms cubic-bezier(0.32,0.72,0,1),
+                  box-shadow 400ms cubic-bezier(0.32,0.72,0,1);
+    }
+    .card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 12px 30px rgba(0,0,0,0.35);
+    }
+
+    /* Foil line */
+    .card-foil {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1.5px;
+      z-index: 4;
+    }
+
+    /* Inner border */
+    .card-border {
+      position: absolute;
+      inset: 8px;
+      border: 0.5px solid rgba(255,255,255,0.07);
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* Corner brackets */
+    .c-tl, .c-br {
+      position: absolute;
+      width: 12px; height: 12px;
+      z-index: 4;
+      opacity: 0.28;
+    }
+    .c-tl { top: 12px; left: 12px; }
+    .c-br { bottom: 12px; right: 12px; transform: rotate(180deg); }
+
+    /* Content */
+    .card-inner {
+      position: absolute;
+      inset: 0;
+      padding: 16px 17px 14px;
+      display: flex;
+      flex-direction: column;
+      z-index: 5;
+    }
+
+    /* Logo */
+    .c-logo {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .c-logo-t {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.2;
+    }
+    .c-logo-c {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 8.5px;
+      font-weight: 300;
+      letter-spacing: 0.07em;
+      color: rgba(196,150,61,0.75);
+      line-height: 1.2;
+    }
+
+    /* Center ornament */
+    .c-ornament {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Quote */
+    .c-quote-block {
+      padding-top: 11px;
+      border-top: 0.5px solid rgba(255,255,255,0.09);
+    }
+    .c-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13.5px;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.55;
+      color: #fff;
+      margin-bottom: 9px;
+    }
+    .c-rule {
+      width: 18px; height: 0.5px;
+      background: rgba(196,150,61,0.5);
+      margin-bottom: 6px;
+    }
+    .c-tag {
+      font-size: 5.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+
+    /* ─── ACHTERKANT SECTIE ─── */
+    .back-section {
+      margin-top: 5rem;
+    }
+    .back-section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .back-section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+    .back-section-title em { font-style: italic; color: #E8B458; }
+
+    .backs-row {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .back-card-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .back-card-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* A6 back — full size */
+    .card-back-full {
+      width: 270px;
+      height: 381px;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 32px 64px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .card-back-content {
+      position: absolute;
+      inset: 0;
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 5;
+    }
+    .back-logo-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      margin-bottom: 12px;
+    }
+    .back-tender {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.88);
+      line-height: 1;
+    }
+    .back-cards {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 300;
+      letter-spacing: 0.16em;
+      line-height: 1;
+    }
+    .back-divider {
+      width: 24px; height: 0.5px;
+      background: rgba(196,150,61,0.35);
+      margin-bottom: 12px;
+    }
+    .schrijfvlak {
+      width: 100%;
+      flex: 1;
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 5px;
+      padding: 10px 12px 8px;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+    }
+    .sv-label {
+      font-size: 5.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      margin-bottom: 10px;
+    }
+    .sv-lines {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .sv-line {
+      height: 0.5px;
+      background: rgba(255,255,255,0.09);
+    }
+    .back-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .back-url { font-size: 7px; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); }
+    .back-mind { font-size: 6px; letter-spacing: 0.08em; color: rgba(255,255,255,0.15); }
+
+    .back-info {
+      flex: 1;
+      padding-top: 0.5rem;
+    }
+    .back-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+    .back-info h3 em { font-style: italic; color: #E8B458; }
+    .back-info p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.8;
+      margin-bottom: 0.6rem;
+    }
+    .back-features {
+      list-style: none;
+      margin-top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .back-features li {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .back-features li::before {
+      content: '';
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #C4963D;
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-label">Complete Collectie</div>
+  <h1>Tender<em>Cards</em> — 20 Stuks</h1>
+  <p>Drie collecties · A6 formaat · Voorkant &amp; achterkant</p>
+</div>
+
+<!-- ═══════════════════════════════════
+     VERBINDING — 7 kaarten
+═══════════════════════════════════ -->
+<div class="col-header">
+  <span class="col-num">01</span>
+  <h2 class="col-title">Verbinding <em>Collectie</em></h2>
+  <span class="col-line"></span>
+  <span class="col-count">7 kaarten · Vroeg verzuim</span>
+</div>
+
+<div class="cards-grid">
+
+  <!-- V1 — Donker mauve -->
+  <div class="card" style="background:#28152E;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(140,80,180,0.15),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.55) 40%,rgba(232,180,88,0.75) 50%,rgba(196,150,61,0.55) 60%,transparent 92%);"></div>
+    <div class="card-border"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z" fill="#C4963D"/></svg>
+      </div>
+      <div class="c-quote-block">
+        <p class="c-quote">"Jij bent niet alleen. Wij denken aan je — elke dag."</p>
+        <div class="c-rule"></div>
+        <span class="c-tag">Verbinding · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- V2 — Donker bordeaux -->
+  <div class="card" style="background:#2E1418;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 15%,rgba(180,50,70,0.14),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.55) 40%,rgba(232,180,88,0.75) 50%,rgba(196,150,61,0.55) 60%,transparent 92%);"></div>
+    <div class="card-border"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z" fill="#C4963D"/></svg>
+      </div>
+      <div class="c-quote-block">
+        <p class="c-quote">"Je hoeft niets te bewijzen. Je bent genoeg, precies zoals je nu bent."</p>
+        <div class="c-rule"></div>
+        <span class="c-tag">Verbinding · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- V3 — Donker slate blauw -->
+  <div class="card" style="background:#162438;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 75% 20%,rgba(60,100,180,0.14),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.55) 40%,rgba(232,180,88,0.75) 50%,rgba(196,150,61,0.55) 60%,transparent 92%);"></div>
+    <div class="card-border"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z" fill="#C4963D"/></svg>
+      </div>
+      <div class="c-quote-block">
+        <p class="c-quote">"Wij missen je. En we kijken ernaar uit je weer te zien."</p>
+        <div class="c-rule"></div>
+        <span class="c-tag">Verbinding · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- V4 — Donker espresso -->
+  <div class="card" style="background:#261A10;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(180,120,60,0.12),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.55) 40%,rgba(232,180,88,0.75) 50%,rgba(196,150,61,0.55) 60%,transparent 92%);"></div>
+    <div class="card-border"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z" fill="#C4963D"/></svg>
+      </div>
+      <div class="c-quote-block">
+        <p class="c-quote">"Er zijn mensen die aan je denken. Die voor je klaar staan. Wij zijn er."</p>
+        <div class="c-rule"></div>
+        <span class="c-tag">Verbinding · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- V5 — Donker indigoblauw -->
+  <div class="card" style="background:#181638;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 15%,rgba(80,70,200,0.14),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.55) 40%,rgba(232,180,88,0.75) 50%,rgba(196,150,61,0.55) 60%,transparent 92%);"></div>
+    <div class="card-border"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z" fill="#C4963D"/></svg>
+      </div>
+      <div class="c-quote-block">
+        <p class="c-quote">"Rust is geen stilstand. Het is de bodem waarop je weer kunt groeien."</p>
+        <div class="c-rule"></div>
+        <span class="c-tag">Verbinding · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- V6 — Donker teal -->
+  <div class="card" style="background:#162E2A;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 15%,rgba(50,160,140,0.12),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.55) 40%,rgba(232,180,88,0.75) 50%,rgba(196,150,61,0.55) 60%,transparent 92%);"></div>
+    <div class="card-border"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z" fill="#C4963D"/></svg>
+      </div>
+      <div class="c-quote-block">
+        <p class="c-quote">"Je maakt deel uit van iets groters. We hopen dat je dat voelt."</p>
+        <div class="c-rule"></div>
+        <span class="c-tag">Verbinding · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- V7 — Donker mahonie -->
+  <div class="card" style="background:#2A1610;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 15%,rgba(160,70,40,0.13),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.55) 40%,rgba(232,180,88,0.75) 50%,rgba(196,150,61,0.55) 60%,transparent 92%);"></div>
+    <div class="card-border"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(196,150,61,0.55)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z" fill="#C4963D"/></svg>
+      </div>
+      <div class="c-quote-block">
+        <p class="c-quote">"Verbinding begint met weten dat je gezien wordt. Wij zien jou."</p>
+        <div class="c-rule"></div>
+        <span class="c-tag">Verbinding · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     HERSTEL — 7 kaarten
+═══════════════════════════════════ -->
+<div class="col-header">
+  <span class="col-num">02</span>
+  <h2 class="col-title">Herstel <em>Collectie</em></h2>
+  <span class="col-line"></span>
+  <span class="col-count">7 kaarten · Herstelperiode</span>
+</div>
+
+<div class="cards-grid">
+
+  <!-- H1 — Forest groen -->
+  <div class="card" style="background:#152A20;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 75% 20%,rgba(80,160,110,0.12),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(107,158,128,0.5) 40%,rgba(168,201,181,0.7) 50%,rgba(107,158,128,0.5) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(107,158,128,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(107,158,128,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 22C12 22 3 16 3 9.5 3 6.4 5.5 4 8.5 4c1.7 0 3.2.8 4.1 2C13.5 4.8 15 4 16.7 4 19.7 4 22 6.4 22 9.5 22 16 12 22 12 22Z" fill="#6B9E80"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(107,158,128,0.15);">
+        <p class="c-quote">"Neem de tijd die je nodig hebt. Herstel is geen zwakte — het is moed."</p>
+        <div class="c-rule" style="background:rgba(107,158,128,0.5);"></div>
+        <span class="c-tag">Herstel · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- H2 — Mosgroen -->
+  <div class="card" style="background:#1A2618;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 75% 20%,rgba(80,140,80,0.12),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(107,158,128,0.5) 40%,rgba(168,201,181,0.7) 50%,rgba(107,158,128,0.5) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(107,158,128,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(107,158,128,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 22C12 22 3 16 3 9.5 3 6.4 5.5 4 8.5 4c1.7 0 3.2.8 4.1 2C13.5 4.8 15 4 16.7 4 19.7 4 22 6.4 22 9.5 22 16 12 22 12 22Z" fill="#6B9E80"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(107,158,128,0.15);">
+        <p class="c-quote">"Kleine stapjes zijn nog steeds stapjes vooruit. Elke dag telt."</p>
+        <div class="c-rule" style="background:rgba(107,158,128,0.5);"></div>
+        <span class="c-tag">Herstel · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- H3 — Olijfgroen -->
+  <div class="card" style="background:#222818;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(120,140,60,0.12),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(107,158,128,0.5) 40%,rgba(168,201,181,0.7) 50%,rgba(107,158,128,0.5) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(107,158,128,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(107,158,128,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 22C12 22 3 16 3 9.5 3 6.4 5.5 4 8.5 4c1.7 0 3.2.8 4.1 2C13.5 4.8 15 4 16.7 4 19.7 4 22 6.4 22 9.5 22 16 12 22 12 22Z" fill="#6B9E80"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(107,158,128,0.15);">
+        <p class="c-quote">"Je lichaam en geest weten wat ze doen. Geef ze de ruimte."</p>
+        <div class="c-rule" style="background:rgba(107,158,128,0.5);"></div>
+        <span class="c-tag">Herstel · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- H4 — Diep salie -->
+  <div class="card" style="background:#1A2820;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(100,170,130,0.12),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(107,158,128,0.5) 40%,rgba(168,201,181,0.7) 50%,rgba(107,158,128,0.5) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(107,158,128,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(107,158,128,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 22C12 22 3 16 3 9.5 3 6.4 5.5 4 8.5 4c1.7 0 3.2.8 4.1 2C13.5 4.8 15 4 16.7 4 19.7 4 22 6.4 22 9.5 22 16 12 22 12 22Z" fill="#6B9E80"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(107,158,128,0.15);">
+        <p class="c-quote">"Niet elke dag hoeft goed te zijn. Sommige dagen zijn gewoon genoeg."</p>
+        <div class="c-rule" style="background:rgba(107,158,128,0.5);"></div>
+        <span class="c-tag">Herstel · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- H5 — Donker pijngroen -->
+  <div class="card" style="background:#14241E;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 15%,rgba(50,140,100,0.12),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(107,158,128,0.5) 40%,rgba(168,201,181,0.7) 50%,rgba(107,158,128,0.5) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(107,158,128,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(107,158,128,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 22C12 22 3 16 3 9.5 3 6.4 5.5 4 8.5 4c1.7 0 3.2.8 4.1 2C13.5 4.8 15 4 16.7 4 19.7 4 22 6.4 22 9.5 22 16 12 22 12 22Z" fill="#6B9E80"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(107,158,128,0.15);">
+        <p class="c-quote">"Hoe lang het ook duurt — wij wachten op je. Zonder oordeel."</p>
+        <div class="c-rule" style="background:rgba(107,158,128,0.5);"></div>
+        <span class="c-tag">Herstel · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- H6 — Warm schors -->
+  <div class="card" style="background:#201C12;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(160,130,70,0.1),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(107,158,128,0.5) 40%,rgba(168,201,181,0.7) 50%,rgba(107,158,128,0.5) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(107,158,128,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(107,158,128,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 22C12 22 3 16 3 9.5 3 6.4 5.5 4 8.5 4c1.7 0 3.2.8 4.1 2C13.5 4.8 15 4 16.7 4 19.7 4 22 6.4 22 9.5 22 16 12 22 12 22Z" fill="#6B9E80"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(107,158,128,0.15);">
+        <p class="c-quote">"Kracht is niet altijd zichtbaar. Soms zit het in het gewoon doorgaan."</p>
+        <div class="c-rule" style="background:rgba(107,158,128,0.5);"></div>
+        <span class="c-tag">Herstel · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- H7 — Donker jade -->
+  <div class="card" style="background:#132420;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(60,150,120,0.12),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(107,158,128,0.5) 40%,rgba(168,201,181,0.7) 50%,rgba(107,158,128,0.5) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(107,158,128,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(107,158,128,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.6)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(107,158,128,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 22C12 22 3 16 3 9.5 3 6.4 5.5 4 8.5 4c1.7 0 3.2.8 4.1 2C13.5 4.8 15 4 16.7 4 19.7 4 22 6.4 22 9.5 22 16 12 22 12 22Z" fill="#6B9E80"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(107,158,128,0.15);">
+        <p class="c-quote">"Je hoeft het niet alleen te dragen. Dat is wat collega's zijn."</p>
+        <div class="c-rule" style="background:rgba(107,158,128,0.5);"></div>
+        <span class="c-tag">Herstel · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     TERUGKEER — 6 kaarten
+═══════════════════════════════════ -->
+<div class="col-header">
+  <span class="col-num">03</span>
+  <h2 class="col-title">Terugkeer <em>Collectie</em></h2>
+  <span class="col-line"></span>
+  <span class="col-count">6 kaarten · Re-integratie</span>
+</div>
+
+<div class="cards-grid">
+
+  <!-- T1 — Amber -->
+  <div class="card" style="background:#241808;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 75% 20%,rgba(196,140,40,0.15),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.65) 40%,rgba(232,180,88,0.85) 50%,rgba(196,150,61,0.65) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(232,180,88,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.65)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#E8B458"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(232,180,88,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2Z" fill="#E8B458"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(232,180,88,0.12);">
+        <p class="c-quote">"Jij hebt het in je om terug te komen. Stap voor stap — wij zijn er."</p>
+        <div class="c-rule" style="background:rgba(232,180,88,0.55);"></div>
+        <span class="c-tag">Terugkeer · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- T2 — Cognac -->
+  <div class="card" style="background:#221410;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(180,100,40,0.14),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.65) 40%,rgba(232,180,88,0.85) 50%,rgba(196,150,61,0.65) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(232,180,88,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.65)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#E8B458"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(232,180,88,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2Z" fill="#E8B458"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(232,180,88,0.12);">
+        <p class="c-quote">"Welkom terug. We hebben je gemist — en we zijn trots op je weg."</p>
+        <div class="c-rule" style="background:rgba(232,180,88,0.55);"></div>
+        <span class="c-tag">Terugkeer · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- T3 — Warm brons -->
+  <div class="card" style="background:#281E0C;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(200,150,50,0.13),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.65) 40%,rgba(232,180,88,0.85) 50%,rgba(196,150,61,0.65) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(232,180,88,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.65)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#E8B458"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(232,180,88,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2Z" fill="#E8B458"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(232,180,88,0.12);">
+        <p class="c-quote">"Terugkomen vraagt moed. En die heb jij. We zijn blij dat je er bent."</p>
+        <div class="c-rule" style="background:rgba(232,180,88,0.55);"></div>
+        <span class="c-tag">Terugkeer · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- T4 — Donker goud -->
+  <div class="card" style="background:#201608;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(220,170,60,0.13),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.65) 40%,rgba(232,180,88,0.85) 50%,rgba(196,150,61,0.65) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(232,180,88,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.65)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#E8B458"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(232,180,88,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2Z" fill="#E8B458"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(232,180,88,0.12);">
+        <p class="c-quote">"Een nieuw begin. Op jouw tempo, op jouw manier. Wij staan naast je."</p>
+        <div class="c-rule" style="background:rgba(232,180,88,0.55);"></div>
+        <span class="c-tag">Terugkeer · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- T5 — Sienna -->
+  <div class="card" style="background:#241010;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(180,80,50,0.13),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.65) 40%,rgba(232,180,88,0.85) 50%,rgba(196,150,61,0.65) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(232,180,88,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.65)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#E8B458"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(232,180,88,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2Z" fill="#E8B458"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(232,180,88,0.12);">
+        <p class="c-quote">"Je hebt bewezen wat je waard bent. Nu is het tijd voor een frisse start."</p>
+        <div class="c-rule" style="background:rgba(232,180,88,0.55);"></div>
+        <span class="c-tag">Terugkeer · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- T6 — Donker oker -->
+  <div class="card" style="background:#1E1A08;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(200,180,60,0.12),transparent 60%);z-index:1;"></div>
+    <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.65) 40%,rgba(232,180,88,0.85) 50%,rgba(196,150,61,0.65) 60%,transparent 92%);"></div>
+    <div class="card-border" style="border-color:rgba(232,180,88,0.1);"></div>
+    <div class="c-tl"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="c-br"><svg viewBox="0 0 12 12" fill="none"><path d="M1 11L1 1L11 1" stroke="rgba(232,180,88,0.5)" stroke-width="1" stroke-linecap="round"/></svg></div>
+    <div class="card-inner">
+      <div class="c-logo">
+        <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.65)" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#E8B458"/></svg>
+        <div><div class="c-logo-t">Tender</div><div class="c-logo-c" style="color:rgba(232,180,88,0.7);">Cards</div></div>
+      </div>
+      <div class="c-ornament">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" style="opacity:.1;"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2Z" fill="#E8B458"/></svg>
+      </div>
+      <div class="c-quote-block" style="border-top-color:rgba(232,180,88,0.12);">
+        <p class="c-quote">"Thuis is waar mensen voor je klaar staan. Welkom terug."</p>
+        <div class="c-rule" style="background:rgba(232,180,88,0.55);"></div>
+        <span class="c-tag">Terugkeer · Tender Cards</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     ACHTERKANT — TEMPLATE
+═══════════════════════════════════ -->
+<div class="back-section">
+  <div class="back-section-header">
+    <div class="col-line" style="max-width:36px;"></div>
+    <h2 class="back-section-title">Achterkant — <em>Schrijfvlak</em></h2>
+    <div class="col-line"></div>
+  </div>
+
+  <div class="backs-row">
+
+    <!-- Verbinding back -->
+    <div class="back-card-wrap">
+      <div class="card-back-full" style="background:#1E1230;">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(120,70,160,0.1),transparent 60%);z-index:1;"></div>
+        <div class="card-foil" style="background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.45) 40%,rgba(232,180,88,0.6) 50%,rgba(196,150,61,0.45) 60%,transparent 92%);position:absolute;top:0;left:0;right:0;height:1.5px;z-index:4;"></div>
+        <div style="position:absolute;inset:8px;border:0.5px solid rgba(255,255,255,0.07);border-radius:4px;z-index:3;"></div>
+        <div class="card-back-content" style="z-index:5;">
+          <div class="back-logo-block">
+            <svg width="28" height="36" viewBox="0 0 14 18" fill="none" style="margin-bottom:7px;opacity:0.6;"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="#C4963D" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+            <span class="back-tender">Tender</span>
+            <span class="back-cards" style="color:rgba(196,150,61,0.7);">Cards</span>
+          </div>
+          <div class="back-divider"></div>
+          <div class="schrijfvlak">
+            <span class="sv-label">Persoonlijke boodschap</span>
+            <div class="sv-lines">
+              <div class="sv-line"></div><div class="sv-line"></div><div class="sv-line"></div>
+              <div class="sv-line"></div><div class="sv-line"></div><div class="sv-line"></div>
+              <div class="sv-line"></div><div class="sv-line"></div>
+            </div>
+          </div>
+          <div class="back-footer">
+            <div class="back-url">tendercards.nl</div>
+            <div class="back-mind">♥ Wij steunen Stichting Mind</div>
+          </div>
+        </div>
+      </div>
+      <span class="back-card-label">Verbinding</span>
+    </div>
+
+    <!-- Herstel back -->
+    <div class="back-card-wrap">
+      <div class="card-back-full" style="background:#121E16;">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(80,150,110,0.09),transparent 60%);z-index:1;"></div>
+        <div style="position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent 8%,rgba(107,158,128,0.4) 40%,rgba(168,201,181,0.55) 50%,rgba(107,158,128,0.4) 60%,transparent 92%);z-index:4;"></div>
+        <div style="position:absolute;inset:8px;border:0.5px solid rgba(255,255,255,0.07);border-radius:4px;z-index:3;"></div>
+        <div class="card-back-content" style="z-index:5;">
+          <div class="back-logo-block">
+            <svg width="28" height="36" viewBox="0 0 14 18" fill="none" style="margin-bottom:7px;opacity:0.6;"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="#C4963D" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(196,150,61,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#C4963D"/></svg>
+            <span class="back-tender">Tender</span>
+            <span class="back-cards" style="color:rgba(107,158,128,0.65);">Cards</span>
+          </div>
+          <div class="back-divider" style="background:rgba(107,158,128,0.3);"></div>
+          <div class="schrijfvlak" style="border-color:rgba(107,158,128,0.15);background:rgba(107,158,128,0.04);">
+            <span class="sv-label">Persoonlijke boodschap</span>
+            <div class="sv-lines">
+              <div class="sv-line"></div><div class="sv-line"></div><div class="sv-line"></div>
+              <div class="sv-line"></div><div class="sv-line"></div><div class="sv-line"></div>
+              <div class="sv-line"></div><div class="sv-line"></div>
+            </div>
+          </div>
+          <div class="back-footer">
+            <div class="back-url">tendercards.nl</div>
+            <div class="back-mind">♥ Wij steunen Stichting Mind</div>
+          </div>
+        </div>
+      </div>
+      <span class="back-card-label">Herstel</span>
+    </div>
+
+    <!-- Terugkeer back -->
+    <div class="back-card-wrap">
+      <div class="card-back-full" style="background:#1A1008;">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 20%,rgba(196,140,40,0.1),transparent 60%);z-index:1;"></div>
+        <div style="position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent 8%,rgba(196,150,61,0.55) 40%,rgba(232,180,88,0.72) 50%,rgba(196,150,61,0.55) 60%,transparent 92%);z-index:4;"></div>
+        <div style="position:absolute;inset:8px;border:0.5px solid rgba(255,255,255,0.07);border-radius:4px;z-index:3;"></div>
+        <div class="card-back-content" style="z-index:5;">
+          <div class="back-logo-block">
+            <svg width="28" height="36" viewBox="0 0 14 18" fill="none" style="margin-bottom:7px;opacity:0.6;"><rect x=".5" y=".5" width="8" height="13" rx="1.5" fill="none" stroke="#E8B458" stroke-width=".7"/><rect x="4" y="2.5" width="8" height="13" rx="1.5" fill="none" stroke="rgba(232,180,88,0.2)" stroke-width=".6"/><path d="M4.5 11C4.5 11 2 9 2 7.2 2 6.1 2.9 5.2 4 5.2c.5 0 .9.3.9.6 0-.3.4-.6.9-.6 1.1 0 2 .9 2 2C7.8 9 5.3 11 4.5 11Z" fill="#E8B458"/></svg>
+            <span class="back-tender">Tender</span>
+            <span class="back-cards" style="color:rgba(232,180,88,0.65);">Cards</span>
+          </div>
+          <div class="back-divider" style="background:rgba(232,180,88,0.3);"></div>
+          <div class="schrijfvlak" style="border-color:rgba(232,180,88,0.15);background:rgba(232,180,88,0.04);">
+            <span class="sv-label">Persoonlijke boodschap</span>
+            <div class="sv-lines">
+              <div class="sv-line"></div><div class="sv-line"></div><div class="sv-line"></div>
+              <div class="sv-line"></div><div class="sv-line"></div><div class="sv-line"></div>
+              <div class="sv-line"></div><div class="sv-line"></div>
+            </div>
+          </div>
+          <div class="back-footer">
+            <div class="back-url">tendercards.nl</div>
+            <div class="back-mind">♥ Wij steunen Stichting Mind</div>
+          </div>
+        </div>
+      </div>
+      <span class="back-card-label">Terugkeer</span>
+    </div>
+
+    <div class="back-info">
+      <h3>Achterkant — <em>identiek per collectie</em></h3>
+      <p>Elke kaart heeft dezelfde achterkantopmaak, afgestemd op de accentkleur van de collectie.</p>
+      <ul class="back-features">
+        <li>TenderCards logo — subtiel gecentreerd</li>
+        <li>Schrijfvlak met lijnen voor persoonlijke boodschap</li>
+        <li>Accentkleur per collectie (paars / groen / goud)</li>
+        <li>Goudfolie lijn bovenaan</li>
+        <li>tendercards.nl + Stichting Mind vermelding</li>
+        <li>A6 formaat — 105 × 148 mm</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
