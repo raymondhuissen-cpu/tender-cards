@@ -341,84 +341,6 @@
       z-index: 0;
     }
 
-    /* ─── CARD MARQUEE STRIP ─── */
-    .card-marquee-section {
-      background: var(--cream2);
-      padding: 3rem 0;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .card-marquee-section::before,
-    .card-marquee-section::after {
-      content: '';
-      position: absolute;
-      top: 0; bottom: 0;
-      width: 120px;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .card-marquee-section::before {
-      left: 0;
-      background: linear-gradient(to right, var(--cream2), transparent);
-    }
-    .card-marquee-section::after {
-      right: 0;
-      background: linear-gradient(to left, var(--cream2), transparent);
-    }
-
-    .card-marquee-track {
-      display: flex;
-      gap: 1.5rem;
-      width: max-content;
-      animation: marquee-scroll 40s linear infinite;
-    }
-
-    .card-marquee-track:hover {
-      animation-play-state: paused;
-    }
-
-    @keyframes marquee-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .card-marquee-item {
-      flex-shrink: 0;
-      width: 200px;
-      border-radius: 6px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(28,58,46,0.10), 0 2px 8px rgba(0,0,0,0.06);
-      transition: transform 400ms cubic-bezier(0.23,1,0.32,1), box-shadow 400ms cubic-bezier(0.23,1,0.32,1);
-      background: var(--cream);
-    }
-
-    .card-marquee-item:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 20px 48px rgba(28,58,46,0.15), 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    .card-marquee-item img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-
-    .card-marquee-item.wide {
-      width: 280px;
-    }
-
-    .card-marquee-item.wide img {
-      height: 280px;
-      object-position: center;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .card-marquee-track { animation: none; }
-    }
-
     /* ─── STAT BAR ─── */
     .stat-bar {
       background: var(--forest);
@@ -2626,62 +2548,6 @@
   </div>
 </div>
 
-<!-- CARD MARQUEE STRIP -->
-<div class="card-marquee-section" aria-hidden="true">
-  <div class="card-marquee-track" id="cardMarquee">
-    <!-- Set 1 -->
-    <div class="card-marquee-item">
-      <img src="card-voorkant.png" alt="TenderCards — Je kracht is groter dan je vermoedt" loading="lazy">
-    </div>
-    <div class="card-marquee-item wide">
-      <img src="cards-collectie-1.jpg" alt="TenderCards collectie — zwaluw, maan en bloemen" loading="lazy">
-    </div>
-    <div class="card-marquee-item">
-      <img src="card-groen-product.png" alt="TenderCards — Een klein gebaar van steun" loading="lazy">
-    </div>
-    <div class="card-marquee-item wide">
-      <img src="cards-collectie-2.jpg" alt="TenderCards collectie — boom, kaars, poot en sterrenbeeld" loading="lazy">
-    </div>
-    <div class="card-marquee-item">
-      <img src="card-voorkant-creme.png" alt="TenderCards — Strength" loading="lazy">
-    </div>
-    <div class="card-marquee-item wide">
-      <img src="card-kleuren-flatlay.png" alt="TenderCards — zes kleuren" loading="lazy">
-    </div>
-    <div class="card-marquee-item">
-      <img src="card-voorkant-2.png" alt="TenderCards — Niet vergeten, wel gemist" loading="lazy">
-    </div>
-    <div class="card-marquee-item wide">
-      <img src="card-collectie-overzicht.png" alt="TenderCards collectie overzicht" loading="lazy">
-    </div>
-    <!-- Set 2 (duplicaat voor naadloze loop) -->
-    <div class="card-marquee-item">
-      <img src="card-voorkant.png" alt="TenderCards — Je kracht is groter dan je vermoedt" loading="lazy">
-    </div>
-    <div class="card-marquee-item wide">
-      <img src="cards-collectie-1.jpg" alt="TenderCards collectie — zwaluw, maan en bloemen" loading="lazy">
-    </div>
-    <div class="card-marquee-item">
-      <img src="card-groen-product.png" alt="TenderCards — Een klein gebaar van steun" loading="lazy">
-    </div>
-    <div class="card-marquee-item wide">
-      <img src="cards-collectie-2.jpg" alt="TenderCards collectie — boom, kaars, poot en sterrenbeeld" loading="lazy">
-    </div>
-    <div class="card-marquee-item">
-      <img src="card-voorkant-creme.png" alt="TenderCards — Strength" loading="lazy">
-    </div>
-    <div class="card-marquee-item wide">
-      <img src="card-kleuren-flatlay.png" alt="TenderCards — zes kleuren" loading="lazy">
-    </div>
-    <div class="card-marquee-item">
-      <img src="card-voorkant-2.png" alt="TenderCards — Niet vergeten, wel gemist" loading="lazy">
-    </div>
-    <div class="card-marquee-item wide">
-      <img src="card-collectie-overzicht.png" alt="TenderCards collectie overzicht" loading="lazy">
-    </div>
-  </div>
-</div>
-
 <!-- PROBLEM -->
 <section class="problem" id="probleem">
   <span class="section-label">Het Probleem</span>
@@ -2763,9 +2629,9 @@
   <span class="section-label">De Oplossing</span>
   <div class="solution-intro">
     <div class="fade-up">
-      <h2 class="section-title">Tastbare verbinding<br>als <em>strategisch instrument</em></h2>
+      <h2 class="section-title">Tastbare vermindering<br>als <em>strategisch instrument</em></h2>
       <p class="section-sub">
-        Tender Cards zijn premium, zorgvuldig ontworpen steunkaarten die HR-professionals, leidinggevenden en teamleden inzetten om een zieke werknemer op een diepgaande, menselijke wijze te bereiken.
+        Tender Cards zijn premium steunkaarten waarmee HR-professionals bewezen verzuim verminderen — door op het juiste moment een menselijk, fysiek signaal te sturen dat digitale communicatie niet kan evenaren.
       </p>
     </div>
     <div class="solution-quote fade-up">
@@ -2795,15 +2661,15 @@
 <!-- HOW IT WORKS -->
 <section class="how">
   <span class="section-label" style="color:var(--sage2);">Werkwijze</span>
-  <h2 class="section-title">In drie stappen<br>naar <em>echte verbinding</em></h2>
-  <p class="section-sub">Simpel te implementeren binnen elk HR-proces — van ziekmelding tot succesvolle terugkeer.</p>
+  <h2 class="section-title">Drie stappen naar<br><em>echte verbinding</em></h2>
+  <p class="section-sub">Eenvoudig in te passen in elk HR-proces — van de eerste ziekmelding tot een succesvolle terugkeer op de werkvloer.</p>
 
   <div class="steps">
     <div class="step-outer fade-up">
       <div class="step">
         <div class="step-num">1</div>
-        <h4>Selecteer de Kaartset</h4>
-        <p>HR kiest de juiste set op basis van de verzuimfase en de persoonlijke situatie van de medewerker. Vroeg verzuim, langdurig herstel of re-integratie.</p>
+        <h4>Kies de juiste kaart</h4>
+        <p>Selecteer de collectie die past bij de verzuimfase van de medewerker — Verbinding voor vroeg verzuim, Herstel voor de lange weg, Terugkeer voor de herstart.</p>
         <div class="step-icon">
           <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
         </div>
@@ -2812,8 +2678,8 @@
     <div class="step-outer fade-up">
       <div class="step">
         <div class="step-num">2</div>
-        <h4>Stuur op het Juiste Moment</h4>
-        <p>De kaart wordt verstuurd door de leidinggevende of HR-medewerker, eventueel met een persoonlijke handgeschreven noot. Timing maakt het verschil.</p>
+        <h4>Stuur op het juiste moment</h4>
+        <p>De leidinggevende of HR-medewerker stuurt de kaart — eventueel met een persoonlijke noot. Een fysiek bericht dat laat zien: jij wordt gezien en gemist.</p>
         <div class="step-icon">
           <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
         </div>
@@ -2822,8 +2688,8 @@
     <div class="step-outer fade-up">
       <div class="step">
         <div class="step-num">3</div>
-        <h4>Bouw aan Verbinding</h4>
-        <p>De medewerker ervaart echte emotionele betrokkenheid van zijn organisatie. Dit versnelt herstel, versterkt loyaliteit en verlaagt de drempel voor re-integratie.</p>
+        <h4>Verlaag verzuim, vergroot verbinding</h4>
+        <p>De medewerker ervaart echte betrokkenheid van zijn organisatie. Herstel versnelt, loyaliteit groeit — en de drempel voor terugkeer daalt aantoonbaar.</p>
         <div class="step-icon">
           <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </div>
@@ -2882,15 +2748,15 @@
   <div class="cards-header">
     <div>
       <span class="section-label">De Kaarten</span>
-      <h2 class="section-title">Drie collecties,<br>één <em>doel</em></h2>
+      <h2 class="section-title">Drie collecties,<br>één <em>menselijk signaal</em></h2>
     </div>
-    <p class="section-sub">Elke collectie is specifiek ontwikkeld voor een fase in het verzuimtraject — van eerste uitval tot volledige re-integratie.</p>
+    <p class="section-sub">Elke collectie is ontwikkeld voor een specifieke fase in het verzuimtraject. Zo komt de boodschap altijd op het juiste moment — en voelt hij ook zo.</p>
   </div>
 
   <div class="cards-grid">
     <div class="product-card fade-up">
       <div class="product-card-visual green">
-        <img src="cards-collectie-1.jpg" alt="Verbinding Collectie — TenderCards zwaluw, maan en bloemen" loading="lazy">
+        <img src="card-voorkant-2.png" alt="Verbinding Collectie — Tender Cards voorkant" loading="lazy">
       </div>
       <div class="product-card-body">
         <div class="product-card-name">Verbinding Collectie</div>
@@ -2901,7 +2767,7 @@
 
     <div class="product-card fade-up">
       <div class="product-card-visual sage">
-        <img src="cards-collectie-2.jpg" alt="Herstel Collectie — TenderCards boom, kaars, poot en sterrenbeeld" loading="lazy">
+        <img src="card-voorkant-creme.png" alt="Herstel Collectie — Tender Cards voorkant crème" loading="lazy">
       </div>
       <div class="product-card-body">
         <div class="product-card-name">Herstel Collectie</div>
