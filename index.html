@@ -2,19 +2,24 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tender Cards – De menselijke factor in verzuimpreventie</title>
   <meta name="description" content="Tender Cards — premium steunkaarten voor HR-professionals. Stuur een tastbare boodschap naar verzuimende medewerkers op het juiste moment.">
-  <meta name="robots" content="noindex, nofollow">
+  <meta name="robots" content="index, follow">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="theme-color" content="#1C3A2E">
+  <link rel="canonical" href="https://tendercards.nl/">
   <meta property="og:title" content="Tender Cards – De menselijke factor in verzuimpreventie">
   <meta property="og:description" content="Premium steunkaarten die HR-professionals inzetten om echt contact te maken met verzuimende medewerkers.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tendercards.nl/">
   <meta property="og:locale" content="nl_NL">
-  <meta property="og:image" content="https://raw.githubusercontent.com/raymondhuissen-cpu/tender-cards/main/logo.svg">
+  <meta property="og:image" content="https://tendercards.nl/tendercards-A6-front.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231C3A2E'/%3E%3Crect x='5' y='7' width='14' height='18' rx='2.5' fill='none' stroke='%23C4963D' stroke-width='1.2'/%3E%3Crect x='13' y='9' width='14' height='18' rx='2.5' fill='none' stroke='rgba(196,150,61,0.35)' stroke-width='1'/%3E%3Cpath d='M12 20.5C12 20.5 7.5 17 7.5 13.8C7.5 12.1 8.9 10.8 10.5 10.8C11.3 10.8 12 11.2 12 11.7C12 11.2 12.7 10.8 13.5 10.8C15.1 10.8 16.5 12.1 16.5 13.8C16.5 17 12 20.5 12 20.5Z' fill='%23C4963D'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,7 +29,7 @@
       position: absolute; top: -100%; left: 1rem;
       background: var(--forest); color: #fff;
       padding: 0.55rem 1.25rem; border-radius: 0 0 6px 6px;
-      font-size: 0.82rem; font-weight: 500; z-index: 9999;
+      font-size: 0.82rem; font-weight: 500; z-index: 200;
       text-decoration: none; transition: top 0.2s;
     }
     .skip-link:focus { top: 0; }
@@ -39,9 +44,9 @@
     :root {
       --forest:  #1C3A2E;
       --forest2: #244B3B;
-      --gold:    #B8872E;
-      --gold2:   #C9973A;
-      --sage:    #9DC4A2;
+      --gold:    #C4963D;
+      --gold2:   #E8B458;
+      --sage:    #6B9E80;
       --sage2:   #C5DEC9;
       --sage3:   #7AAB82;
       --cream:   #F7F3EE;
@@ -329,7 +334,7 @@
     .hero-card-ghost {
       position: absolute;
       width: 240px; height: 340px;
-      background: #9DC4A2;
+      background: var(--sage2);
       opacity: 0.2;
       border-radius: 6px;
       transform: rotate(-4deg) translateX(-12px) translateY(12px);
@@ -491,7 +496,7 @@
     .mini-stat-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 2rem;
-      font-weight: 600;
+      font-weight: 400;
       color: var(--gold2);
       line-height: 1;
     }
@@ -654,14 +659,14 @@
     .step h4 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.3rem;
-      font-weight: 600;
+      font-weight: 400;
       color: var(--forest);
       margin-bottom: 0.75rem;
     }
 
     .step p {
       font-size: 0.87rem;
-      color: #5A7A6A;
+      color: var(--mid);
       line-height: 1.75;
     }
 
@@ -935,7 +940,7 @@
     .product-card-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.2rem;
-      font-weight: 600;
+      font-weight: 400;
       color: var(--forest);
       margin-bottom: 0.4rem;
     }
@@ -994,10 +999,10 @@
     }
 
     .sector-icon.green { background: rgba(28,58,46,0.08); }
-    .sector-icon.blue  { background: rgba(44,90,150,0.08); }
+    .sector-icon.blue  { background: rgba(28,58,46,0.08); }
 
     .sector-icon svg { width: 24px; height: 24px; stroke: var(--forest); fill: none; stroke-width: 1.5; }
-    .sector-icon.blue svg { stroke: #2C5A96; }
+    .sector-icon.blue svg { stroke: var(--forest); }
 
     .sector-header h3 {
       font-family: 'Cormorant Garamond', serif;
@@ -1024,7 +1029,7 @@
     .sector-stat-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.8rem;
-      font-weight: 600;
+      font-weight: 400;
       color: var(--gold);
       line-height: 1;
     }
@@ -1157,9 +1162,10 @@
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1.2fr 1fr;
       gap: 2rem;
       margin-top: 4rem;
+      align-items: start;
     }
 
     .price-card {
@@ -1208,7 +1214,7 @@
     .price-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.6rem;
-      font-weight: 600;
+      font-weight: 400;
       color: var(--forest);
       margin-bottom: 0.5rem;
     }
@@ -1256,15 +1262,15 @@
     .btn-outline-forest {
       display: block;
       text-align: center;
-      padding: 0.85rem;
+      padding: 0.85rem 1.5rem;
       border: 1px solid var(--forest);
       color: var(--forest);
-      border-radius: 2px;
+      border-radius: 100px;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 500;
       text-decoration: none;
       transition: background 180ms var(--ease-out), color 180ms var(--ease-out), transform 160ms var(--ease-out);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
     }
 
     .btn-outline-forest:hover { background: var(--forest); color: #fff; }
@@ -1273,15 +1279,15 @@
     .btn-gold-block {
       display: block;
       text-align: center;
-      padding: 0.85rem;
+      padding: 0.85rem 1.5rem;
       background: var(--gold);
       color: var(--forest);
-      border-radius: 2px;
+      border-radius: 100px;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 500;
       text-decoration: none;
       transition: background 180ms var(--ease-out), transform 160ms var(--ease-out);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
     }
 
     .btn-gold-block:hover { background: var(--gold2); }
@@ -1293,9 +1299,10 @@
 
     .testimonials-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.3fr 1fr 1fr;
       gap: 2rem;
       margin-top: 4rem;
+      align-items: start;
     }
 
     .testimonial {
@@ -1363,6 +1370,7 @@
     }
 
     .star { color: var(--gold); font-size: 0.9rem; }
+    .star-row svg { width: 14px; height: 14px; fill: var(--gold); flex-shrink: 0; }
 
     /* ─── CTA ─── */
     .cta-section {
@@ -1515,7 +1523,7 @@
       bottom: 1.5rem;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 9999;
+      z-index: 150;
       width: calc(100% - 3rem);
       max-width: 680px;
       background: rgba(17,25,22,0.97);
@@ -1557,7 +1565,7 @@
     }
     .tc-btn-accept {
       background: var(--gold);
-      color: #fff;
+      color: var(--forest);
       border: none;
       border-radius: 100px;
       padding: 0.55rem 1.1rem;
@@ -2321,6 +2329,36 @@
     }
 
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Tender Cards",
+    "url": "https://tendercards.nl",
+    "description": "Premium steunkaarten voor HR-professionals om echt contact te maken met verzuimende medewerkers.",
+    "foundingLocation": {
+      "@type": "Place",
+      "addressCountry": "NL"
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Starter",
+        "price": "149",
+        "priceCurrency": "EUR",
+        "description": "25 kaarten per kwartaal, ideaal voor kleinere HR-teams."
+      },
+      {
+        "@type": "Offer",
+        "name": "Professional",
+        "price": "349",
+        "priceCurrency": "EUR",
+        "description": "75 kaarten per kwartaal, voor groeiende organisaties."
+      }
+    ],
+    "sameAs": []
+  }
+  </script>
 </head>
 <body>
 
@@ -2988,8 +3026,12 @@
 
   <div class="testimonials-grid">
     <div class="testimonial fade-up">
-      <div class="star-row">
-        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      <div class="star-row" role="img" aria-label="5 van 5 sterren">
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
       </div>
       <p class="testimonial-text">"Een medewerker belde me huilend op na ontvangst van de kaart. Ze zei: 'Dit had ik nodig.' Dat moment wist ik — dit werkt. We bestellen nu elk kwartaal."</p>
       <div class="testimonial-author">
@@ -3002,8 +3044,12 @@
     </div>
 
     <div class="testimonial fade-up">
-      <div class="star-row">
-        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      <div class="star-row" role="img" aria-label="5 van 5 sterren">
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
       </div>
       <p class="testimonial-text">"Twee docenten die al maanden thuis zaten, meldden zich terug nadat wij de kaarten stuurden. Toeval? Misschien. Maar ik geloof er niet in. We doen het nu voor iedereen."</p>
       <div class="testimonial-author">
@@ -3016,8 +3062,12 @@
     </div>
 
     <div class="testimonial fade-up">
-      <div class="star-row">
-        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      <div class="star-row" role="img" aria-label="5 van 5 sterren">
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
+        <svg viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,1 8.8,5.2 13.4,5.6 10,8.6 11,13.1 7,10.6 3,13.1 4,8.6 0.6,5.6 5.2,5.2"/></svg>
       </div>
       <p class="testimonial-text">"Ik adviseer klanten al 12 jaar over re-integratie. Tender Cards is het eerste product dat ik zonder voorbehoud aanraad. Het vult precies de menselijke leegte die protocollen laten."</p>
       <div class="testimonial-author">
